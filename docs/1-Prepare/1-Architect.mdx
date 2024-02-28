@@ -7,6 +7,64 @@ custom_edit_url: null
 
 # Architecture Requirements
 
+<iframe width="768" height="432" src="https://miro.com/app/embed/uXjVNtCvNTw=/?pres=1&frameId=3458764578922854387&embedId=518034396865" frameborder="0" scrolling="no" allow="fullscreen; clipboard-read; clipboard-write" allowfullscreen></iframe>
+
+## Architecture Decisions
+
+- User managed Openshift in AWS
+- Cloud Pak for Data with the following components
+    - WatsonX.Assistant
+    - Watson Discovery
+    - OpenPages
+    - WatsonX.AI
+    - Watson Studio
+    - Watson Machine Learning
+    - Watson Knowledge Catalog 
+- Foundational Models
+    - mixtral
+    - llama2
+    - ibm-granite-chat-v2.1
+
 ## Bill of Materials
 
+|Type|Master|Worker|EFS Storage|GPU|
+|----|------|------|-----------|---|
+|Instance Type | m5.2xlarge |m6i.8xlarge | N/A | p4d.24xlarge |
+|Instance vCPU|8|32|N/A|96|
+|Instance GPU|N/A|N/A|N/A|8|
+|Instance Memory|32 GiB|128 GiB|N/A|1152 GiB|
+|Quantity|3|6|N/A|1|
+|Instances Price|$13507.92|$58,376.64|N/A|$288226.78|
+|Provisioned IOPS|gp3|gp3|N/A|N/A|
+|Storage|300|300|1000|N/A|
+|Quantity|3|6|N/A|1|
+|Storage Total Price|$864.000|$2,304.00|$80|N/A|
+|Instance|3|6|0|N/A|
+|Storage + IOPS Price|$864.000|$2304.000|$960.000|N/A|
+|AWS Infra total price|$14371.920|$60,680.64|$960.000|$288,226.776|
+
+|Annual Price|Monthly Price|Hourly Price|
+|------------|-------------|------------|
+|$364239.336|$30,353.28|$41.58|
+
+### AWS Requirements
+
+#### Infrastructure
+
+|Flavor | Count | vCPU | RAM | GPU Count | GPU RAM |
+|--|--|--|--|--|--|
+|m5.2xlarge|6|48 (8 cores x Count)|192G (32G x Count)|0|0|
+|m6i.8xlarge|6|192 (32 cores x Count)|768G (128G x Count)|0|0| 
+|p4d.24xlarge|1|96|1152G|8|320G|
+|**Totals**|13|336|2112G|8|320G|
+
+
+
+- 1x VPC
+- 3x AZ
+- 1x NLB
+- 1x ALB
+
 ## Deployment in Action
+
+- CloudFormation Template
