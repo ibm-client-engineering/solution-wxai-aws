@@ -11,6 +11,40 @@ custom_edit_url: null
 
 ## Architecture Decisions
 
+- User managed Openshift in AWS
+- Cloud Pak for Data with the following components
+    - WatsonX.Assistant
+    - Watson Discovery
+    - OpenPages
+    -  
+
 ## Bill of Materials
 
+### AWS Requirements
+
+#### Infrastructure
+
+Host Flavors
+
+- 6x m5.2xlarge (8 vcpu, 32G RAM)
+- 6x m6i.8xlarge (32 vcpu, 128G RAM)
+
+Total RAM for hosts: 960G
+Total vCPU for hosts: 240 
+
+GPU Node Flavors 
+- p4d.24xlarge 
+
+Total RAM for GPU hosts: 1152G
+Total vCPU for GPU hosts: 96 
+Total GPU RAM: 320G 
+Total number of GPU per host: 8 
+Total number of GPU hosts: 1 
+
+- 1x VPC
+- 3x AV
+- 
+
 ## Deployment in Action
+
+- CloudFormation Template
