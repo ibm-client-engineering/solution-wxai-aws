@@ -27,12 +27,13 @@ custom_edit_url: null
 
 #### Infrastructure
 
-|Flavor | Count | vCPU | RAM | GPU Count | GPU RAM | Total Host Count| Total VCPU | Total RAM | Total GPUs | Total GPU RAM |
-|--|--|--|--|--|--|--|--|--|--|--|
-|m5.2xlarge|6|8|32G|0|0|
-|m6i.8xlarge|6|32|128G|0|0| 
+|Flavor | Count | vCPU | RAM | GPU Count | GPU RAM |
+|--|--|--|--|--|--|
+|m5.2xlarge|6|48 (8 cores x Count)|192G (32G x Count)|0|0|
+|m6i.8xlarge|6|192 (32 cores x Count)|768G (128G x Count)|0|0| 
 |p4d.24xlarge|1|96|1152G|8|320G|
-|||||||13|336|2112G|8|320G|
+|**Totals**|13|336|2112G|8|320G|
+
 
 
 - 1x VPC
