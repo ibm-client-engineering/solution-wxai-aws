@@ -16,7 +16,10 @@ custom_edit_url: null
     - WatsonX.Assistant
     - Watson Discovery
     - OpenPages
-    -  
+    - WatsonX.AI
+    - Watson Studio
+    - Watson Machine Learning
+    - Watson Knowledge Catalog 
 
 ## Bill of Materials
 
@@ -24,26 +27,18 @@ custom_edit_url: null
 
 #### Infrastructure
 
-Host Flavors
+|Flavor | Count | vCPU | RAM | GPU Count | GPU RAM | Total Host Count| Total VCPU | Total RAM | Total GPUs | Total GPU RAM |
+|--|--|--|--|--|--|--|--|--|--|--|
+|m5.2xlarge|6|8|32G|0|0|
+|m6i.8xlarge|6|32|128G|0|0| 
+|p4d.24xlarge|1|96|1152G|8|320G|
+|||||||13|336|2112G|8|320G|
 
-- 6x m5.2xlarge (8 vcpu, 32G RAM)
-- 6x m6i.8xlarge (32 vcpu, 128G RAM)
-
-Total RAM for hosts: 960G
-Total vCPU for hosts: 240 
-
-GPU Node Flavors 
-- p4d.24xlarge 
-
-Total RAM for GPU hosts: 1152G
-Total vCPU for GPU hosts: 96 
-Total GPU RAM: 320G 
-Total number of GPU per host: 8 
-Total number of GPU hosts: 1 
 
 - 1x VPC
-- 3x AV
-- 
+- 3x AZ
+- 1x NLB
+- 1x ALB
 
 ## Deployment in Action
 
