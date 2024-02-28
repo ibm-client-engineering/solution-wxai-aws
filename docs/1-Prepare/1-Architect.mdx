@@ -20,8 +20,32 @@ custom_edit_url: null
     - Watson Studio
     - Watson Machine Learning
     - Watson Knowledge Catalog 
+- Foundational Models
+    - mixtral
+    - llama2
+    - ibm-granite-chat-v2.1
 
 ## Bill of Materials
+
+|Type|Master|Worker|EFS Storage|GPU|
+|----|------|------|-----------|---|
+|Instance Type | m5.2xlarge |m6i.8xlarge | N/A | p4d.24xlarge |
+|Instance vCPU|8|32|N/A|96|
+|Instance GPU|N/A|N/A|N/A|8|
+|Instance Memory|32 GiB|128 GiB|N/A|1152 GiB|
+|Quantity|3|6|N/A|1|
+|Instances Price|$13507.92|$58,376.64|N/A|$288226.78|
+|Provisioned IOPS|gp3|gp3|N/A|N/A|
+|Storage|300|300|1000|N/A|
+|Quantity|3|6|N/A|1|
+|Storage Total Price|$864.000|$2,304.00|$80|N/A|
+|Instance|3|6|0|N/A|
+|Storage + IOPS Price|$864.000|$2304.000|$960.000|N/A|
+|AWS Infra total price|$14371.920|$60,680.64|$960.000|$288,226.776|
+
+|Annual Price|Monthly Price|Hourly Price|
+|------------|-------------|------------|
+|$364239.336|$30,353.28|$41.58|
 
 ### AWS Requirements
 
