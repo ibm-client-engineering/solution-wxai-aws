@@ -13,27 +13,28 @@
         <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1"/>
         <updated>2024-02-29T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
-        <content type="html"><![CDATA[<ul>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objectives">Objectives<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#objectives" class="hash-link" aria-label="Direct link to Objectives" title="Direct link to Objectives">​</a></h2>
+<ul>
 <li>Deploy watsonx.ai on self-managed AWS infrastructure.</li>
 </ul>
-<h1>Accomplishments</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="accomplishments">Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#accomplishments" class="hash-link" aria-label="Direct link to Accomplishments" title="Direct link to Accomplishments">​</a></h2>
 <ul>
 <li>Established this GitHub repository as single source of truth for architecture, IaC, and documentation to collaborate with stakeholders.</li>
 <li>Developed draft CloudFormation template to provision AWS resources.</li>
 <li>Started incorporating STS into CloudFormation.</li>
 </ul>
-<h1>In Progress</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="in-progress">In Progress<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#in-progress" class="hash-link" aria-label="Direct link to In Progress" title="Direct link to In Progress">​</a></h2>
 <ul>
 <li>Awaiting approval for AWS credits to cover infrastructure costs. Following up to expedite.</li>
 <li>Finalizing deployment plan and cadence.</li>
 </ul>
-<h1>Next Steps</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
 <ul>
 <li>Review deployment details in working session with stakeholders.</li>
 <li>Incorporate additional feedback into documentation and IaC templates.</li>
 <li>Upon AWS credit approval and stakeholder sign-off, begin provisioning.</li>
 </ul>
-<h1>Tracking (Issues)</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
 <ul>
 <li>Need confirmation of AWS credit approval.</li>
 <li>Require sign-off on final CloudFormation template.</li>
