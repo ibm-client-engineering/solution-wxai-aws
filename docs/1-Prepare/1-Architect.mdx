@@ -58,7 +58,7 @@ custom_edit_url: null
 |p4d.24xlarge|1|96|1152G|8|320G|
 |**Totals**|13|336|2112G|8|320G|
 
-
+#### Networking
 
 - 1x VPC
 - 3x AZ
@@ -68,3 +68,47 @@ custom_edit_url: null
 ## Deployment in Action
 
 - CloudFormation Template
+
+The cloudformation template can be found [here](../../assets/Cloudformation/cluster.yml)
+
+The following is an approximate diagram of how the CloudFormation template operates. It creates the IAM roles, VPC, Users, and a bootnode from which it deploys OCP and Cloud Pak for Data with `cloud-pak-deployer`.
+
+```mermaid
+graph TD
+
+subgraph CloudForms
+CloudformStart
+end
+
+subgraph AWSCredentialSecret
+CPDIAMUserAccessKey
+end
+
+subgraph VPC
+AWSCredentialSecret["AWSCredentialSecret"]
+CPDIAMUser["CPDIAMUser"]
+BootNodeIamRole["BootNodeIamRole"]-->BootnodeInstance
+BootnodeInstanceProfile["BootnodeInstanceProfile"]-->BootnodeInstance
+BootnodeInstance-->OpenShift
+end
+
+
+
+subgraph BootnodeInstance
+CloudPakDeployer-->OpenShift
+end
+
+subgraph OpenShift
+CP4D-->wxai
+end
+
+CloudformStart["Cloudforms kicks off build"]-->VPC
+
+CPDIAMUserAccessKey["CPDIAMUserAccessKey"]-->CPDIAMUser-->BootnodeInstance
+BootnodeInstance["BootnodeInstance"]
+
+CP4D["CP4D"]-->wxai
+wxai["WatsonX.AI"]
+```
+
+A variation of the cloudformation template that uses STS for auth can be found [here](../../assets/Cloudformation/cluster-sts.yml)
