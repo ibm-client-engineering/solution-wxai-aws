@@ -1,19 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>IBM Client Engineering Blog</title>
         <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog</link>
         <description>IBM Client Engineering Blog</description>
-        <lastBuildDate>Thu, 01 Jun 2023 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 29 Feb 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <item>
             <title><![CDATA[Log - Sprint 1 🛫]]></title>
-            <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-4</link>
-            <guid>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-4</guid>
-            <pubDate>Thu, 01 Jun 2023 00:00:00 GMT</pubDate>
+            <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1</link>
+            <guid>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1</guid>
+            <pubDate>Thu, 29 Feb 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Flight Log of Co-Creation Activities]]></description>
+            <content:encoded><![CDATA[<ul>
+<li>Deploy watsonx.ai on self-managed AWS infrastructure.</li>
+</ul>
+<h1>Accomplishments</h1>
+<ul>
+<li>Established this GitHub repository as single source of truth for architecture, IaC, and documentation to collaborate with stakeholders.</li>
+<li>Developed draft CloudFormation template to provision AWS resources.</li>
+<li>Started incorporating STS into CloudFormation.</li>
+</ul>
+<h1>In Progress</h1>
+<ul>
+<li>Awaiting approval for AWS credits to cover infrastructure costs. Following up to expedite.</li>
+<li>Finalizing deployment plan and cadence.</li>
+</ul>
+<h1>Next Steps</h1>
+<ul>
+<li>Review deployment details in working session with stakeholders.</li>
+<li>Incorporate additional feedback into documentation and IaC templates.</li>
+<li>Upon AWS credit approval and stakeholder sign-off, begin provisioning.</li>
+</ul>
+<h1>Tracking (Issues)</h1>
+<ul>
+<li>Need confirmation of AWS credit approval.</li>
+<li>Require sign-off on final CloudFormation template.</li>
+<li>Align on deployment cadence with customer.</li>
+</ul>]]></content:encoded>
             <category>log</category>
             <category>sprint</category>
         </item>
