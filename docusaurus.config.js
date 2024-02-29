@@ -125,7 +125,7 @@ async function createconfig() {
           },
         },
         navbar: {
-          title: "| IBM Solution Document for WatsonX.AI on AWS",
+          title: "| IBM Solution Document for watsonx.ai on AWS",
           logo: {
             alt: "My Site Logo",
             src: "img/logo.svg",
