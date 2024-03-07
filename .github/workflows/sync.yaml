@@ -1,6 +1,7 @@
 name: Sync with GitHub Enterprise
 env:
-  GITHUB_TOKEN: ${{ secrets.GH_ENTERPRISE_TOKEN }}
+#  GITHUB_TOKEN: ${{ secrets.GH_ENTERPRISE_TOKEN }}
+  GITHUB_TOKEN:
   GHE_USER: ${{ vars.SYNC_USER }}
   GHE_FULL_USER: ${{ vars.SYNC_USER_NAME }}
   ENTERPRISE_URL: ${{ vars.ENTERPRISE_GIT_URL }}
