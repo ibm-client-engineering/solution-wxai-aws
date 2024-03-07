@@ -560,15 +560,15 @@ Rules:
         - Ref: LicenseAgreement
       AssertDescription: User must agree to the terms of the license agreement.    
 
-SubnetsInVPC:
-  Assertions:
-  - Assert:
-      Fn::EachMemberIn:
-      - Fn::ValueOfAll:
-        - AWS::EC2::Subnet::Id
-        - VpcId
-      - Fn::RefAll: AWS::EC2::VPC::Id
-    AssertDescription: All subnets must in the VPC
+  SubnetsInVPC:
+    Assertions:
+    - Assert:
+        Fn::EachMemberIn:
+        - Fn::ValueOfAll:
+          - AWS::EC2::Subnet::Id
+          - VpcId
+        - Fn::RefAll: AWS::EC2::VPC::Id
+      AssertDescription: All subnets must in the VPC
 
 Conditions:
   3AZCondition: Fn::Equals [!Ref NumberOfAZs, 3]
