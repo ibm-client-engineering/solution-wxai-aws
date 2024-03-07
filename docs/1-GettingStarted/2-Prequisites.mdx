@@ -1,0 +1,629 @@
+---
+id: prerequisites
+sidebar_position: 2
+title: Prerequisites
+custom_edit_url: null
+---
+Installing OpenShift and Cloud Pak for Data requires specific access, resources and considerations on AWS. In this documentation, we are assuming a CloudFormation install on user-provisioned infrastructure.
+
+## OCP Deployment Requirements
+
+### Required IAM User
+
+Each Amazon Web Services (AWS) account contains a root user account that is based on the email address you used to create the account. This is a highly-privileged account, and it is recommended to use it for only initial account and billing configuration, creating an initial set of users, and securing the account. Before you install OpenShift Container Platform, create a secondary IAM administrative user. As you complete the Creating an IAM User in Your AWS Account procedure in the AWS documentation, set the following options:
+
+1) Specify the IAM user name and select Programmatic access.
+
+2) Attach the AdministratorAccess policy to ensure that the account has sufficient permission to create the cluster. This policy provides the cluster with the ability to grant credentials to each OpenShift Container Platform component. The cluster grants the components only the credentials that they require.
+	
+:::warning
+While it is possible to create a policy that grants the all of the required AWS permissions and attach it to the user, this is not the preferred option. <strong>The cluster will not have the ability to grant additional credentials to individual components, so the same credentials are used by all components.</strong>
+:::
+
+3) Optional: Add metadata to the user by attaching tags.
+
+4) Confirm that the user name that you specified is granted the AdministratorAccess policy.
+
+5) Record the access key ID and secret access key values. You must use these values when you configure your local machine to run the installation program.
+	
+:::warning
+You cannot use a temporary session token that you generated while using a multi-factor authentication device to authenticate to AWS when you deploy a cluster. The cluster continues to use your current AWS credentials to create AWS resources for the entire life of the cluster, so you must use key-based, long-term credentials.
+:::
+
+Your IAM user must have the permission tag:GetResources in the region us-east-1 to delete the base cluster resources. As part of the AWS API requirement, the OpenShift Container Platform installation program performs various actions in this region.
+
+:::note
+When you attach the AdministratorAccess policy to the IAM user that you create in Amazon Web Services (AWS), you grant that user all of the required permissions.
+:::
+
+To deploy all components of an OpenShift Container Platform cluster, the IAM user requires the following permissions:
+
+#### Required Permissions (if not using Administrator Access)
+
+<details>
+<summary><b>Required EC2 permissions for installation</b></summary>
+
+    ec2:AuthorizeSecurityGroupEgress
+
+    ec2:AuthorizeSecurityGroupIngress
+
+    ec2:CopyImage
+
+    ec2:CreateNetworkInterface
+
+    ec2:AttachNetworkInterface
+
+    ec2:CreateSecurityGroup
+
+    ec2:CreateTags
+
+    ec2:CreateVolume
+
+    ec2:DeleteSecurityGroup
+
+    ec2:DeleteSnapshot
+
+    ec2:DeleteTags
+
+    ec2:DeregisterImage
+
+    ec2:DescribeAccountAttributes
+
+    ec2:DescribeAddresses
+
+    ec2:DescribeAvailabilityZones
+
+    ec2:DescribeDhcpOptions
+
+    ec2:DescribeImages
+
+    ec2:DescribeInstanceAttribute
+
+    ec2:DescribeInstanceCreditSpecifications
+
+    ec2:DescribeInstances
+
+    ec2:DescribeInstanceTypes
+
+    ec2:DescribeInternetGateways
+
+    ec2:DescribeKeyPairs
+
+    ec2:DescribeNatGateways
+
+    ec2:DescribeNetworkAcls
+
+    ec2:DescribeNetworkInterfaces
+
+    ec2:DescribePrefixLists
+
+    ec2:DescribeRegions
+
+    ec2:DescribeRouteTables
+
+    ec2:DescribeSecurityGroups
+
+    ec2:DescribeSubnets
+
+    ec2:DescribeTags
+
+    ec2:DescribeVolumes
+
+    ec2:DescribeVpcAttribute
+
+    ec2:DescribeVpcClassicLink
+
+    ec2:DescribeVpcClassicLinkDnsSupport
+
+    ec2:DescribeVpcEndpoints
+
+    ec2:DescribeVpcs
+
+    ec2:GetEbsDefaultKmsKeyId
+
+    ec2:ModifyInstanceAttribute
+
+    ec2:ModifyNetworkInterfaceAttribute
+
+    ec2:RevokeSecurityGroupEgress
+
+    ec2:RevokeSecurityGroupIngress
+
+    ec2:RunInstances
+
+    ec2:TerminateInstances
+
+</details>
+
+<details>
+<summary><b>Required permissions for creating network resources during installation</b></summary>
+
+    ec2:AllocateAddress
+
+    ec2:AssociateAddress
+
+    ec2:AssociateDhcpOptions
+
+    ec2:AssociateRouteTable
+
+    ec2:AttachInternetGateway
+
+    ec2:CreateDhcpOptions
+
+    ec2:CreateInternetGateway
+
+    ec2:CreateNatGateway
+
+    ec2:CreateRoute
+
+    ec2:CreateRouteTable
+
+    ec2:CreateSubnet
+
+    ec2:CreateVpc
+
+    ec2:CreateVpcEndpoint
+
+    ec2:ModifySubnetAttribute
+
+    ec2:ModifyVpcAttribute
+
+:::note
+If you use an existing VPC, your account does not require these permissions for creating network resources.
+:::
+</details>
+
+<details>
+<summary><b>Required Elastic Load Balancing permissions (ELB) for installation</b></summary>
+
+elasticloadbalancing:AddTags
+
+elasticloadbalancing:ApplySecurityGroupsToLoadBalancer
+
+elasticloadbalancing:AttachLoadBalancerToSubnets
+
+elasticloadbalancing:ConfigureHealthCheck
+
+elasticloadbalancing:CreateLoadBalancer
+
+elasticloadbalancing:CreateLoadBalancerListeners
+
+elasticloadbalancing:DeleteLoadBalancer
+
+elasticloadbalancing:DeregisterInstancesFromLoadBalancer
+
+elasticloadbalancing:DescribeInstanceHealth
+
+elasticloadbalancing:DescribeLoadBalancerAttributes
+
+elasticloadbalancing:DescribeLoadBalancers
+
+elasticloadbalancing:DescribeTags
+
+elasticloadbalancing:ModifyLoadBalancerAttributes
+
+elasticloadbalancing:RegisterInstancesWithLoadBalancer
+
+elasticloadbalancing:SetLoadBalancerPoliciesOfListener
+
+</details>
+
+<details>
+<summary><b>Required Elastic Load Balancing permissions (ELBv2) for installation</b></summary>
+
+    elasticloadbalancing:AddTags
+
+    elasticloadbalancing:CreateListener
+
+    elasticloadbalancing:CreateLoadBalancer
+
+    elasticloadbalancing:CreateTargetGroup
+
+    elasticloadbalancing:DeleteLoadBalancer
+
+    elasticloadbalancing:DeregisterTargets
+
+    elasticloadbalancing:DescribeListeners
+
+    elasticloadbalancing:DescribeLoadBalancerAttributes
+
+    elasticloadbalancing:DescribeLoadBalancers
+
+    elasticloadbalancing:DescribeTargetGroupAttributes
+
+    elasticloadbalancing:DescribeTargetHealth
+
+    elasticloadbalancing:ModifyLoadBalancerAttributes
+
+    elasticloadbalancing:ModifyTargetGroup
+
+    elasticloadbalancing:ModifyTargetGroupAttributes
+
+    elasticloadbalancing:RegisterTargets
+
+</details>
+
+<details>
+<summary><b>Required IAM permissions for installation</b></summary>
+
+
+    iam:AddRoleToInstanceProfile
+
+    iam:CreateInstanceProfile
+
+    iam:CreateRole
+
+    iam:DeleteInstanceProfile
+
+    iam:DeleteRole
+
+    iam:DeleteRolePolicy
+
+    iam:GetInstanceProfile
+
+    iam:GetRole
+
+    iam:GetRolePolicy
+
+    iam:GetUser
+
+    iam:ListInstanceProfilesForRole
+
+    iam:ListRoles
+
+    iam:ListUsers
+
+    iam:PassRole
+
+    iam:PutRolePolicy
+
+    iam:RemoveRoleFromInstanceProfile
+
+    iam:SimulatePrincipalPolicy
+
+    iam:TagRole
+
+:::note
+If you have not created a load balancer in your AWS account, the IAM user also requires the iam:CreateServiceLinkedRole permission.
+:::
+
+</details>
+
+<details>
+<summary><b>Required Route 53 permissions for installation</b></summary>
+
+    route53:ChangeResourceRecordSets
+
+    route53:ChangeTagsForResource
+
+    route53:CreateHostedZone
+
+    route53:DeleteHostedZone
+
+    route53:GetChange
+
+    route53:GetHostedZone
+
+    route53:ListHostedZones
+
+    route53:ListHostedZonesByName
+
+    route53:ListResourceRecordSets
+
+    route53:ListTagsForResource
+
+    route53:UpdateHostedZoneComment
+
+</details>
+
+<details>
+<summary><b>Required S3 permissions for installation</b></summary>
+
+    s3:CreateBucket
+
+    s3:DeleteBucket
+
+    s3:GetAccelerateConfiguration
+
+    s3:GetBucketAcl
+
+    s3:GetBucketCors
+
+    s3:GetBucketLocation
+
+    s3:GetBucketLogging
+
+    s3:GetBucketPolicy
+
+    s3:GetBucketObjectLockConfiguration
+
+    s3:GetBucketRequestPayment
+
+    s3:GetBucketTagging
+
+    s3:GetBucketVersioning
+
+    s3:GetBucketWebsite
+
+    s3:GetEncryptionConfiguration
+
+    s3:GetLifecycleConfiguration
+
+    s3:GetReplicationConfiguration
+
+    s3:ListBucket
+
+    s3:PutBucketAcl
+
+    s3:PutBucketTagging
+
+    s3:PutEncryptionConfiguration
+
+</details>
+
+<details>
+<summary><b>S3 permissions that cluster Operators required</b></summary>
+
+    s3:DeleteObject
+
+    s3:GetObject
+
+    s3:GetObjectAcl
+
+    s3:GetObjectTagging
+
+    s3:GetObjectVersion
+
+    s3:PutObject
+
+    s3:PutObjectAcl
+
+    s3:PutObjectTagging
+
+</details>
+
+<details>
+<summary><b>Required permissions to delete base cluster resources</b></summary>
+
+    autoscaling:DescribeAutoScalingGroups
+
+    ec2:DeletePlacementGroup
+
+    ec2:DeleteNetworkInterface
+
+    ec2:DeleteVolume
+
+    elasticloadbalancing:DeleteTargetGroup
+
+    elasticloadbalancing:DescribeTargetGroups
+
+    iam:DeleteAccessKey
+
+    iam:DeleteUser
+
+    iam:ListAttachedRolePolicies
+
+    iam:ListInstanceProfiles
+
+    iam:ListRolePolicies
+
+    iam:ListUserPolicies
+
+    s3:DeleteObject
+
+    s3:ListBucketVersions
+
+    tag:GetResources
+
+</details>
+
+<details>
+<summary><b>Required permissions to delete network resources</b></summary>
+
+    ec2:DeleteDhcpOptions
+
+    ec2:DeleteInternetGateway
+
+    ec2:DeleteNatGateway
+
+    ec2:DeleteRoute
+
+    ec2:DeleteRouteTable
+
+    ec2:DeleteSubnet
+
+    ec2:DeleteVpc
+
+    ec2:DeleteVpcEndpoints
+
+    ec2:DetachInternetGateway
+
+    ec2:DisassociateRouteTable
+
+    ec2:ReleaseAddress
+
+    ec2:ReplaceRouteTableAssociation
+
+:::note
+If you use an existing VPC, your account does not require these permissions to delete network resources. Instead, your account only requires the tag:UntagResources permission to delete network resources.
+:::
+
+</details>
+
+<details>
+<summary><b>Required permissions to delete a cluster with shared instance roles</b></summary>
+
+iam:UntagRole
+
+</details>
+
+<details>
+<summary><b>Additional IAM and S3 permissions that are required to create manifests</b></summary>
+
+    iam:DeleteAccessKey
+
+    iam:DeleteUser
+
+    iam:DeleteUserPolicy
+
+    iam:GetUserPolicy
+
+    iam:ListAccessKeys
+
+    iam:PutUserPolicy
+
+    iam:TagUser
+
+    s3:PutBucketPublicAccessBlock
+
+    s3:GetBucketPublicAccessBlock
+
+    s3:PutLifecycleConfiguration
+
+    s3:HeadBucket
+
+    s3:ListBucketMultipartUploads
+
+    s3:AbortMultipartUpload
+
+:::note
+If you are managing your cloud provider credentials with mint mode, the IAM user also requires the iam:CreateAccessKey and iam:CreateUser permissions.
+:::
+
+</details>
+
+<details>
+<summary><b>Optional permissions for instance and quota checks for installation</b></summary>
+
+    ec2:DescribeInstanceTypeOfferings
+
+    servicequotas:ListAWSDefaultServiceQuotas
+
+</details>
+
+<details>
+<summary><b>Optional permissions for the cluster owner account when installing a cluster on a shared VPC</b></summary>
+
+    sts:AssumeRole
+
+</details>
+
+:::note
+For more details on the IAM user requirements, see https://docs.openshift.com/container-platform/4.15/installing/installing_aws/installing-aws-account.html#installing-aws-account
+:::
+
+### Required AWS Infrastructure Components
+
+To install OpenShift Container Platform on user-provisioned infrastructure in Amazon Web Services (AWS), you must manually create both the machines and their supporting infrastructure. For more information about the integration testing for different platforms, see the OpenShift Container Platform 4.x Tested Integrations page.
+
+By using the provided CloudFormation templates, you can create stacks of AWS resources that represent the following components:
+
+* An AWS Virtual Private Cloud (VPC)
+* Networking and load balancing components
+* Security groups and roles
+* An OpenShift Container Platform bootstrap node
+* OpenShift Container Platform control plane nodes
+* An OpenShift Container Platform compute node
+
+Alternatively, you can manually create the components or you can reuse existing infrastructure that meets the cluster requirements. Review the CloudFormation templates for more details about how the components interrelate.
+
+Other infrastructure components:
+
+* A VPC
+* DNS entries    
+* Load balancers (classic or network) and listeners
+* A public and a private Route 53 zone
+* Security groups
+* IAM roles
+* S3 buckets
+
+#### Required VPC Components
+You must provide a suitable VPC and subnets that allow communication to your machines:
+
+| Component | AWS type | Description |
+|:---:|:---:|:---:|
+|   VPC  |       `AWS::EC2::VPC`      `AWS::EC2::VPCEndpoint`    |   You must provide a public VPC for the cluster to use. The VPC uses an endpoint that references the route tables for each subnet to improve communication with the registry that is hosted in S3.  |
+|   Public subnets  |       `AWS::EC2::Subnet`      `AWS::EC2::SubnetNetworkAclAssociation`    |   Your VPC must have public subnets for between 1 and 3 availability zones and associate them with appropriate Ingress rules.  |
+|   Internet gateway  |       `AWS::EC2::InternetGateway`      `AWS::EC2::VPCGatewayAttachment`      `AWS::EC2::RouteTable`      `AWS::EC2::Route`      `AWS::EC2::SubnetRouteTableAssociation`      `AWS::EC2::NatGateway`      `AWS::EC2::EIP`    |   You must have a public internet gateway, with public routes, attached  to the VPC. In the provided templates, each public subnet has a NAT gateway  with an EIP address. These NAT gateways allow cluster resources, like  private subnet instances, to reach the internet and are not required for  some restricted network or proxy scenarios.  |
+|   Network access control  |       `AWS::EC2::NetworkAcl`      `AWS::EC2::NetworkAclEntry`    | Required Ports: 80, 443, 22, 1024-65535, 0-65535|
+|   Private subnets  |       `AWS::EC2::Subnet`      `AWS::EC2::RouteTable`      `AWS::EC2::SubnetRouteTableAssociation`    |   Your VPC can have private subnets. The provided CloudFormation templates can create private subnets for between 1 and 3 availability zones. If you use private subnets, you must provide appropriate routes and tables for them.  |
+
+#### Required DNS and load balancing components
+
+Your DNS and load balancer configuration needs to use a public hosted zone and can use a private hosted zone similar to the one that the installation program uses if it provisions the cluster’s infrastructure. You must create a DNS entry that resolves to your load balancer. An entry for api.`cluster_name`.`domain` must point to the external load balancer, and an entry for api-int.`cluster_name`.`domain` must point to the internal load balancer.
+
+The cluster also requires load balancers and listeners for port 6443, which are required for the Kubernetes API and its extensions, and port 22623, which are required for the Ignition config files for new machines. The targets will be the control plane nodes. Port 6443 must be accessible to both clients external to the cluster and nodes within the cluster. Port 22623 must be accessible to nodes within the cluster.
+
+| Component | AWS type | Description |
+|:---:|:---:|:---:|
+|   DNS  |   `AWS::Route53::HostedZone`  |   The hosted zone for your internal DNS.  |
+|   Public load balancer  |   `AWS::ElasticLoadBalancingV2::LoadBalancer`  |   The load balancer for your public subnets.  |
+|   External API server record  |   `AWS::Route53::RecordSetGroup`  |   Alias records for the external API server.  |
+|   External listener  |   `AWS::ElasticLoadBalancingV2::Listener`  |   A listener on port 6443 for the external load balancer.  |
+|   External target group  |   `AWS::ElasticLoadBalancingV2::TargetGroup`  |   The target group for the external load balancer.  |
+|   Private load balancer  |   `AWS::ElasticLoadBalancingV2::LoadBalancer`  |   The load balancer for your private subnets.  |
+|   Internal API server record  |   `AWS::Route53::RecordSetGroup`  |   Alias records for the internal API server.  |
+|   Internal listener  |   `AWS::ElasticLoadBalancingV2::Listener`  |   A listener on port 22623 for the internal load balancer.  |
+|   Internal target group  |   `AWS::ElasticLoadBalancingV2::TargetGroup`  |   The target group for the internal load balancer.  |
+|   Internal listener  |   `AWS::ElasticLoadBalancingV2::Listener`  |   A listener on port 6443 for the internal load balancer.  |
+|   Internal target group  |   `AWS::ElasticLoadBalancingV2::TargetGroup`  |   The target group for the internal load balancer.  |
+
+#### Required Security groups
+
+The control plane and worker machines require access to the following ports:
+
+| Group | Type | IP Protocol | Port range |
+|:---:|:---:|:---:|:---:|
+|   MasterSecurityGroup  |   `AWS::EC2::SecurityGroup`  |   icmp  |   0  |
+|  |  |   tcp  |   22  |
+|  |  |   tcp  |   6443  |
+|  |  |   tcp  |   22623  |
+|   WorkerSecurityGroup  |   `AWS::EC2::SecurityGroup`  |   icmp  |   0  |
+|  |  |   tcp  |   22  |
+|   BootstrapSecurityGroup  |   `AWS::EC2::SecurityGroup`  |   tcp  |   22  |
+|  |  |   tcp  |   19531  |
+
+
+#### Control plane Ingress
+
+The control plane machines require the following Ingress groups. Each Ingress group is a `AWS::EC2::SecurityGroupIngress` resource.
+
+| Group | Type | IP Protocol | Port range |
+|:---:|:---:|:---:|:---:|
+|   MasterSecurityGroup  |   `AWS::EC2::SecurityGroup`  |   icmp  |   0  |
+|  |  |   tcp  |   22  |
+|  |  |   tcp  |   6443  |
+|  |  |   tcp  |   22623  |
+|   WorkerSecurityGroup  |   `AWS::EC2::SecurityGroup`  |   icmp  |   0  |
+|  |  |   tcp  |   22  |
+|   BootstrapSecurityGroup  |   `AWS::EC2::SecurityGroup`  |   tcp  |   22  |
+|  |  |   tcp  |   19531  |
+
+
+#### Worker Ingress
+
+The worker machines require the following Ingress groups. Each Ingress group is a `AWS::EC2::SecurityGroupIngress` resource.
+
+| Group | Type | IP Protocol | Port range |
+|:---:|:---:|:---:|:---:|
+|   MasterSecurityGroup  |   `AWS::EC2::SecurityGroup`  |   icmp  |   0  |
+|  |  |   tcp  |   22  |
+|  |  |   tcp  |   6443  |
+|  |  |   tcp  |   22623  |
+|   WorkerSecurityGroup  |   `AWS::EC2::SecurityGroup`  |   icmp  |   0  |
+|  |  |   tcp  |   22  |
+|   BootstrapSecurityGroup  |   `AWS::EC2::SecurityGroup`  |   tcp  |   22  |
+|  |  |   tcp  |   19531  |
+
+### Cluster machines
+
+You need `AWS::EC2::Instance` objects for the following machines:
+
+* A bootstrap machine. This machine is required during installation, but you can remove it after your cluster deploys.
+* Three control plane machines. The control plane machines are not governed by a control plane machine set.
+* Compute machines. You must create at least two compute machines, which are also known as worker machines, during installation. These machines are not governed by a compute machine set.
+
+:::note
+For more information on OCP on AWS, see https://docs.openshift.com/container-platform/4.15/installing/installing_aws/installing-aws-user-infra.html
+The "Minimum requirements" section does not consider the watsonx.ai and related services, and is accounted for in this documentation
+:::
