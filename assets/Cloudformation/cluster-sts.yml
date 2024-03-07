@@ -562,35 +562,36 @@ Rules:
 
   SubnetsInVPC:
     Assertions:
-      - Assert: !EachMemberIn
-          - !ValueOfAll
-            - AWS::EC2::Subnet::Id
-            - VpcId
-          - !RefAll 'AWS::EC2::VPC::Id'
-        AssertDescription: All subnets must in the VPC
+    - Assert:
+        Fn::EachMemberIn:
+        - Fn::ValueOfAll:
+          - AWS::EC2::Subnet::Id
+          - VpcId
+        - Fn::RefAll: AWS::EC2::VPC::Id
+      AssertDescription: All subnets must in the VPC
 
 Conditions:
-  3AZCondition: !Equals [!Ref NumberOfAZs, 3]
-  AcceptLicense: !Equals [!Ref LicenseAgreement, 'I agree']
-  OCSCondition: !Equals [!Ref StorageType, 'ocs']
-  NfsCondition: !Equals [!Ref StorageType, 'aws-elastic']
+  3AZCondition: Fn::Equals [!Ref NumberOfAZs, 3]
+  AcceptLicense: Fn::Equals [!Ref LicenseAgreement, 'I agree']
+  OCSCondition: Fn::Equals [!Ref StorageType, 'ocs']
+  NfsCondition: Fn::Equals [!Ref StorageType, 'aws-elastic']
 
 Resources:
   OpenshiftURL:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: !Sub "${AWS::StackName}-OpenshiftURL"
+      Name: Fn::Sub "${AWS::StackName}-OpenshiftURL"
       Type: String
-      Value: !Sub "https://console-openshift-console.apps.${ClusterName}.${DomainName}"
+      Value: Fn::Sub "https://console-openshift-console.apps.${ClusterName}.${DomainName}"
 
   BootnodeInstanceProfile:
     Type: "AWS::IAM::InstanceProfile"
     Properties:
       Path: "/"
       Roles:
-        - !Select
+        - Fn::Select
           - 1
-          - !Split
+          - Fn::Split
             - "/"
             - !Ref BootNodeIamRoleArn
   BootnodeSecurityGroup:
@@ -601,8 +602,8 @@ Resources:
       - IpProtocol: tcp
         FromPort: 22
         ToPort: 22
-        CidrIp: !Ref BootNodeAccessCIDR
-      VpcId: !Ref VPCID
+        CidrIp: Fn::Ref BootNodeAccessCIDR
+      VpcId: Fn::Ref VPCID
   BootnodeInstance:
     Type: AWS::EC2::Instance
     Metadata:
@@ -613,7 +614,7 @@ Resources:
         StackPropertiesFile:
           files:
             /root/mystack.props:
-              content: !Sub |
+              content: Fn::Sub |
                 AWS_REGION=${AWS::Region}
                 AWS_STACKID="${AWS::StackId}"
                 AWS_STACKNAME="${AWS::StackName}"
@@ -621,7 +622,7 @@ Resources:
               owner: root
               group: root
             /home/ec2-user/destroy.sh:
-              content: !Sub |
+              content: Fn::Sub |
                 echo "$1 - Destroy"
                 export IBM_CLOUD_API_KEY=${APIKey}
                 export HOME=/home/ec2-user
@@ -648,38 +649,38 @@ Resources:
               owner: root
               group: root
             /root/.aws/config:
-              content: !Sub |
+              content: Fn::Sub |
                 [default]
                 region=${AWS::Region}
               mode: '000600'
               owner: root
               group: root
     Properties:
-      KeyName: !Ref 'KeyPairName'
-      ImageId: !FindInMap [AWSAMIRegionMap, !Ref "AWS::Region", BootNodeAmiId]
+      KeyName: Fn::Ref 'KeyPairName'
+      ImageId: Fn::FindInMap [AWSAMIRegionMap, !Ref "AWS::Region", BootNodeAmiId]
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeSize: 50
             VolumeType: gp3  
-      IamInstanceProfile: !Ref BootnodeInstanceProfile
+      IamInstanceProfile: Fn::Ref BootnodeInstanceProfile
       Tags:
         - Key: Name
           Value: 
-            !Sub
-            - "${ClusterName}-bootnode"
-            - ClusterName: !Ref ClusterName 
+            Fn::Sub:
+              - "${ClusterName}-bootnode"
+              - ClusterName: Fn::Ref ClusterName
       InstanceType: t3.large 
       NetworkInterfaces:
       - GroupSet:
-        - !Ref BootnodeSecurityGroup
+        - Fn::Ref BootnodeSecurityGroup
         AssociatePublicIpAddress: true
         DeviceIndex: '0'
         DeleteOnTermination: true
-        SubnetId: !Ref PublicSubnet1ID  
+        SubnetId: Fn::Ref PublicSubnet1ID  
       UserData:
         Fn::Base64:
-          !Sub 
+          Fn::Sub:
           - |
             #!/bin/bash -x
             
@@ -904,14 +905,14 @@ Resources:
             ecode=$?
             /usr/local/bin/cfn-signal --exit-code $ecode --id $AWS_STACKID  --data "See logs at $HOME/cpd-status/log/" $ICPDInstallationCompletedURL
           -
-            AMI_ID: !FindInMap [AWSAMIRegionMap, !Ref "AWS::Region", COREOSAmiId]
-            LicenseAgreement: !If [ AcceptLicense, 'accept', 'reject']
-            MultiAZ: !If [ 3AZCondition , 'True', 'False']
-            AvailabilityZone1: !Select [0, !Ref AvailabilityZones]
-            AvailabilityZone2: !If [ 3AZCondition, !Select [1, !Ref AvailabilityZones], ""]
-            AvailabilityZone3: !If [ 3AZCondition, !Select [2, !Ref AvailabilityZones], ""]
-            EnableOCS: !If [ OCSCondition, 'True', 'False' ]
-            EnableNfs: !If [ NfsCondition, 'True', 'False' ]
+            AMI_ID: Fn::FindInMap [AWSAMIRegionMap, !Ref "AWS::Region", COREOSAmiId]
+            LicenseAgreement: Fn::If [ AcceptLicense, 'accept', 'reject']
+            MultiAZ: Fn::If [ 3AZCondition , 'True', 'False']
+            AvailabilityZone1: Fn::Select [0, !Ref AvailabilityZones]
+            AvailabilityZone2: Fn::If [ 3AZCondition, !Select [1, !Ref AvailabilityZones], ""]
+            AvailabilityZone3: Fn::If [ 3AZCondition, !Select [2, !Ref AvailabilityZones], ""]
+            EnableOCS: Fn::If [ OCSCondition, 'True', 'False' ]
+            EnableNfs: Fn::If [ NfsCondition, 'True', 'False' ]
   
   CleanUpLambda:
     Type: AWS::Lambda::Function
@@ -966,12 +967,12 @@ Resources:
               cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, '')
       Environment:
         Variables:
-          Region: !Ref AWS::Region
-          BootNode: !Ref BootnodeInstance
-          Storage: !Ref StorageType
-          StackName: !Ref AWS::StackName
+          Region: Fn::Ref AWS::Region
+          BootNode: Fn::Ref BootnodeInstance
+          Storage: Fn::Ref StorageType
+          StackName: Fn::Ref AWS::StackName
       Handler: index.handler
-      Role: !Ref LambdaExecutionRoleArn
+      Role: Fn::Ref LambdaExecutionRoleArn
       Runtime: python3.8
       Timeout: 600
              
@@ -979,7 +980,7 @@ Resources:
     Type: Custom::Cleanup
     Properties:
       DependsOn: BootnodeInstance
-      ServiceToken: !GetAtt 'CleanUpLambda.Arn'
+      ServiceToken: Fn::GetAtt 'CleanUpLambda.Arn'
  
   ICPDInstallationCompletedHandle:
     Type: AWS::CloudFormation::WaitConditionHandle  
@@ -988,14 +989,14 @@ Resources:
     Type: AWS::CloudFormation::WaitCondition
     Properties:
       Count: 1
-      Handle: !Ref ICPDInstallationCompletedHandle
+      Handle: Fn::Ref ICPDInstallationCompletedHandle
       Timeout: '40000'  
 
 Outputs:
   BootnodeInstanceId:
     Description: Bootnode Instance ID.
-    Value: !Ref BootnodeInstance
+    Value: Fn::Ref BootnodeInstance
 
   BootnodePublicIp:
     Description: The boot node public IP address.
-    Value: !GetAtt BootnodeInstance.PublicIp
+    Value: Fn::GetAtt BootnodeInstance.PublicIp
