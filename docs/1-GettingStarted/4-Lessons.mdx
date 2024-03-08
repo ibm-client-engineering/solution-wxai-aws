@@ -71,18 +71,3 @@ There are two ways to resolve this problem:
 or
 2) Replace ```SubnetId: !Ref PublicSubnet1ID```  with a private subnetID ```SubnetId: subnet-example5b646```
 
-
-#### Redhat pull secret
-
-The Red Hat pull secret must be downloaded from https://console.redhat.com/openshift/downloads#tool-pull-secret. 
-Rename the file from ```pull-secret.txt``` to ```pull_secret.json```
-In AWS, an s3 bucket will need to be created. The example bucket name is ```cp4d-ocp-cloudformation-dev``` however any bucket name should work.
-In the s3 bucket that was created, a new folder named ```pull-secrets``` will need to be created
-Upload ```pull_secret.json``` to the folder.
-
-The bucket name, folder name, and file name will be required for the cloudformation template to run.
-
-Example:
-```
-s3://cp4d-ocp-cloudformation-dev/pull-secrets/pull_secret.json
-```
