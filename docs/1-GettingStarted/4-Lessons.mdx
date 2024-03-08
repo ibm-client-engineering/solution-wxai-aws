@@ -5,9 +5,9 @@ title: Lessons Learned
 custom_edit_url: null
 ---
 
-# Cloudformation Template
+## Cloudformation Template
 
-**Functions in Cloudformation Templates**
+#### Functions in Cloudformation Templates
 
 The following code was originally included in the Cloudformation template, however we discovered that it was formatted in a way to caused errors and prevented the creation of the stack:
 
@@ -22,7 +22,7 @@ The following code was originally included in the Cloudformation template, howev
         AssertDescription: All subnets must in the VPC      
 ```
 
-To fix this, we replaced the shortcut for a function which is an explamation point '!',  with an explicit function denoted as 'FN::'. This is the updated code:
+To fix this, we replaced the shortcut for a function which is an explamation point ```!```,  with an explicit function denoted as ```FN::```. This is the updated code:
 
 ```
   SubnetsInVPC:
@@ -36,7 +36,8 @@ To fix this, we replaced the shortcut for a function which is an explamation poi
       AssertDescription: All subnets must in the VPC
 ```
 
-**Bootnode Subnet must be explicitly declared to prevent errors**
+##### Bootnode Subnet 
+
 
 When we ran the Cloudformation template, we were given an error message:
 
@@ -44,7 +45,7 @@ When we ran the Cloudformation template, we were given an error message:
 No default VPC for this user. GroupName is only supported for EC2-Classic and default VPC.
 ```
 
-This error was a by-product of running the template without any Public subnets attached. The code block below shows that the boot node requires a public subnet for the "SubnetID". 
+This error was a by-product of running the template without any Public subnets attached. The code block below shows that the boot node requires a public subnet for the ```SubnetID```. 
 
 ```
       IamInstanceProfile: !Ref BootnodeInstanceProfile
@@ -68,17 +69,20 @@ There are two ways to resolve this problem:
 
 1) Use public subnets when creating the stack
 or
-2) Replace 'SubnetId: !Ref PublicSubnet1ID ' with a private subnetID 'SubnetId: subnet-example5b646'
+2) Replace ```SubnetId: !Ref PublicSubnet1ID```  with a private subnetID ```SubnetId: subnet-example5b646```
 
 
-## Redhat pull secret
+#### Redhat pull secret
 
 The Red Hat pull secret must be downloaded from https://console.redhat.com/openshift/downloads#tool-pull-secret. 
-Rename the file from "pull-secret.txt" to "pull_secret.json"
-In AWS, an s3 bucket will need to be created. The example bucket name is "cp4d-ocp-cloudformation-dev" however any bucket name should work.
-In the s3 bucket that was created, a new folder named "pull-secrets" will need to be created
-Upload "pull_secret.json" to the folder.
+Rename the file from ```pull-secret.txt``` to ```pull_secret.json```
+In AWS, an s3 bucket will need to be created. The example bucket name is ```cp4d-ocp-cloudformation-dev``` however any bucket name should work.
+In the s3 bucket that was created, a new folder named ```pull-secrets``` will need to be created
+Upload ```pull_secret.json``` to the folder.
 
 The bucket name, folder name, and file name will be required for the cloudformation template to run.
 
-Example: s3://cp4d-ocp-cloudformation-dev/pull-secrets/pull_secret.json
+Example:
+```
+s3://cp4d-ocp-cloudformation-dev/pull-secrets/pull_secret.json
+```
