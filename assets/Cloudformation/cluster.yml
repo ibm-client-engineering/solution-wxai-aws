@@ -97,27 +97,27 @@ Parameters:
   PrivateSubnet1ID:
     Description: The ID of the private subnet in Availability Zone 1 for the workload (e.g., subnet-a0246dcd).
     Type: String
-    Default: "subnet-05c7d2d610d4db25f"
+    Default: "REPLACE_ME"
   PrivateSubnet2ID:
     Description: The ID of the private subnet in Availability Zone 2 for the workload (e.g., subnet-b1f432cd).
     Type: String
-    Default: "subnet-015bca0698e9b4c41"
+    Default: "REPLACE_ME"
   PrivateSubnet3ID:
     Description: The ID of the private subnet in Availability Zone 3 for the workload (e.g., subnet-b1f4a2cd).
     Type: String
-    Default: "subnet-03ed7835a97324708"
+    Default: "REPLACE_ME"
   PublicSubnet1ID:
     Description: The ID of the public subnet in Availability Zone 1 for the ELB load balancer (e.g., subnet-9bc642ac).
     Type: String
-    Default: "subnet-068bc9661bea107d1"
+    Default: "REPLACE_ME"
   PublicSubnet2ID:
     Description: The ID of the public subnet in Availability Zone 2 for the ELB load balancer (e.g., subnet-e3246d8e).
     Type: String
-    Default: "subnet-05a6043f88f7c2461"
+    Default: "REPLACE_ME"
   PublicSubnet3ID:
     Description: The ID of the public subnet in Availability Zone 3 for the ELB load balancer (e.g., subnet-e324ad8e).
     Type: String
-    Default: "subnet-0a3646c21243f87f9"
+    Default: "REPLACE_ME"
   BootNodeAccessCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/x
@@ -585,7 +585,7 @@ Resources:
     Type: 'AWS::IAM::User'
     Properties:
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AdministratorAccess
+        - arn:aws:iam::aws:policy/OCPInstall
   CPDIAMUserAccessKey:
     Type: 'AWS::IAM::AccessKey'
     Properties:
@@ -783,7 +783,7 @@ Resources:
         AssociatePublicIpAddress: true
         DeviceIndex: '0'
         DeleteOnTermination: true
-        SubnetId: !Ref PublicSubnet1ID  
+        SubnetId: REPLACE_ME_WITH_SUBNET_ID 
       UserData:
         Fn::Base64:
           !Sub 

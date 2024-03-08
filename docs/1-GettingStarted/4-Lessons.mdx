@@ -1,0 +1,73 @@
+---
+id: 4-Lessons
+sidebar_position: 4
+title: Lessons Learned
+custom_edit_url: null
+---
+
+## Cloudformation Template
+
+#### Functions in Cloudformation Templates
+
+The following code was originally included in the Cloudformation template, however we discovered that it was formatted in a way to caused errors and prevented the creation of the stack:
+
+```
+  SubnetsInVPC:
+    Assertions:
+      - Assert: !EachMemberIn
+          - !ValueOfAll
+            - AWS::EC2::Subnet::Id
+            - VpcId
+          - !RefAll 'AWS::EC2::VPC::Id'
+        AssertDescription: All subnets must in the VPC      
+```
+
+To fix this, we replaced the shortcut for a function which is an explamation point ```!```,  with an explicit function denoted as ```FN::```. This is the updated code:
+
+```
+  SubnetsInVPC:
+    Assertions:
+    - Assert:
+        Fn::EachMemberIn:
+        - Fn::ValueOfAll:
+          - AWS::EC2::Subnet::Id
+          - VpcId
+        - Fn::RefAll: AWS::EC2::VPC::Id
+      AssertDescription: All subnets must in the VPC
+```
+
+##### Bootnode Subnet 
+
+
+When we ran the Cloudformation template, we were given an error message:
+
+```
+No default VPC for this user. GroupName is only supported for EC2-Classic and default VPC.
+```
+
+This error was a by-product of running the template without any Public subnets attached. The code block below shows that the boot node requires a public subnet for the ```SubnetID```. 
+
+```
+      IamInstanceProfile: !Ref BootnodeInstanceProfile
+      Tags:
+        - Key: Name
+          Value: 
+            !Sub
+            - "${ClusterName}-bootnode"
+            - ClusterName: !Ref ClusterName 
+      InstanceType: t3.large 
+      NetworkInterfaces:
+      - GroupSet:
+        - !Ref BootnodeSecurityGroup
+        AssociatePublicIpAddress: true
+        DeviceIndex: '0'
+        DeleteOnTermination: true
+        SubnetId: !Ref PublicSubnet1ID  
+      UserData:
+```
+There are two ways to resolve this problem:
+
+1) Use public subnets when creating the stack
+or
+2) Replace ```SubnetId: !Ref PublicSubnet1ID```  with a private subnetID ```SubnetId: subnet-example5b646```
+

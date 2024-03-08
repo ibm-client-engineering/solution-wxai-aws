@@ -5,6 +5,119 @@ title: Installation
 custom_edit_url: null
 ---
 
-### Installation Steps
+## Installation Steps
 
-Pending
+### Preparing
+
+#### Obtain the AWS IAM credentials
+
+If you can use your permanent security credentials for the AWS account, you will need an **Access Key ID** and **Secret Access Key** for the deployer to setup an OpenShift cluster on AWS. 
+
+- Go to https://aws.amazon.com/
+- Login to the AWS console
+- Click on your user name at the top right of the screen
+- Select **Security credentials**. You can also reach this screen via https://console.aws.amazon.com/iam/home?region=us-east-2#/security_credentials.
+- If you do not yet have an access key (or you no longer have the associated secret), create an access key
+- Store your **Access Key ID** and **Secret Access Key** in safe place
+
+#### Configure AWS config
+
+Run the following command and then enter your Access Key ID, Secret Access Key, Region, and Output.
+
+```
+aws configure
+````
+
+#### Redhat pull secret
+
+The Red Hat pull secret must be downloaded from https://console.redhat.com/openshift/downloads#tool-pull-secret. 
+Rename the file from ```pull-secret.txt``` to ```pull_secret.json```
+
+#### Create s3 bucket
+
+```
+BUCKET="Bucket_NAME"
+aws s3api create-bucket --bucket $BUCKET --region us-east-1
+```
+
+#### Create pull-secrets folder in s3 bucket
+
+```
+aws s3api put-object --bucket $BUCKET --key "pull-secets" --region us-east-1
+```
+
+#### Upload pull-secrets.json to s3bucket/pull-secrets
+
+```
+aws s3 cp pull-secrets.json s3://$BUCKET/pull-secrets/pull-secrets.json
+```
+
+#### Create AWS KeyPair
+
+The following commands create the KeyPair, outputs the file to the default ssh folder. The second command modifies the permissions of the file.
+
+```
+aws ec2 create-key-pair  --key-name $KEYPAIR_NAME --key-type rsa --key-format pem --query "KeyMaterial" --output text > ~/.ssh/$KEYPAIR_NAME.pem
+chmod 400 ~/.ssh/$KEYPAIR_NAME.pem
+```
+
+### Prepare
+
+#### Preparing the installion files
+
+The default "AvailabilityZones" in ***clusters.yaml*** are **"us-east-2a,us-east-2b,us-east-2c"** but can be changed.\
+To change which Availability Zones are used, search ***clusters.yaml*** for ```us-east-2a,us-east-2b,us-east-2c``` and replace with the preferred Availability Zones.\
+Search ***clusters.yaml*** for ```REPLACE_ME_WITH_SUBNET_ID``` and replace with a specific subnetID.
+
+#### Preparing Parameters Override file
+
+Review ***"parameters-override.yaml"***, the following changes will need to be made
+- Add API Key
+- Add KeyPairName
+- Add Private Subnets
+- Add Public Subnets
+- Add Red Hat Pull Secret s3 location
+- Add VPC ID
+- Add Bucket Name for s3 bucket that is being used by Red Hat Pull secret
+- Add Domain Name
+- Add Cluster Name
+- Add CPD External Registry
+
+### Deployment
+#### Create OCPInstall Role
+[Download the OCPInstall_Role.yaml](https://github.com/ibm-client-engineering/solution-wxai-aws/assets/Cloudformation/OCPInstall_Role.yaml)
+Create the role by running the following command:
+
+```
+aws cloudformation deploy --stack-name OCPInstall-role-1 -template-file OCPInstall_Role.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
+```
+
+
+#### Deply cloudformation template using AWS CLI
+Using the OCPInstall role arn, run the following command to start the main cloudformation deployment:
+
+```
+aws cloudformation deploy --stack-name stack-deployment-1 --template-file cluster.yaml --parameter-overrides file://parameters-override.json --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here* --role-arn arn:aws:iam::<ACCOUNT>:role/OCPInstall
+```
+
+Check the AWS Console to see when the cloudformation template has progressed far enough that the bootnode is online.
+
+Using the ssh key from the Key Pair name used in parameters-override.yaml, ssh to the bootnode.
+
+
+### Monitor
+
+#### SSH into bootnode
+```
+ssh -i "$KEYPAIR_NAME.pem" ec2-user@$BOOTNDODE_IP 
+```
+
+#### Monitor the deployment
+
+Check what folders exist in the ec2-home directory. if "cpd-status" has not been created yet, then wait a few minutes. Once "cpd-status" directory appears, run the following command:
+
+```
+tail -f ~/cpd-status/state/deployer-state.out
+```
+
+This command will show the log file from the cp-deployer process. 
