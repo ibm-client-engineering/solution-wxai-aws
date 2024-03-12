@@ -1,0 +1,142 @@
+[
+    {
+        "ParameterKey": "APIKey",
+        "ParameterValue": "API_KEY"
+    },
+    {
+        "ParameterKey": "KeyPairName",
+        "ParameterValue": "KEYPAIR_NAME"
+    },
+    {
+        "ParameterKey": "PrivateSubnet1ID",
+        "ParameterValue": "subnet-05c7d2d610d4db25f"
+    },
+    {
+        "ParameterKey": "PrivateSubnet2ID",
+        "ParameterValue": "subnet-015bca0698e9b4c41"
+    },
+    {
+        "ParameterKey": "PrivateSubnet3ID",
+        "ParameterValue": "subnet-03ed7835a97324708"
+    },
+    {
+        "ParameterKey": "PublicSubnet1ID",
+        "ParameterValue": "subnet-068bc9661bea107d1"
+    },
+    {
+        "ParameterKey": "PublicSubnet2ID",
+        "ParameterValue": "subnet-05a6043f88f7c2461"
+    },
+    {
+        "ParameterKey": "PublicSubnet3ID",
+        "ParameterValue": "subnet-0a3646c21243f87f9"
+    },
+    {
+        "ParameterKey": "BootNodeAccessCIDR",
+        "ParameterValue": "0.0.0.0/0"
+    },
+    {
+        "ParameterKey": "RedhatPullSecret",
+        "ParameterValue": "s3://cp4d-ocp-cloudformation-dev/pull-secrets/pull_secret.json"
+    },
+    {
+        "ParameterKey": "VPCID",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "MasterInstanceType",
+        "ParameterValue": "m5.2xlarge"
+    },
+    {
+        "ParameterKey": "ComputeInstanceType",
+        "ParameterValue": "m6i.8xlarge"
+    },
+    {
+        "ParameterKey": "NumberOfAZs",
+        "ParameterValue": 3
+    },
+    {
+        "ParameterKey": "AvailabilityZones",
+        "ParameterValue": "us-east-2a,us-east-2b,us-east-2c"
+    },
+    {
+        "ParameterKey": "NumberOfCompute",
+        "ParameterValue": 6
+    },
+    {
+        "ParameterKey": "DomainName",
+        "ParameterValue": "ibmworkshops.com"
+    },
+    {
+        "ParameterKey": "ClusterName",
+        "ParameterValue": "immersionday-cluster"
+    },
+    {
+        "ParameterKey": "StorageType",
+        "ParameterValue": "aws-elastic"
+    },
+    {
+        "ParameterKey": "PrivateCluster",
+        "ParameterValue": "False"
+    },
+    {
+        "ParameterKey": "OpenshiftVersion",
+        "ParameterValue": "4.12.45"
+    },
+    {
+        "ParameterKey": "LicenseAgreement",
+        "ParameterValue": "I agree"
+    },
+    {
+        "ParameterKey": "CPDExternalRegistry",
+        "ParameterValue": "cp.icr.io"
+    },
+    {
+        "ParameterKey": "LambdaExecutionRoleArn",
+        "ParameterValue": "LambdaExecutionRole"
+    },
+    {
+        "ParameterKey": "BootNodeIamRoleArn",
+        "ParameterValue": "OCPInstall"
+    },
+    {
+        "ParameterKey": "WatsonAssistant",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WatsonDiscovery",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "OpenScale",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WKC",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WML",
+        "ParameterValue": "removed" 
+    },
+    {
+        "ParameterKey": "WSL",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "OPENPAGES",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WatsonxAI",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "IBMGranite13bChatV1",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "MetaLlamaLlamaTwo70bChat",
+        "ParameterValue": "removed"
+    }
+]

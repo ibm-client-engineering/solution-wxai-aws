@@ -84,12 +84,21 @@ Review ***"parameters-override.yaml"***, the following changes will need to be m
 - Add CPD External Registry
 
 ### Deployment
+
 #### Create OCPInstall Role
 [Download the OCPInstall_Role.yaml](https://github.com/ibm-client-engineering/solution-wxai-aws/assets/Cloudformation/OCPInstall_Role.yaml)
 Create the role by running the following command:
 
 ```
 aws cloudformation deploy --stack-name OCPInstall-role-1 -template-file OCPInstall_Role.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
+```
+
+#### Create LambdaExecution Role
+[Download the LambdaExecutionRole.yaml](https://github.com/ibm-client-engineering/solution-wxai-aws/assets/Cloudformation/LambdaExecutionRole.yaml)
+Create the role by running the following command:
+
+```
+aws cloudformation deploy --stack-name LambdaExecutionRole -template-file LambdaExecutionRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
 ```
 
 
