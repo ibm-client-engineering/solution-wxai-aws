@@ -664,3 +664,55 @@ You need `AWS::EC2::Instance` objects for the following machines:
 For more information on OCP on AWS, see https://docs.openshift.com/container-platform/4.15/installing/installing_aws/installing-aws-user-infra.html
 The "Minimum requirements" section does not consider the watsonx.ai and related services, and is accounted for in this documentation
 :::
+
+### Installing on Existing Networks
+
+To use an existing network and VPC, you must collect the following parameters from your AWS environment for the CloudFormation script.
+
+#### Parameters
+
+- BootNodeAccessCIDR:
+- vpc_id:
+- aws_region: 
+    - Example: `us-east-2`
+- machine_cidr:
+    - Example: `10.2.1.0/24`
+- openshift_cluster_network_cidr: 
+    - Example: `10.128.0.0/14`
+- subnet_ids:
+    :::note
+    For subnets, at least one set of 3 (Public or Private) subnets must be used.
+    :::
+    - Public
+        - Public subnet1
+        - Public subnet2
+        - Public subnet3
+    - Private
+        - Private subnet1
+        - Private subnet2
+        - Private subnet3
+- hosted_zone_id: 
+    - Example: `Hosted_Zone_Id`
+- image_registry:
+- name: Registy
+- registry_host_name: 
+    - Example: `registry.example.com`
+- registry_port:
+    - Example: `5000`
+- registry_insecure: 
+    - Example: `false`
+- registry_trusted_ca_secret: 
+    - Example: `cpd463-ca-bundle`
+- http_proxy:
+- https_proxy:
+- no_proxy:
+- KeyPairName:
+    :::note
+    Key Pair generation instructions [here](https://ibm-client-engineering.github.io/solution-wxai-aws/GettingStarted/installation#create-aws-keypair)
+    :::
+- RedhatPullSecret:
+    :::note
+    RedHat Pull Secret instructions [here](https://ibm-client-engineering.github.io/solution-wxai-aws/GettingStarted/installation/#redhat-pull-secret)
+    :::
+- DomainName:
+- ClusterName:
