@@ -1,14 +1,14 @@
-AWSTemplateFormatVersion: 2010-09-09
+AWSTemplateFormatVersion: '2010-09-09'
 Description: Template for an IBM Cloud Pak for Data deployment.
 Metadata:
-  'AWS::CloudFormation::Interface':
+  AWS::CloudFormation::Interface:
     ParameterGroups:
-      - Label:
+      - Label: 
           default: API Configuration
         Parameters:
           - APIKey
           - RedhatPullSecret
-      - Label:
+      - Label: 
           default: Networking
         Parameters:
           - VPCID
@@ -24,14 +24,14 @@ Metadata:
         Parameters:
           - NumberOfAZs
           - AvailabilityZones
-      - Label:
+      - Label: 
           default: Instance Configuration
         Parameters:
           - KeyPairName
           - MasterInstanceType
           - ComputeInstanceType
           - NumberOfCompute
-      - Label:
+      - Label: 
           default: Cluster Configuration
         Parameters:
           - DomainName
@@ -39,17 +39,17 @@ Metadata:
           - StorageType
           - PrivateCluster
           - OpenshiftVersion
-      - Label:
+      - Label: 
           default: Openshift Configuration
         Parameters:
           - LicenseAgreement
           - CPDExternalRegistry
-      - Label:
+      - Label: 
           default: Openshift IAM configuration
         Parameters:
           - LambdaExecutionRoleArn
           - BootNodeIamRoleArn
-      - Label:
+      - Label: 
           default: Services
         Parameters:
           - CA
@@ -72,7 +72,7 @@ Metadata:
           - OPENPAGES
           - WatsonxData
           - WatsonxAI
-      - Label:
+      - Label: 
           default: WatsonxAI foundation models
         Parameters:
           - GoogleFlanT5Xxl
@@ -80,154 +80,60 @@ Metadata:
           - EleutheraiGptNeox20b
           - IBMGranite13bChatV1
           - IBMGranite13bInstructV1
-          - MetaLlamaLlamaTwo70bChat
+          - MetaLlamaLlamaTwo70bChat 
           - IBMMpt7bInstruct2
           - BigscienceMt0Xxl
           - BigcodeStarcoder
-  'AWS::CloudFormation::Designer':
-    968343fd-fbae-4bc3-bd15-4806c52b59fe:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 600
-        'y': 180
-      z: 1
-      embeds: []
-    26589bce-11ae-41b8-b058-721dc3af246f:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 600
-        'y': 290
-      z: 1
-      embeds: []
-    49709152-6430-4670-9108-a1bcbc29266d:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 600
-        'y': 410
-      z: 1
-      embeds: []
-    c8855de5-bab4-4555-b000-383d864b709d:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 740
-        'y': 180
-      z: 1
-      embeds: []
-    34379c6a-5a07-459c-828b-9de6b654137e:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 460
-        'y': 180
-      z: 1
-      embeds: []
-    4b94c62a-18cc-4b89-b6b0-d1ad33ab595d:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 710
-        'y': 90
-      z: 1
-      embeds: []
-      isassociatedwith:
-        - ad6d348c-22a4-45eb-91ef-9919a80f25a9
-    ad6d348c-22a4-45eb-91ef-9919a80f25a9:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 490
-        'y': 90
-      z: 1
-      embeds: []
-    3327f192-2813-41ca-9444-a0bb61e42269:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 720
-        'y': 280
-      z: 1
-      embeds: []
 Parameters:
   APIKey:
-    Description: The IBM Cloud Pak for Data API key to access IBM Container Registry.
-    Type: String
+    Description: >-
+       The IBM Cloud Pak for Data API key to access IBM Container Registry.
+    Type: String 
     NoEcho: 'true'
   KeyPairName:
-    Description: >-
-      The name of an existing public/private key pair, which allows you to
-      securely connect to your instance after it launches.
-    Type: 'AWS::EC2::KeyPair::KeyName'
+    Description: The name of an existing public/private key pair, which allows you
+      to securely connect to your instance after it launches.
+    Type: AWS::EC2::KeyPair::KeyName
   PrivateSubnet1ID:
-    Description: >-
-      The ID of the private subnet in Availability Zone 1 for the workload
-      (e.g., subnet-a0246dcd).
+    Description: The ID of the private subnet in Availability Zone 1 for the workload (e.g., subnet-a0246dcd).
     Type: String
-    Default: subnet-05c7d2d610d4db25f
+    Default: ""
   PrivateSubnet2ID:
-    Description: >-
-      The ID of the private subnet in Availability Zone 2 for the workload
-      (e.g., subnet-b1f432cd).
+    Description: The ID of the private subnet in Availability Zone 2 for the workload (e.g., subnet-b1f432cd).
     Type: String
-    Default: subnet-015bca0698e9b4c41
+    Default: ""
   PrivateSubnet3ID:
-    Description: >-
-      The ID of the private subnet in Availability Zone 3 for the workload
-      (e.g., subnet-b1f4a2cd).
+    Description: The ID of the private subnet in Availability Zone 3 for the workload (e.g., subnet-b1f4a2cd).
     Type: String
-    Default: subnet-03ed7835a97324708
+    Default: "-"
   PublicSubnet1ID:
-    Description: >-
-      The ID of the public subnet in Availability Zone 1 for the ELB load
-      balancer (e.g., subnet-9bc642ac).
+    Description: The ID of the public subnet in Availability Zone 1 for the ELB load balancer (e.g., subnet-9bc642ac).
     Type: String
-    Default: subnet-068bc9661bea107d1
+    Default: "-"
   PublicSubnet2ID:
-    Description: >-
-      The ID of the public subnet in Availability Zone 2 for the ELB load
-      balancer (e.g., subnet-e3246d8e).
+    Description: The ID of the public subnet in Availability Zone 2 for the ELB load balancer (e.g., subnet-e3246d8e).
     Type: String
-    Default: subnet-05a6043f88f7c2461
+    Default: "-"
   PublicSubnet3ID:
-    Description: >-
-      The ID of the public subnet in Availability Zone 3 for the ELB load
-      balancer (e.g., subnet-e324ad8e).
+    Description: The ID of the public subnet in Availability Zone 3 for the ELB load balancer (e.g., subnet-e324ad8e).
     Type: String
-    Default: subnet-0a3646c21243f87f9
+    Default: "-"
   BootNodeAccessCIDR:
-    AllowedPattern: >-
-      ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
+    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/x
-    Description: >-
-      The CIDR IP range that is permitted to access boot node instance. We
-      recommend that you set this value to a trusted IP range. The value
-      `0.0.0.0/0` permits all IP addresses to access. Additional values can be
-      added post-deployment from the Amazon EC2 console.
+    Description: The CIDR IP range that is permitted to access boot node instance. We recommend that you set this value to a trusted IP range. The value `0.0.0.0/0` permits all IP addresses to access. Additional values can be added post-deployment from the Amazon EC2 console.
     Type: String
     Default: 0.0.0.0/0
   RedhatPullSecret:
-    Description: >-
-      Your Red Hat Network (RHN) pull secret(e.g.,
-      s3://my-bucket/path/to/pull_secret.json).
+    Description: Your Red Hat Network (RHN) pull secret(e.g., s3://my-bucket/path/to/pull_secret.json).
     Type: String
-    Default: 's3://cp4d-ocp-cloudformation-dev/pull-secrets/pull_secret.json'
+    Default: "s3://cp4d-ocp-cloudformation-dev/pull-secrets/pull-secrets.json"
   VPCID:
     Description: The ID of your existing VPC for deployment.
-    Type: 'AWS::EC2::VPC::Id'
-    Default: vpc-03738f32953df603f
+    Type: AWS::EC2::VPC::Id
+    Default: 
   MasterInstanceType:
-    Default: m6i.xlarge
+    Default: m5i.2xlarge
     AllowedValues:
       - m5.xlarge
       - m5.2xlarge
@@ -243,7 +149,7 @@ Parameters:
     Description: The EC2 instance type for the OpenShift master instances.
     Type: String
   ComputeInstanceType:
-    Default: m6i.4xlarge
+    Default: m6i.8xlarge
     AllowedValues:
       - m5.4xlarge
       - m5.8xlarge
@@ -287,317 +193,307 @@ Parameters:
       - r6i.4xlarge
       - r6i.8xlarge
       - r6i.12xlarge
-      - r6i.24xlarge
+      - r6i.24xlarge    
     ConstraintDescription: Must contain valid instance type
     Description: The EC2 instance type for the OpenShift compute instances.
     Type: String
-  NumberOfAZs:
+  NumberOfAZs:  
     Default: 3
     Description: >-
-      The number of Availability Zones to be used for the deployment. Keep in
-      mind that some regions may be limited to two Availability Zones. For a
-      single IBM Cloud Pak for Data cluster to be highly available, three
-      Availability Zones are needed to avoid a single point of failure when
-      using three, five, or seven master nodes. With fewer than three
-      Availability Zones, one of the AZs will have more master nodes.
+      The number of Availability Zones to be used for the deployment. Keep in mind that some regions may be limited to two Availability Zones. For a single IBM Cloud Pak for Data cluster to be highly available, three Availability Zones are needed to avoid a single point of failure when using three, five, or seven master nodes. With fewer than three Availability Zones, one of the AZs will have more master nodes.
     Type: Number
     AllowedValues:
-      - 1
-      - 3
+    - 1
+    - 3  
   AvailabilityZones:
-    Description: >-
-      The list of Availability Zones to use for the subnets in the VPC. The
-      Template uses one or three Availability Zones and preserves the logical
-      order you specify.
-    Type: 'List<AWS::EC2::AvailabilityZone::Name>'
-    Default: 'us-east-2a,us-east-2b,us-east-2c'
+    Description: The list of Availability Zones to use for the subnets in the VPC. The Template uses one or three Availability Zones and preserves the logical order you specify.
+    Type: List<AWS::EC2::AvailabilityZone::Name>
+    Default: us-east-2a,us-east-2b,us-east-2c
   NumberOfCompute:
-    Default: '10'
-    Description: >-
-      The desired capacity for the OpenShift compute instances. Minimum of 3
-      nodes required. If the number of compute instances exceeds your Red Hat
-      entitlement limits or AWS instance limits, the stack will fail. Choose a
-      number that is within your limits.
+    Default: '6'
+    Description: The desired capacity for the OpenShift compute instances. Minimum of 3 nodes required. If the number of compute instances exceeds your Red Hat entitlement limits or AWS instance limits, the stack will fail. Choose a number that is within your limits.
     Type: Number
   DomainName:
-    Description: >-
-      Amazon Route53 base domain configured for your OpenShift Container
-      Platform cluster. Name must consist of lower case alphanumeric characters
-      and must start and end with an alphanumeric character.
+    Description: 'Amazon Route53 base domain configured for your OpenShift Container Platform cluster. Name must consist of lower case alphanumeric characters and must start and end with an alphanumeric character.'
     Type: String
-    Default: ibmworkshops.com
+    Default: "ibmworkshops.com"
   ClusterName:
-    Default: immersionday-cluster
+    Default: "immersionday-cluster"
     Description: Custom cluster name for kubernetes.io/cluster/tags.
     Type: String
-    AllowedPattern: '^[0-9a-z-]*$'
+    AllowedPattern: ^[0-9a-z-]*$
   StorageType:
-    Description: Select either EFS or Openshift Container Storage as default Storage class.
+    Description: Select either EFS or Openshift Container Storage as default Storage class.  
     Type: String
     AllowedValues:
-      - aws-elastic
-      - ocs
-    Default: aws-elastic
-  PrivateCluster:
+      - "aws-elastic"
+      - "ocs"
+    Default: "aws-elastic"
+  PrivateCluster:  
     Description: To Deploy a Private cluster select true and false for Public cluster
     Type: String
     AllowedValues:
-      - 'True'
-      - 'False'
-    Default: 'False'
+      - "True"
+      - "False"
+    Default: "False"
   OpenshiftVersion:
     Description: Choose Red Hat OpenShift Service on AWS (ROSA) Version.
     Type: String
-    Default: 4.12.45
+    Default: "4.12.45"
   LicenseAgreement:
     Description: >-
-      I have read and agreed to the license terms for IBM Cloud Pak for Data
-      that were provided to me at time of purchase.
+      I have read and agreed to the license terms for IBM Cloud Pak for Data that were provided to me at time of purchase.
     Type: String
-    Default: I agree
+    Default: 'I agree'
     AllowedValues:
       - I agree
       - '-'
     ConstraintDescription: must answer 'I agree'
   CPDExternalRegistry:
-    Description: >-
-      URL to external registry for CPD install. CPD images must already exist in
-      the repo
+    Description: URL to external registry for CPD install. CPD images must already exist in the repo
     Type: String
-    Default: cp.icr.io
+    Default: "cp.icr.io"
   LambdaExecutionRoleArn:
-    Description: >-
-      Lambda execution role arn. It is going to attached to AWS lambda for
-      cleanup.
+    Description: Lambda execution role arn. It is going to attached to AWS lambda for cleanup.
     Type: String
-    AllowedPattern: '^arn:aws:iam::\d{12}:role/[a-zA-Z0-9][\w-]*$'
+    AllowedPattern: ^arn:aws:iam::\d{12}:role/[a-zA-Z0-9][\w-]*$
   BootNodeIamRoleArn:
-    Description: >-
-      BootNode execution role arn. It is going to attached to BootNode EC2. The
-      EC2 instance is resposible to trigger Openshift operation
+    Description: BootNode execution role arn. It is going to attached to BootNode EC2. The EC2 instance is resposible to trigger Openshift operation
     Type: String
-    AllowedPattern: '^arn:aws:iam::\d{12}:role/[a-zA-Z0-9][\w-]*$'
+    AllowedPattern: ^arn:aws:iam::\d{12}:role/[a-zA-Z0-9][\w-]*$
   CA:
-    Description: Choose installed to install the Cognos Analytics service.
+    Description: >-
+       Choose installed to install the Cognos Analytics service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed" 
   CDE:
-    Description: Choose installed to install the cognos embedded dashboard service.
+    Description: >-
+       Choose installed to install the cognos embedded dashboard service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"    
   DB2:
-    Description: Choose installed to install the DB2 service.
+    Description: >-
+       Choose installed to install the DB2 service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   DB2U:
-    Description: Choose installed to install the DB2U service.
+    Description: >-
+       Choose installed to install the DB2U service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   DMC:
-    Description: Choose installed to install the Data Management Console service.
+    Description: >-
+       Choose installed to install the Data Management Console service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   DV:
-    Description: Choose installed to install the Data Virtualization service.
+    Description: >-
+       Choose installed to install the Data Virtualization service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   FACTSHEET:
-    Description: Choose installed to install the Factsheet service.
+    Description: >-
+       Choose installed to install the Factsheet service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"   
   WatsonAssistant:
-    Description: Choose installed to install the Watson Assistant service.
+    Description: >-
+       Choose installed to install the Watson Assistant service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   WatsonDiscovery:
-    Description: Choose installed to install the Watson Discovery service.
+    Description: >-
+       Choose installed to install the Watson Discovery service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   WatsonKnowledgeStudio:
-    Description: Choose installed to install the Watson Knowledge Studio service.
+    Description: >-
+       Choose installed to install the Watson Knowledge Studio service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   OpenScale:
-    Description: Choose installed to install the Watson OpenScale service.
+    Description: >-
+       Choose installed to install the Watson OpenScale service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   WatsonSpeech:
-    Description: Choose installed to install the Watson Speech service.
+    Description: >-
+       Choose installed to install the Watson Speech service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   WKC:
-    Description: Choose installed to install the WKC service.
+    Description: >-
+       Choose installed to install the WKC service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   WML:
-    Description: Choose installed to install the WML service.
+    Description: >-
+       Choose installed to install the WML service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed" 
   WSL:
-    Description: Choose installed to install the WSL service.
+    Description: >-
+       Choose installed to install the WSL service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   WSP:
-    Description: Choose installed to install the Watson pipeline service.
+    Description: >-
+       Choose installed to install the Watson pipeline service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   RSTUDIO:
-    Description: Choose installed to install the rstudio service.
+    Description: >-
+       Choose installed to install the rstudio service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   OPENPAGES:
-    Description: Choose installed to install the OpenPages service.
+    Description: >-
+       Choose installed to install the OpenPages service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"    
   WatsonxData:
-    Description: Choose installed to install the WatsonxData service.
+    Description: >-
+       Choose installed to install the WatsonxData service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"    
   WatsonxAI:
-    Description: Choose installed to install the WatsonxAI service.
+    Description: >-
+       Choose installed to install the WatsonxAI service.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   GoogleFlanT5Xxl:
     Description: >-
-      Choose installed to install the google-flan-t5-xxl WatsonxAI foundational
-      model.
+       Choose installed to install the google-flan-t5-xxl WatsonxAI foundational model.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   GoogleFlanUl2:
     Description: >-
-      Choose installed to install the google-flan-ul2 WatsonxAI foundational
-      model.
+       Choose installed to install the google-flan-ul2 WatsonxAI foundational model.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   EleutheraiGptNeox20b:
     Description: >-
-      Choose installed to install the eleutherai-gpt-neox-20b WatsonxAI
-      foundational model.
+       Choose installed to install the eleutherai-gpt-neox-20b WatsonxAI foundational model.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   IBMGranite13bChatV1:
     Description: >-
-      Choose installed to install the ibm-granite-13b-chat-v1 WatsonxAI
-      foundational model.
+       Choose installed to install the ibm-granite-13b-chat-v1 WatsonxAI foundational model.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   IBMGranite13bInstructV1:
     Description: >-
-      Choose installed to install the ibm-granite-13b-instruct-v1 WatsonxAI
-      foundational model.
+       Choose installed to install the ibm-granite-13b-instruct-v1 WatsonxAI foundational model.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   MetaLlamaLlamaTwo70bChat:
     Description: >-
-      Choose installed to install the meta-llama-llama-2-70b-chat WatsonxAI
-      foundational model.
+       Choose installed to install the meta-llama-llama-2-70b-chat WatsonxAI foundational model.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   IBMMpt7bInstruct2:
     Description: >-
-      Choose installed to install the ibm-mpt-7b-instruct2 WatsonxAI
-      foundational model.
+       Choose installed to install the ibm-mpt-7b-instruct2 WatsonxAI foundational model.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   BigscienceMt0Xxl:
     Description: >-
-      Choose installed to install the bigscience-mt0-xxl WatsonxAI foundational
-      model.
+       Choose installed to install the bigscience-mt0-xxl WatsonxAI foundational model.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
   BigcodeStarcoder:
     Description: >-
-      Choose installed to install the bigcode-starcoder WatsonxAI foundational
-      model.
+       Choose installed to install the bigcode-starcoder WatsonxAI foundational model.
     Type: String
     AllowedValues:
-      - installed
-      - removed
-    Default: removed
+      - "installed"
+      - "removed"
+    Default: "removed"
+
 Mappings:
   AWSAMIRegionMap:
     us-east-1:
@@ -654,59 +550,63 @@ Mappings:
     ap-east-1:
       BootNodeAmiId: ami-011a403f2a9b2c39f
       COREOSAmiId: ami-003c37759615789ad
+
+Rules: 
+  LicenseAgreementRule:
+    Assertions:
+    - Assert:
+        Fn::Contains:
+        - - I agree
+        - Ref: LicenseAgreement
+      AssertDescription: User must agree to the terms of the license agreement.    
+
+  SubnetsInVPC:
+    Assertions:
+      - Assert: !EachMemberIn
+          - !ValueOfAll
+            - AWS::EC2::Subnet::Id
+            - VpcId
+          - !RefAll 'AWS::EC2::VPC::Id'
+        AssertDescription: All subnets must in the VPC
+
 Conditions:
-  3AZCondition: !Equals 
-    - !Ref NumberOfAZs
-    - 3
-  AcceptLicense: !Equals 
-    - !Ref LicenseAgreement
-    - I agree
-  OCSCondition: !Equals 
-    - !Ref StorageType
-    - ocs
-  NfsCondition: !Equals 
-    - !Ref StorageType
-    - aws-elastic
+  3AZCondition: !Equals [!Ref NumberOfAZs, 3]
+  AcceptLicense: !Equals [!Ref LicenseAgreement, 'I agree']
+  OCSCondition: !Equals [!Ref StorageType, 'ocs']
+  NfsCondition: !Equals [!Ref StorageType, 'aws-elastic']
+
 Resources:
   OpenshiftURL:
-    Type: 'AWS::SSM::Parameter'
+    Type: AWS::SSM::Parameter
     Properties:
-      Name: !Sub '${AWS::StackName}-OpenshiftURL'
+      Name: !Sub "${AWS::StackName}-OpenshiftURL"
       Type: String
-      Value: !Sub 'https://console-openshift-console.apps.${ClusterName}.${DomainName}'
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 3327f192-2813-41ca-9444-a0bb61e42269
+      Value: !Sub "https://console-openshift-console.apps.${ClusterName}.${DomainName}"
+
   BootnodeInstanceProfile:
-    Type: 'AWS::IAM::InstanceProfile'
+    Type: "AWS::IAM::InstanceProfile"
     Properties:
-      Path: /
+      Path: "/"
       Roles:
-        - !Select 
+        - !Select
           - 1
-          - !Split 
-            - /
+          - !Split
+            - "/"
             - !Ref BootNodeIamRoleArn
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: c8855de5-bab4-4555-b000-383d864b709d
   BootnodeSecurityGroup:
-    Type: 'AWS::EC2::SecurityGroup'
+    Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Cluster Bootnode Security Group
       SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          CidrIp: !Ref BootNodeAccessCIDR
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: !Ref BootNodeAccessCIDR
       VpcId: !Ref VPCID
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 34379c6a-5a07-459c-828b-9de6b654137e
   BootnodeInstance:
-    Type: 'AWS::EC2::Instance'
+    Type: AWS::EC2::Instance
     Metadata:
-      'AWS::CloudFormation::Init':
+      AWS::CloudFormation::Init:
         configSets:
           Required:
             - StackPropertiesFile
@@ -721,60 +621,29 @@ Resources:
               owner: root
               group: root
             /home/ec2-user/destroy.sh:
-              content: !Sub >
+              content: !Sub |
                 echo "$1 - Destroy"
-
                 export IBM_CLOUD_API_KEY=${APIKey}
-
                 export HOME=/home/ec2-user
-
                 export STATUS_DIR=$HOME/cpd-status
-
                 export CONFIG_DIR=$HOME/cpd-config
-
                 export CP_ENTITLEMENT_KEY=${APIKey}
-
                 cd $HOME/cloud-pak-deployer
-
                 /bin/bash ./cp-deploy.sh build
 
-
                 unset AWS_SESSION_TOKEN AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
-
-                out=$(aws sts assume-role --role-arn ${BootNodeIamRoleArn}
-                --role-session-name OCPInstall --duration-seconds 43200 --output
-                json)
-
-                /bin/bash ./cp-deploy.sh vault set --vault-secret aws-access-key
-                --vault-secret-value $(echo "$out" | jq -r
-                '.Credentials.AccessKeyId')
-
-                export AWS_ACCESS_KEY_ID=$(echo "$out" | jq -r
-                '.Credentials.AccessKeyId')
-
-                /bin/bash ./cp-deploy.sh vault set --vault-secret
-                aws-secret-access-key --vault-secret-value $(echo "$out" | jq -r
-                '.Credentials.SecretAccessKey')
-
-                export AWS_SECRET_ACCESS_KEY=$(echo "$out" | jq -r
-                '.Credentials.SecretAccessKey')
-
-                /bin/bash ./cp-deploy.sh vault set --vault-secret
-                aws-session-token --vault-secret-value $(echo "$out" | jq -r
-                '.Credentials.SessionToken')
-
-                export AWS_SESSION_TOKEN=$(echo "$out" | jq -r
-                '.Credentials.SessionToken')
-
-
-                /bin/bash ./cp-deploy.sh env destroy -e env_id=${ClusterName}
-                --confirm-destroy
-
-
+                out=$(aws sts assume-role --role-arn ${BootNodeIamRoleArn} --role-session-name OCPInstall --output json)
+                /bin/bash ./cp-deploy.sh vault set --vault-secret aws-access-key --vault-secret-value $(echo "$out" | jq -r '.Credentials.AccessKeyId')
+                export AWS_ACCESS_KEY_ID=$(echo "$out" | jq -r '.Credentials.AccessKeyId')
+                /bin/bash ./cp-deploy.sh vault set --vault-secret aws-secret-access-key --vault-secret-value $(echo "$out" | jq -r '.Credentials.SecretAccessKey')
+                export AWS_SECRET_ACCESS_KEY=$(echo "$out" | jq -r '.Credentials.SecretAccessKey')
+                /bin/bash ./cp-deploy.sh vault set --vault-secret aws-session-token --vault-secret-value $(echo "$out" | jq -r '.Credentials.SessionToken')
+                export AWS_SESSION_TOKEN=$(echo "$out" | jq -r '.Credentials.SessionToken')
+                
+                /bin/bash ./cp-deploy.sh env destroy -e env_id=${ClusterName} --confirm-destroy
+                
                 echo "Destroy completed"
-
-                aws ssm put-parameter --name $1"_CleanupStatus" --type "String"
-                --value "READY" --overwrite
+                aws ssm put-parameter --name $1"_CleanupStatus" --type "String" --value "READY" --overwrite
               mode: '000755'
               owner: root
               group: root
@@ -785,323 +654,164 @@ Resources:
               mode: '000600'
               owner: root
               group: root
-      'AWS::CloudFormation::Designer':
-        id: 968343fd-fbae-4bc3-bd15-4806c52b59fe
     Properties:
-      KeyName: !Ref KeyPairName
-      ImageId: !FindInMap 
-        - AWSAMIRegionMap
-        - !Ref 'AWS::Region'
-        - BootNodeAmiId
+      KeyName: !Ref 'KeyPairName'
+      ImageId: !FindInMap [AWSAMIRegionMap, !Ref "AWS::Region", BootNodeAmiId]
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeSize: 50
-            VolumeType: gp3
+            VolumeType: gp3  
       IamInstanceProfile: !Ref BootnodeInstanceProfile
       Tags:
         - Key: Name
-          Value: !Sub 
-            - '${ClusterName}-bootnode'
-            - ClusterName: !Ref ClusterName
-      InstanceType: t3.large
+          Value: 
+            !Sub
+            - "${ClusterName}-bootnode"
+            - ClusterName: !Ref ClusterName 
+      InstanceType: t3.large 
       NetworkInterfaces:
-        - GroupSet:
-            - !Ref BootnodeSecurityGroup
-          AssociatePublicIpAddress: true
-          DeviceIndex: '0'
-          DeleteOnTermination: true
-          SubnetId: !Ref PublicSubnet1ID
-      UserData: !Base64 
-        'Fn::Sub':
-          - >
+      - GroupSet:
+        - !Ref BootnodeSecurityGroup
+        AssociatePublicIpAddress: true
+        DeviceIndex: '0'
+        DeleteOnTermination: true
+        SubnetId: !Ref PublicSubnet1ID  
+      UserData:
+        Fn::Base64:
+          !Sub 
+          - |
             #!/bin/bash -x
-
-
-            #Added the next 5 lines to include required tools for the
-            installation of CP4D
-
+            
+            #Added the next 5 lines to include required tools for the installation of CP4D
             yum update -y
-
             yum install -y git podman wget jq python39 unzip
-
             podman version
 
-
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o
-            "awscliv2.zip"
-
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
-
             ./aws/install &> /var/log/userdata.awscli_install.log
 
-
-            git clone
-            https://github.com/aws-quickstart/quickstart-linux-utilities.git
-
-            sed -i
-            "s/aws-cfn-bootstrap-latest.tar.gz/aws-cfn-bootstrap-py3-latest.tar.gz/g"
-            /quickstart-linux-utilities/quickstart-cfn-tools.source 
-
+            git clone https://github.com/aws-quickstart/quickstart-linux-utilities.git
+            sed -i "s/aws-cfn-bootstrap-latest.tar.gz/aws-cfn-bootstrap-py3-latest.tar.gz/g" /quickstart-linux-utilities/quickstart-cfn-tools.source 
             export P=/quickstart-linux-utilities/quickstart-cfn-tools.source
-
             source $P
-
-
+            
             qs_bootstrap_pip || qs_err " pip bootstrap failed "
-
             qs_aws-cfn-bootstrap || qs_err "cfn bootstrap failed"
-
-
-            #pip3 install awscli  &> /var/log/userdata.awscli_install.log ||
-            qs_err " awscli install failed "
-
-            /usr/local/bin/cfn-init -v --stack ${AWS::StackName} --resource
-            BootnodeInstance --configsets Required --region ${AWS::Region}
-
+            
+            #pip3 install awscli  &> /var/log/userdata.awscli_install.log || qs_err " awscli install failed "
+            /usr/local/bin/cfn-init -v --stack ${AWS::StackName} --resource BootnodeInstance --configsets Required --region ${AWS::Region}
             sudo cp /usr/local/bin/aws /usr/bin/aws
 
-
             cd /tmp
-
-            qs_retry_command 10 wget
-            https://s3-us-west-1.amazonaws.com/amazon-ssm-us-west-1/latest/linux_amd64/amazon-ssm-agent.rpm
-
+            qs_retry_command 10 wget https://s3-us-west-1.amazonaws.com/amazon-ssm-us-west-1/latest/linux_amd64/amazon-ssm-agent.rpm
             qs_retry_command 10 yum install -y ./amazon-ssm-agent.rpm
-
             systemctl start amazon-ssm-agent
-
             systemctl enable amazon-ssm-agent
-
             rm -f ./amazon-ssm-agent.rpm
 
-
-            wget -qO /usr/local/bin/yq
-            https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-
+            wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
             chmod a+x /usr/local/bin/yq
 
-
-            wget
-            https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/${OpenshiftVersion}/openshift-client-linux-${OpenshiftVersion}.tar.gz
-
+            wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/${OpenshiftVersion}/openshift-client-linux-${OpenshiftVersion}.tar.gz
             tar -xvzf openshift-client-linux-${OpenshiftVersion}.tar.gz
-
             sudo cp oc /usr/local/bin/
-
             sudo cp oc /usr/bin/
-
             sudo cp kubectl /usr/local/bin/
-
             sudo cp kubectl /usr/bin/
 
-
-            export
-            ICPDInstallationCompletedURL='${ICPDInstallationCompletedHandle}'
-
+            export ICPDInstallationCompletedURL='${ICPDInstallationCompletedHandle}'
             export AWS_REGION=${AWS::Region}
-
             export AWS_STACKID=${AWS::StackId}
-
             export AWS_STACKNAME=${AWS::StackName}
 
-
             export HOME=/home/ec2-user
-
 
             export NewDomainName=${DomainName}
 
-
             chmod +x $HOME/destroy.sh
 
-
             # generate public key
-
             ssh-keygen -t rsa -b 4096 -f $HOME/.ssh/id_rsa -q -N ""
 
-
             # Installing Cloud pak Deployer
-
             export HOME=/home/ec2-user
-
             cd $HOME
-
-
+            
             git clone https://github.com/IBM/cloud-pak-deployer.git
-
-
+            
             mkdir -p $HOME/cpd-config/config
-
             sudo chown -R ec2-user:ec2-user $HOME/cpd-config/
-
 
             cd ./cloud-pak-deployer
 
-
             # copy pull secret
-
             aws s3 cp ${RedhatPullSecret} .
-
             sudo cp -r ./pull*.json /tmp/ocp_pullsecret.json
 
 
-
             # copy openshift and CP4D config file to config dir
-
-            wget
-            https://ibm-aws-immersion-day.s3.us-east-2.amazonaws.com/cloudformation/config/cp4d-480.yaml
-
+            wget https://ibm-aws-immersion-day.s3.us-east-2.amazonaws.com/cloudformation/config/cp4d-480.yaml
             cp ./cp4d-480.yaml $HOME/cpd-config/config/
 
-
             # replace parameters in CPD
-
             sed -i 's/|CA|/'${CA}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
             sed -i 's/|CDE|/'${CDE}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
             sed -i 's/|DB2|/'${DB2}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
             sed -i 's/|DB2U|/'${DB2U}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
             sed -i 's/|DMC|/'${DMC}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
             sed -i 's/|DV|/'${DV}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|FACTSHEET|/'${FACTSHEET}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|WATSONASSISTANT|/'${WatsonAssistant}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|WATSONDISCOVERY|/'${WatsonDiscovery}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|WATSONKNOWLEDGESTUDIO|/'${WatsonKnowledgeStudio}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|WATSONOPENSCALE|/'${OpenScale}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|WATSONSPEECH|/'${WatsonSpeech}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
+            sed -i 's/|FACTSHEET|/'${FACTSHEET}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|WATSONASSISTANT|/'${WatsonAssistant}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|WATSONDISCOVERY|/'${WatsonDiscovery}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|WATSONKNOWLEDGESTUDIO|/'${WatsonKnowledgeStudio}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|WATSONOPENSCALE|/'${OpenScale}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|WATSONSPEECH|/'${WatsonSpeech}'/g' $HOME/cpd-config/config/cp4d-480.yaml
             sed -i 's/|WKC|/'${WKC}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
             sed -i 's/|WML|/'${WML}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
             sed -i 's/|WSL|/'${WSL}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
             sed -i 's/|WSP|/'${WSP}'/g' $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|RSTUDIO|/'${RSTUDIO}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|OPENPAGES|/'${OPENPAGES}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|WATSONXDATA|/'${WatsonxData}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
+            sed -i 's/|RSTUDIO|/'${RSTUDIO}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|OPENPAGES|/'${OPENPAGES}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|WATSONXDATA|/'${WatsonxData}'/g' $HOME/cpd-config/config/cp4d-480.yaml
 
             # watsonx AI
-
-            sed -i 's/|WATSONXAI|/'${WatsonxAI}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|GOOGLEFLANT5XXL|/'${GoogleFlanT5Xxl}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|GOOGLEFLANUL2|/'${GoogleFlanUl2}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|ELEUTHERAIGPTNEOX20B|/'${EleutheraiGptNeox20b}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|IBMGRANITE13BCHATV1|/'${IBMGranite13bChatV1}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|IBMGRANITE13BINSTRUCTV1|/'${IBMGranite13bInstructV1}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|METALLAMALLAMA270BCHAT|/'${MetaLlamaLlamaTwo70bChat}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|IBMMPT7BINSTRUCT2|/'${IBMMpt7bInstruct2}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|BIGSCIENCEMT0XXL|/'${BigscienceMt0Xxl}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
-            sed -i 's/|BIGCODESTARCODER|/'${BigcodeStarcoder}'/g'
-            $HOME/cpd-config/config/cp4d-480.yaml
-
+            sed -i 's/|WATSONXAI|/'${WatsonxAI}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|GOOGLEFLANT5XXL|/'${GoogleFlanT5Xxl}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|GOOGLEFLANUL2|/'${GoogleFlanUl2}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|ELEUTHERAIGPTNEOX20B|/'${EleutheraiGptNeox20b}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|IBMGRANITE13BCHATV1|/'${IBMGranite13bChatV1}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|IBMGRANITE13BINSTRUCTV1|/'${IBMGranite13bInstructV1}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|METALLAMALLAMA270BCHAT|/'${MetaLlamaLlamaTwo70bChat}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|IBMMPT7BINSTRUCT2|/'${IBMMpt7bInstruct2}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|BIGSCIENCEMT0XXL|/'${BigscienceMt0Xxl}'/g' $HOME/cpd-config/config/cp4d-480.yaml
+            sed -i 's/|BIGCODESTARCODER|/'${BigcodeStarcoder}'/g' $HOME/cpd-config/config/cp4d-480.yaml
 
 
             # Openshift
 
+            echo "---" > $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".global_config.environment_name = \"${ClusterName}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i '.global_config.cloud_platform = "aws"' $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".global_config.aws_region = \"${AWS::Region}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
 
-            echo "---" >
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".nfs_server[0].name = \"{{ env_id }}-elastic\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".nfs_server[0].infrastructure.aws_region = \"{{ aws_region }}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
 
-            yq -i ".global_config.environment_name = \"${ClusterName}\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i '.global_config.cloud_platform = "aws"'
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".global_config.aws_region = \"${AWS::Region}\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-
-            yq -i ".nfs_server[0].name = \"{{ env_id }}-elastic\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".nfs_server[0].infrastructure.aws_region = \"{{ aws_region
-            }}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-
-            yq -i ".openshift[0].name = \"{{ env_id }}\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].ocp_version = \"${OpenshiftVersion}\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].domain_name = \"$NewDomainName\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].control_plane_flavour =
-            \"${MasterInstanceType}\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].control_plane_nodes = 3"
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].compute_flavour = \"${ComputeInstanceType}\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].compute_nodes = ${NumberOfCompute}"
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].infrastructure.type = \"self-managed\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].infrastructure.aws_region = \"{{ aws_region
-            }}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].infrastructure.use_sts = True"
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].infrastructure.credentials_mode = \"Manual\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].infrastructure.multi_zone = ${MultiAZ}"
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].infrastructure.private_only =
-            ${PrivateCluster}"
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
+            yq -i ".openshift[0].name = \"{{ env_id }}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].ocp_version = \"${OpenshiftVersion}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].domain_name = \"$NewDomainName\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].control_plane_flavour = \"${MasterInstanceType}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].control_plane_nodes = 3" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].compute_flavour = \"${ComputeInstanceType}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].compute_nodes = ${NumberOfCompute}" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].infrastructure.type = \"self-managed\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].infrastructure.aws_region = \"{{ aws_region }}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].infrastructure.use_sts = True" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].infrastructure.credentials_mode = \"Manual\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].infrastructure.multi_zone = ${MultiAZ}" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].infrastructure.private_only = ${PrivateCluster}" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
 
             if [ "${MultiAZ}" == "True" ]; then
               if [ "${PrivateCluster}" == "True" ]; then
@@ -1117,12 +827,10 @@ Resources:
               fi
             fi
 
-
             if [ "${StorageType}" == "aws-elastic" ]; then
               yq -i ".openshift[0].openshift_storage[0].storage_name = \"{{ env_id }}-elastic\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
               yq -i ".openshift[0].openshift_storage[0].storage_type = \"${StorageType}\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
             fi
-
 
             if [ "${StorageType}" == "ocs" ]; then
               yq -i ".openshift[0].openshift_storage[0].storage_name = \"ocs-storage\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
@@ -1131,173 +839,82 @@ Resources:
               yq -i ".openshift[0].openshift_storage[0].ocs_storage_size_gb = 512" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
             fi
 
-
             if [ "${WatsonxAI}" == "installed" ]; then
               yq -i ".openshift[0].gpu.install = True" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
             else
               yq -i ".openshift[0].gpu.install = False" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
             fi
 
-
-            if [[ ${WatsonAssistant} == "installed" ||  ${WatsonDiscovery} ==
-            "installed" ]]; then
+            if [[ ${WatsonAssistant} == "installed" ||  ${WatsonDiscovery} == "installed" ]]; then
               yq -i ".openshift[0].mcg.install = True" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
             else
               yq -i ".openshift[0].mcg.install = False" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
             fi
-
-
-            yq -i ".openshift[0].mcg.storage_type = \"storage-class\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
-            yq -i ".openshift[0].mcg.storage_class = \"gp3-csi\""
-            $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
-
+            
+            yq -i ".openshift[0].mcg.storage_type = \"storage-class\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
+            yq -i ".openshift[0].mcg.storage_class = \"gp3-csi\"" $HOME/cpd-config/config/ocp-aws-self-managed-existing-vpc.yaml
 
             cd $HOME/cloud-pak-deployer
 
-
             # build the deployer
-
             /bin/bash ./cp-deploy.sh build
 
-
             # check images
-
             podman images
-
 
             # replace parameters in cp4d
 
-
             export STATUS_DIR=$HOME/cpd-status
-
             export CONFIG_DIR=$HOME/cpd-config
-
             export CP_ENTITLEMENT_KEY=${APIKey}
 
-
             # pull secret and ssh public key
-
-            /bin/bash ./cp-deploy.sh vault set --vault-secret ocp-pullsecret
-            --vault-secret-file /tmp/ocp_pullsecret.json
-
-            /bin/bash ./cp-deploy.sh vault set --vault-secret ocp-ssh-pub-key
-            --vault-secret-file ~/.ssh/id_rsa.pub
-
+            /bin/bash ./cp-deploy.sh vault set --vault-secret ocp-pullsecret --vault-secret-file /tmp/ocp_pullsecret.json
+            /bin/bash ./cp-deploy.sh vault set --vault-secret ocp-ssh-pub-key --vault-secret-file ~/.ssh/id_rsa.pub
 
             # STS token and temp credential
+            out=$(aws sts assume-role --role-arn ${BootNodeIamRoleArn} --role-session-name OCPInstall --output json)
+            /bin/bash ./cp-deploy.sh vault set --vault-secret aws-access-key --vault-secret-value $(echo "$out" | jq -r '.Credentials.AccessKeyId')
+            /bin/bash ./cp-deploy.sh vault set --vault-secret aws-secret-access-key --vault-secret-value $(echo "$out" | jq -r '.Credentials.SecretAccessKey')
+            /bin/bash ./cp-deploy.sh vault set --vault-secret aws-session-token --vault-secret-value $(echo "$out" | jq -r '.Credentials.SessionToken')
 
-            out=$(aws sts assume-role --role-arn ${BootNodeIamRoleArn}
-            --role-session-name OCPInstall --duration-seconds 43200 --output
-            json)
-
-            /bin/bash ./cp-deploy.sh vault set --vault-secret aws-access-key
-            --vault-secret-value $(echo "$out" | jq -r
-            '.Credentials.AccessKeyId')
-
-            /bin/bash ./cp-deploy.sh vault set --vault-secret
-            aws-secret-access-key --vault-secret-value $(echo "$out" | jq -r
-            '.Credentials.SecretAccessKey')
-
-            /bin/bash ./cp-deploy.sh vault set --vault-secret aws-session-token
-            --vault-secret-value $(echo "$out" | jq -r
-            '.Credentials.SessionToken')
-
-
-            #export AWS_ACCESS_KEY_ID=$(echo "$out" | jq -r
-            '.Credentials.AccessKeyId')
-
-            #export AWS_SECRET_ACCESS_KEY=$(echo "$out" | jq -r
-            '.Credentials.SecretAccessKey')
-
-            #export AWS_SESSION_TOKEN=$(echo "$out" | jq -r
-            '.Credentials.SessionToken')
-
-
+            #export AWS_ACCESS_KEY_ID=$(echo "$out" | jq -r '.Credentials.AccessKeyId')
+            #export AWS_SECRET_ACCESS_KEY=$(echo "$out" | jq -r '.Credentials.SecretAccessKey')
+            #export AWS_SESSION_TOKEN=$(echo "$out" | jq -r '.Credentials.SessionToken')
+            
             # refresh sts-token periodically
-
-            wget
-            https://ibm-aws-immersion-day.s3.us-east-2.amazonaws.com/cloudformation/config/refresh-sts-cron.sh
-
+            wget https://ibm-aws-immersion-day.s3.us-east-2.amazonaws.com/cloudformation/config/refresh-sts-cron.sh
             mv ./refresh-sts-cron.sh /home/ec2-user/refresh-sts.sh
-
             chmod +x /home/ec2-user/refresh-sts.sh
-
 
             #sudo chown -R ec2-user:ec2-user /home/ec2-user/
 
-
             # add cronjob
-
             crontab -l >> crontablist
-
-            echo "*/33 * * * * /home/ec2-user/refresh-sts.sh
-            /home/ec2-user/cloud-pak-deployer ${BootNodeIamRoleArn}
-            /home/ec2-user/refresh-sts-cron.log >>
-            /home/ec2-user/refresh-sts-cron.log 2>&1" >> crontablist
-
+            echo "*/33 * * * * /home/ec2-user/refresh-sts.sh /home/ec2-user/cloud-pak-deployer ${BootNodeIamRoleArn} /home/ec2-user/refresh-sts-cron.log >> /home/ec2-user/refresh-sts-cron.log 2>&1" >> crontablist
             crontab crontablist -u ec2-user
-
             rm crontablist
-
 
             sudo chown -R ec2-user:ec2-user /home/ec2-user/
 
-
             # verify all configuration
-
-            #/bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName}
-            --check-only [--accept-all-licenses]
-
-            #/bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName}
-            [--accept-all-licenses] -vvv
-
-            /bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName}
-            [--accept-all-licenses]
-
+            #/bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName} --check-only [--accept-all-licenses]
+            #/bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName} [--accept-all-licenses] -vvv
+            /bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName} [--accept-all-licenses]
             ecode=$?
-
-            /usr/local/bin/cfn-signal --exit-code $ecode --id $AWS_STACKID 
-            --data "See logs at $HOME/cpd-status/log/"
-            $ICPDInstallationCompletedURL
-          - AMI_ID: !FindInMap 
-              - AWSAMIRegionMap
-              - !Ref 'AWS::Region'
-              - COREOSAmiId
-            LicenseAgreement: !If 
-              - AcceptLicense
-              - accept
-              - reject
-            MultiAZ: !If 
-              - 3AZCondition
-              - 'True'
-              - 'False'
-            AvailabilityZone1: !Select 
-              - 0
-              - !Ref AvailabilityZones
-            AvailabilityZone2: !If 
-              - 3AZCondition
-              - !Select 
-                - 1
-                - !Ref AvailabilityZones
-              - ''
-            AvailabilityZone3: !If 
-              - 3AZCondition
-              - !Select 
-                - 2
-                - !Ref AvailabilityZones
-              - ''
-            EnableOCS: !If 
-              - OCSCondition
-              - 'True'
-              - 'False'
-            EnableNfs: !If 
-              - NfsCondition
-              - 'True'
-              - 'False'
+            /usr/local/bin/cfn-signal --exit-code $ecode --id $AWS_STACKID  --data "See logs at $HOME/cpd-status/log/" $ICPDInstallationCompletedURL
+          -
+            AMI_ID: !FindInMap [AWSAMIRegionMap, !Ref "AWS::Region", COREOSAmiId]
+            LicenseAgreement: !If [ AcceptLicense, 'accept', 'reject']
+            MultiAZ: !If [ 3AZCondition , 'True', 'False']
+            AvailabilityZone1: !Select [0, !Ref AvailabilityZones]
+            AvailabilityZone2: !If [ 3AZCondition, !Select [1, !Ref AvailabilityZones], ""]
+            AvailabilityZone3: !If [ 3AZCondition, !Select [2, !Ref AvailabilityZones], ""]
+            EnableOCS: !If [ OCSCondition, 'True', 'False' ]
+            EnableNfs: !If [ NfsCondition, 'True', 'False' ]
+  
   CleanUpLambda:
-    Type: 'AWS::Lambda::Function'
+    Type: AWS::Lambda::Function
     Properties:
       Code:
         ZipFile: |
@@ -1349,63 +966,36 @@ Resources:
               cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, '')
       Environment:
         Variables:
-          Region: !Ref 'AWS::Region'
+          Region: !Ref AWS::Region
           BootNode: !Ref BootnodeInstance
           Storage: !Ref StorageType
-          StackName: !Ref 'AWS::StackName'
+          StackName: !Ref AWS::StackName
       Handler: index.handler
       Role: !Ref LambdaExecutionRoleArn
       Runtime: python3.8
       Timeout: 600
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 26589bce-11ae-41b8-b058-721dc3af246f
-  Cleanup:
-    Type: 'Custom::Cleanup'
+             
+  Cleanup :
+    Type: Custom::Cleanup
     Properties:
       DependsOn: BootnodeInstance
-      ServiceToken: !GetAtt 
-        - CleanUpLambda
-        - Arn
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 49709152-6430-4670-9108-a1bcbc29266d
+      ServiceToken: !GetAtt 'CleanUpLambda.Arn'
+ 
   ICPDInstallationCompletedHandle:
-    Type: 'AWS::CloudFormation::WaitConditionHandle'
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: ad6d348c-22a4-45eb-91ef-9919a80f25a9
+    Type: AWS::CloudFormation::WaitConditionHandle  
+
   ICPDInstallationCompleted:
-    Type: 'AWS::CloudFormation::WaitCondition'
+    Type: AWS::CloudFormation::WaitCondition
     Properties:
       Count: 1
-      Timeout: '40000'
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 4b94c62a-18cc-4b89-b6b0-d1ad33ab595d
-Rules:
-  LicenseAgreementRule:
-    Assertions:
-      - Assert:
-          'Fn::Contains':
-            - - I agree
-            - !Ref LicenseAgreement
-        AssertDescription: User must agree to the terms of the license agreement.
-  SubnetsInVPC:
-    Assertions:
-    - Assert:
-        Fn::EachMemberIn:
-        - Fn::ValueOfAll:
-          - AWS::EC2::Subnet::Id
-          - VpcId
-        - Fn::RefAll: AWS::EC2::VPC::Id
-      AssertDescription: All subnets must in the VPC
+      Handle: !Ref ICPDInstallationCompletedHandle
+      Timeout: '40000'  
+
 Outputs:
   BootnodeInstanceId:
     Description: Bootnode Instance ID.
     Value: !Ref BootnodeInstance
+
   BootnodePublicIp:
     Description: The boot node public IP address.
-    Value: !GetAtt 
-      - BootnodeInstance
-      - PublicIp
+    Value: !GetAtt BootnodeInstance.PublicIp
