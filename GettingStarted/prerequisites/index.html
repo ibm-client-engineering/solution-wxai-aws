@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GB0XWXF3GE"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-GB0XWXF3GE",{anonymize_ip:!0})</script><link rel="stylesheet" href="/solution-wxai-aws/assets/css/styles.666c8f47.css">
-<script src="/solution-wxai-aws/assets/js/runtime~main.7924df6e.js" defer="defer"></script>
+<script src="/solution-wxai-aws/assets/js/runtime~main.3e537df2.js" defer="defer"></script>
 <script src="/solution-wxai-aws/assets/js/main.f3405c4a.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard" data-theme="light">
@@ -124,6 +124,85 @@
 <li>Compute machines. You must create at least two compute machines, which are also known as worker machines, during installation. These machines are not governed by a compute machine set.</li>
 </ul>
 <div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>For more information on OCP on AWS, see <a href="https://docs.openshift.com/container-platform/4.15/installing/installing_aws/installing-aws-user-infra.html" target="_blank" rel="noopener noreferrer">https://docs.openshift.com/container-platform/4.15/installing/installing_aws/installing-aws-user-infra.html</a>
-The &quot;Minimum requirements&quot; section does not consider the watsonx.ai and related services, and is accounted for in this documentation</p></div></div></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/solution-wxai-aws/GettingStarted/architecture"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Architecture</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/solution-wxai-aws/GettingStarted/installation"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Installation</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#ocp-deployment-requirements" class="table-of-contents__link toc-highlight">OCP Deployment Requirements</a><ul><li><a href="#required-iam-user" class="table-of-contents__link toc-highlight">Required IAM User</a><ul><li><a href="#required-permissions-if-not-using-administrator-access" class="table-of-contents__link toc-highlight">Required Permissions (if not using Administrator Access)</a></li><li><a href="#aws-role-permissions-checker" class="table-of-contents__link toc-highlight">AWS Role Permissions Checker</a></li></ul></li><li><a href="#required-aws-infrastructure-components" class="table-of-contents__link toc-highlight">Required AWS Infrastructure Components</a><ul><li><a href="#required-vpc-components" class="table-of-contents__link toc-highlight">Required VPC Components</a></li><li><a href="#required-dns-and-load-balancing-components" class="table-of-contents__link toc-highlight">Required DNS and load balancing components</a></li><li><a href="#required-security-groups" class="table-of-contents__link toc-highlight">Required Security groups</a></li><li><a href="#control-plane-ingress" class="table-of-contents__link toc-highlight">Control plane Ingress</a></li><li><a href="#worker-ingress" class="table-of-contents__link toc-highlight">Worker Ingress</a></li></ul></li><li><a href="#cluster-machines" class="table-of-contents__link toc-highlight">Cluster machines</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Explore</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.ibm.com/" target="_blank" rel="noopener noreferrer" class="footer__link-item">IBM</a></li><li class="footer__item"><a href="https://www.ibm.com/client-engineering" target="_blank" rel="noopener noreferrer" class="footer__link-item">IBM Client Engineering - Open Solutions Library</a></li></ul></div></div><div class="footer__bottom text--center"><div class="margin-bottom--sm"><a href="https://ibm.com" rel="noopener noreferrer" class="footerLogoLink_BH7S"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="footer__logo themedComponent_mlkZ themedComponent--light_NVdE" width="150" height="150"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="footer__logo themedComponent_mlkZ themedComponent--dark_xIcU" width="150" height="150"></a></div></div></div></footer></div>
+The &quot;Minimum requirements&quot; section does not consider the watsonx.ai and related services, and is accounted for in this documentation</p></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="installing-on-existing-networks">Installing on Existing Networks<a href="#installing-on-existing-networks" class="hash-link" aria-label="Direct link to Installing on Existing Networks" title="Direct link to Installing on Existing Networks">​</a></h3>
+<p>To use an existing network and VPC, you must collect the following parameters from your AWS environment for the CloudFormation script.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="parameters">Parameters<a href="#parameters" class="hash-link" aria-label="Direct link to Parameters" title="Direct link to Parameters">​</a></h4>
+<ul>
+<li>BootNodeAccessCIDR:</li>
+<li>vpc_id:</li>
+<li>aws_region:<!-- -->
+<ul>
+<li>Example: <code>us-east-2</code></li>
+</ul>
+</li>
+<li>machine_cidr:<!-- -->
+<ul>
+<li>Example: <code>10.2.1.0/24</code></li>
+</ul>
+</li>
+<li>openshift_cluster_network_cidr:<!-- -->
+<ul>
+<li>Example: <code>10.128.0.0/14</code></li>
+</ul>
+</li>
+<li>subnet_ids:<!-- -->
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>For subnets, at least one set of 3 (Public or Private) subnets must be used.</p></div></div>
+<ul>
+<li>Public<!-- -->
+<ul>
+<li>Public subnet1</li>
+<li>Public subnet2</li>
+<li>Public subnet3</li>
+</ul>
+</li>
+<li>Private<!-- -->
+<ul>
+<li>Private subnet1</li>
+<li>Private subnet2</li>
+<li>Private subnet3</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>hosted_zone_id:<!-- -->
+<ul>
+<li>Example: <code>Hosted_Zone_Id</code></li>
+</ul>
+</li>
+<li>image_registry:</li>
+<li>name: Registy</li>
+<li>registry_host_name:<!-- -->
+<ul>
+<li>Example: <code>registry.example.com</code></li>
+</ul>
+</li>
+<li>registry_port:<!-- -->
+<ul>
+<li>Example: <code>5000</code></li>
+</ul>
+</li>
+<li>registry_insecure:<!-- -->
+<ul>
+<li>Example: <code>false</code></li>
+</ul>
+</li>
+<li>registry_trusted_ca_secret:<!-- -->
+<ul>
+<li>Example: <code>cpd463-ca-bundle</code></li>
+</ul>
+</li>
+<li>http_proxy:</li>
+<li>https_proxy:</li>
+<li>no_proxy:</li>
+<li>KeyPairName:<!-- -->
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Key Pair generation instructions <a href="https://ibm-client-engineering.github.io/solution-wxai-aws/GettingStarted/installation#create-aws-keypair" target="_blank" rel="noopener noreferrer">here</a></p></div></div>
+</li>
+<li>RedhatPullSecret:<!-- -->
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>RedHat Pull Secret instructions <a href="https://ibm-client-engineering.github.io/solution-wxai-aws/GettingStarted/installation/#redhat-pull-secret" target="_blank" rel="noopener noreferrer">here</a></p></div></div>
+</li>
+<li>DomainName:</li>
+<li>ClusterName:</li>
+</ul></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/solution-wxai-aws/GettingStarted/architecture"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Architecture</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/solution-wxai-aws/GettingStarted/installation"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Installation</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#ocp-deployment-requirements" class="table-of-contents__link toc-highlight">OCP Deployment Requirements</a><ul><li><a href="#required-iam-user" class="table-of-contents__link toc-highlight">Required IAM User</a><ul><li><a href="#required-permissions-if-not-using-administrator-access" class="table-of-contents__link toc-highlight">Required Permissions (if not using Administrator Access)</a></li><li><a href="#aws-role-permissions-checker" class="table-of-contents__link toc-highlight">AWS Role Permissions Checker</a></li></ul></li><li><a href="#required-aws-infrastructure-components" class="table-of-contents__link toc-highlight">Required AWS Infrastructure Components</a><ul><li><a href="#required-vpc-components" class="table-of-contents__link toc-highlight">Required VPC Components</a></li><li><a href="#required-dns-and-load-balancing-components" class="table-of-contents__link toc-highlight">Required DNS and load balancing components</a></li><li><a href="#required-security-groups" class="table-of-contents__link toc-highlight">Required Security groups</a></li><li><a href="#control-plane-ingress" class="table-of-contents__link toc-highlight">Control plane Ingress</a></li><li><a href="#worker-ingress" class="table-of-contents__link toc-highlight">Worker Ingress</a></li></ul></li><li><a href="#cluster-machines" class="table-of-contents__link toc-highlight">Cluster machines</a></li><li><a href="#installing-on-existing-networks" class="table-of-contents__link toc-highlight">Installing on Existing Networks</a><ul><li><a href="#parameters" class="table-of-contents__link toc-highlight">Parameters</a></li></ul></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Explore</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.ibm.com/" target="_blank" rel="noopener noreferrer" class="footer__link-item">IBM</a></li><li class="footer__item"><a href="https://www.ibm.com/client-engineering" target="_blank" rel="noopener noreferrer" class="footer__link-item">IBM Client Engineering - Open Solutions Library</a></li></ul></div></div><div class="footer__bottom text--center"><div class="margin-bottom--sm"><a href="https://ibm.com" rel="noopener noreferrer" class="footerLogoLink_BH7S"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="footer__logo themedComponent_mlkZ themedComponent--light_NVdE" width="150" height="150"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="footer__logo themedComponent_mlkZ themedComponent--dark_xIcU" width="150" height="150"></a></div></div></div></footer></div>
 </body>
 </html>
