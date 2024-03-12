@@ -2,11 +2,61 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog</id>
     <title>IBM Client Engineering Blog</title>
-    <updated>2024-03-08T00:00:00.000Z</updated>
+    <updated>2024-03-11T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog"/>
     <subtitle>IBM Client Engineering Blog</subtitle>
     <icon>https://ibm-client-engineering.github.io/solution-wxai-aws/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Log - Sprint 4 🛫]]></title>
+        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-4</id>
+        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-4"/>
+        <updated>2024-03-11T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objectives">Objectives<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-4#objectives" class="hash-link" aria-label="Direct link to Objectives" title="Direct link to Objectives">​</a></h2>
+<ul>
+<li>Deploy watsonx.ai on self-managed AWS infrastructure.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="accomplishments">Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-4#accomplishments" class="hash-link" aria-label="Direct link to Accomplishments" title="Direct link to Accomplishments">​</a></h2>
+<p><strong>AWS</strong></p>
+<ul>
+<li>Discovery of AWS DevOps role to be used and augmented with permissions.</li>
+<li>Adjusted check-permissions.sh script to account for profile to be passed.</li>
+<li>Creation of Cloudformation templates for roles with permissions needed for install.<!-- -->
+<ul>
+<li>Added --profile and $PROFILE_NAME</li>
+</ul>
+</li>
+<li>Adjusted Cloudformation templates to account for roles instead of a user.</li>
+</ul>
+<p><strong>RAG</strong></p>
+<ul>
+<li>App deployed on Fyre VM</li>
+<li>Support for granitev2/llama2 70 b chat models added.</li>
+<li>Watsonx Assistant Configured to interact with app via API for easier testing.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="in-progress">In Progress<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-4#in-progress" class="hash-link" aria-label="Direct link to In Progress" title="Direct link to In Progress">​</a></h2>
+<ul>
+<li>End-to-end deployment of OCP, CP4D, and watsonx.ai (with GPU node)</li>
+<li>Tagging cp-deployer.sh generated resources.</li>
+<li>Test out RAG new chunking method.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-4#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<ul>
+<li>Continue over the shoulder working sessions</li>
+<li>Compilation of required endpoints</li>
+<li>Fill out required network values required for OCP deployment.</li>
+<li>Add Mixtral model to RAG.</li>
+<li>Deploy latest RAG version on AWS</li>
+<li>Build out actions &amp; flow in Watsonx Assistant after properly defining personas &amp; objectives.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-4#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
+<ul>
+<li>Require sign-off on final CloudFormation template.</li>
+</ul>]]></content>
+        <category label="log" term="log"/>
+        <category label="sprint" term="sprint"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Log - Sprint 2 🛫]]></title>
         <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2</id>
