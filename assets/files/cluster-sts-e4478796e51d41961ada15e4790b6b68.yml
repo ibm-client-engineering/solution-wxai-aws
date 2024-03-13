@@ -97,11 +97,11 @@ Parameters:
   PrivateSubnet1ID:
     Description: The ID of the private subnet in Availability Zone 1 for the workload (e.g., subnet-a0246dcd).
     Type: String
-    Default: ""
+    Default: "-"
   PrivateSubnet2ID:
     Description: The ID of the private subnet in Availability Zone 2 for the workload (e.g., subnet-b1f432cd).
     Type: String
-    Default: ""
+    Default: "-"
   PrivateSubnet3ID:
     Description: The ID of the private subnet in Availability Zone 3 for the workload (e.g., subnet-b1f4a2cd).
     Type: String
@@ -259,6 +259,10 @@ Parameters:
     AllowedPattern: ^arn:aws:iam::\d{12}:role/[a-zA-Z0-9][\w-]*$
   BootNodeIamRoleArn:
     Description: BootNode execution role arn. It is going to attached to BootNode EC2. The EC2 instance is resposible to trigger Openshift operation
+    Type: String
+    AllowedPattern: ^arn:aws:iam::\d{12}:role/[a-zA-Z0-9][\w-]*$
+  InstallerIamRoleArn:
+    Description: Install execution role arn. It is going to attached to BootNode EC2. The EC2 instance is resposible to trigger Openshift operation
     Type: String
     AllowedPattern: ^arn:aws:iam::\d{12}:role/[a-zA-Z0-9][\w-]*$
   CA:
@@ -583,7 +587,7 @@ Resources:
       Type: String
       Value: !Sub "https://console-openshift-console.apps.${ClusterName}.${DomainName}"
 
-  BootnodeInstanceProfile:
+  BootnodeInstancePro le:
     Type: "AWS::IAM::InstanceProfile"
     Properties:
       Path: "/"
@@ -873,7 +877,7 @@ Resources:
             /bin/bash ./cp-deploy.sh vault set --vault-secret ocp-ssh-pub-key --vault-secret-file ~/.ssh/id_rsa.pub
 
             # STS token and temp credential
-            out=$(aws sts assume-role --role-arn ${BootNodeIamRoleArn} --role-session-name OCPInstall --output json)
+            out=$(aws sts assume-role --role-arn ${InstallerIamRoleArn} --role-session-name OCPInstall --output json)
             /bin/bash ./cp-deploy.sh vault set --vault-secret aws-access-key --vault-secret-value $(echo "$out" | jq -r '.Credentials.AccessKeyId')
             /bin/bash ./cp-deploy.sh vault set --vault-secret aws-secret-access-key --vault-secret-value $(echo "$out" | jq -r '.Credentials.SecretAccessKey')
             /bin/bash ./cp-deploy.sh vault set --vault-secret aws-session-token --vault-secret-value $(echo "$out" | jq -r '.Credentials.SessionToken')
