@@ -100,6 +100,10 @@
         "ParameterValue": "OCPInstall"
     },
     {
+        "ParameterKey": "InstallerIamRoleArn:",
+        "ParameterValue": ""
+    },
+    {
         "ParameterKey": "WatsonAssistant",
         "ParameterValue": "removed"
     },
@@ -139,4 +143,5 @@
         "ParameterKey": "MetaLlamaLlamaTwo70bChat",
         "ParameterValue": "removed"
     }
+
 ]

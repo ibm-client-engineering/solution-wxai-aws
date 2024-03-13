@@ -140,9 +140,90 @@ Become ```ec2-user```
 su ec2-user
 ```
 
-
 You will now be able to review deployment logs.
 
+<details>
+<summary><b> #### Fixing aws command in SSM </b></summary>
+SSM does not work exactly the same as SSH. If you intend to use any additional commands, such as ```aws```, then you need to do the following:
+
+Check the output of running the  ```aws``` command,
+If there is an error message like this:
+
+```
+[47863] Error loading Python lib '/usr/bin/libpython3.11.so.1.0': dlopen: /usr/bin/libpython3.11.so.1.0: cannot open shared object file: No such file or directory
+```
+Another possible error message:
+
+```
+$ aws
+Python path configuration:
+  PYTHONHOME = '/usr/bin'
+  PYTHONPATH = (not set)
+  program name = '/usr/bin/aws'
+  isolated = 0
+  environment = 0
+  user site = 0
+  safe_path = 0
+  import site = 0
+  is in build tree = 0
+  stdlib dir = ''
+  sys._base_executable = '/usr/bin/aws'
+  sys.base_prefix = ''
+  sys.base_exec_prefix = ''
+  sys.platlibdir = 'lib'
+  sys.executable = '/usr/bin/aws'
+  sys.prefix = ''
+  sys.exec_prefix = ''
+  sys.path = [
+    '/usr/bin/base_library.zip',
+    '/usr/bin/lib-dynload',
+    '/usr/bin',
+  ]
+Fatal Python error: init_fs_encoding: failed to get the Python codec of the filesystem encoding
+Python runtime state: core initialized
+ModuleNotFoundError: No module named 'encodings'
+
+Current thread 0x00007fed39a06c00 (most recent call first):
+  <no Python frame>
+```
+You may not have the correct $PATH. 
+
+Incorrect $PATH:
+```
+$ echo $PATH
+/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/bin:/usr/sbin
+```
+
+How to Correct $PATH:
+
+```
+export PATH="/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"
+```
+
+How to persist the change to $PATH:
+
+```
+echo 'export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"' >> .bashrc
+```
+
+Confirm this change works:
+
+```
+$ echo $PATH
+/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+$ aws
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+
+aws: error: the following arguments are required: command
+```
+
+</details>
 
 #### Monitor the deployment
 
@@ -153,3 +234,4 @@ tail -f ~/cpd-status/log/cloud-pak-deployer
 ```
 
 This command will show the log file from the cp-deployer process. 
+
