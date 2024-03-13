@@ -665,38 +665,6 @@ For more information on OCP on AWS, see https://docs.openshift.com/container-pla
 The "Minimum requirements" section does not consider the watsonx.ai and related services, and is accounted for in this documentation
 :::
 
-### Obtaining RedHat Pull Secret
-
-<details>
-<summary><b> Obtaining RedHat Pull Secret with a RedHat Trial Account  </b></summary>
-
-Go to www.redhat.com and click on "Log In". 
-
-![redhat_login](../../assets/images/redhat_login.png)
-
-Then click on "Register for a Red Hat Account".
-
-![redhat_register](../../assets/images/redhat_register.png)
-
-Provide the requested information and "Create Account".
-
-You will receive a verification email. Click on the link in the email to confirm. 
-
-Now go to www.openshift.com and log in with your RedHat account. After logging in you will see this:
-
-
-
-![openshift_try_it](../../assets/images/openshift_try_it.png)
-
-Click on "Try It" which will bring you to a page of different OpenShift versions to try, find the following version and click "Start your Trial":
-
-![openshift_start_trial](../../assets/images/openshift_start_trial.png)
-
-A new page will load and you will need to enter all the required information before clicking "Submit".
-
-You can now log into https://console.redhat.com/openshift/install/pull-secret and download the pull-secret.
-</details>
-
 ### Installing on Existing Networks
 
 To use an existing network and VPC, you must collect the following parameters from your AWS environment for the CloudFormation script.
@@ -748,3 +716,35 @@ To use an existing network and VPC, you must collect the following parameters fr
     :::
 - DomainName:
 - ClusterName:
+
+### Obtaining RedHat Pull Secret
+
+<details>
+<summary><b> Obtaining RedHat Pull Secret with a RedHat Trial Account  </b></summary>
+
+Go to www.redhat.com and click on "Log In". 
+
+![redhat_login](../../assets/images/redhat_login.png)
+
+Then click on "Register for a Red Hat Account".
+
+![redhat_register](../../assets/images/redhat_register.png)
+
+Provide the requested information and "Create Account".
+
+You will receive a verification email. Click on the link in the email to confirm. 
+
+Now go to www.openshift.com and log in with your RedHat account. After logging in you will see this:
+
+
+
+![openshift_try_it](../../assets/images/openshift_try_it.png)
+
+Click on "Try It" which will bring you to a page of different OpenShift versions to try, find the following version and click "Start your Trial":
+
+![openshift_start_trial](../../assets/images/openshift_start_trial.png)
+
+A new page will load and you will need to enter all the required information before clicking "Submit".
+
+You can now log into https://console.redhat.com/openshift/install/pull-secret and download the pull-secret.
+</details>
