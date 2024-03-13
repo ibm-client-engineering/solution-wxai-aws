@@ -97,11 +97,11 @@ Parameters:
   PrivateSubnet1ID:
     Description: The ID of the private subnet in Availability Zone 1 for the workload (e.g., subnet-a0246dcd).
     Type: String
-    Default: ""
+    Default: "-"
   PrivateSubnet2ID:
     Description: The ID of the private subnet in Availability Zone 2 for the workload (e.g., subnet-b1f432cd).
     Type: String
-    Default: ""
+    Default: "-"
   PrivateSubnet3ID:
     Description: The ID of the private subnet in Availability Zone 3 for the workload (e.g., subnet-b1f4a2cd).
     Type: String
@@ -583,7 +583,7 @@ Resources:
       Type: String
       Value: !Sub "https://console-openshift-console.apps.${ClusterName}.${DomainName}"
 
-  BootnodeInstanceProfile:
+  BootnodeInstancePro le:
     Type: "AWS::IAM::InstanceProfile"
     Properties:
       Path: "/"
