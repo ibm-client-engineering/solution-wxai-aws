@@ -116,17 +116,40 @@ Using the ssh key from the Key Pair name used in parameters-override.yaml, ssh t
 
 ### Monitor
 
-#### SSH into bootnode
+#### SSM into bootnode
+
+Add ```AmazonSSMManagedInstanceCore``` policy to role used to execute the cloudform template and the user/role that will be connecting to the instance.
+
+The cloudform template creates a boot node that will begin executing commands. One set of commands installs, enables, and starts ```amazon-ssm-agent```. It may take up to 20 minutes before this agent comes online in the boot node.
+
+Once the instance has started the ssm agent a connection can be initiated with following command:
+
 ```
-ssh -i "$KEYPAIR_NAME.pem" ec2-user@$BOOTNDODE_IP 
+aws ssm start-session --target $InstanceID
 ```
+Once a connection has been opened, you may need to change users to the 'ec2-user'. This can be accomplished with the following commands:
+
+Become ```root```
+
+```
+sudo su
+```
+Become ```ec2-user```
+
+```
+su ec2-user
+```
+
+
+You will now be able to review deployment logs.
+
 
 #### Monitor the deployment
 
 Check what folders exist in the ec2-home directory. if "cpd-status" has not been created yet, then wait a few minutes. Once "cpd-status" directory appears, run the following command:
 
 ```
-tail -f ~/cpd-status/state/deployer-state.out
+tail -f ~/cpd-status/log/cloud-pak-deployer
 ```
 
 This command will show the log file from the cp-deployer process. 
