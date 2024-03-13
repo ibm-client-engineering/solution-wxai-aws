@@ -9,27 +9,27 @@
     },
     {
         "ParameterKey": "PrivateSubnet1ID",
-        "ParameterValue": "subnet-05c7d2d610d4db25f"
+        "ParameterValue": ""
     },
     {
         "ParameterKey": "PrivateSubnet2ID",
-        "ParameterValue": "subnet-015bca0698e9b4c41"
+        "ParameterValue": "-"
     },
     {
         "ParameterKey": "PrivateSubnet3ID",
-        "ParameterValue": "subnet-03ed7835a97324708"
+        "ParameterValue": "-"
     },
     {
         "ParameterKey": "PublicSubnet1ID",
-        "ParameterValue": "subnet-068bc9661bea107d1"
+        "ParameterValue": "-"
     },
     {
         "ParameterKey": "PublicSubnet2ID",
-        "ParameterValue": "subnet-05a6043f88f7c2461"
+        "ParameterValue": "-"
     },
     {
         "ParameterKey": "PublicSubnet3ID",
-        "ParameterValue": "subnet-0a3646c21243f87f9"
+        "ParameterValue": "-"
     },
     {
         "ParameterKey": "BootNodeAccessCIDR",
@@ -37,7 +37,7 @@
     },
     {
         "ParameterKey": "RedhatPullSecret",
-        "ParameterValue": "s3://cp4d-ocp-cloudformation-dev/pull-secrets/pull_secret.json"
+        "ParameterValue": "s3://cp4d-ocp-cloudformation-dev/pull-secrets/pull-secrets.json"
     },
     {
         "ParameterKey": "VPCID",
@@ -100,6 +100,10 @@
         "ParameterValue": "OCPInstall"
     },
     {
+        "ParameterKey": "InstallerIamRoleArn:",
+        "ParameterValue": ""
+    },
+    {
         "ParameterKey": "WatsonAssistant",
         "ParameterValue": "removed"
     },
@@ -139,4 +143,5 @@
         "ParameterKey": "MetaLlamaLlamaTwo70bChat",
         "ParameterValue": "removed"
     }
+
 ]

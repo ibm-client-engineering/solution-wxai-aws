@@ -25,3 +25,5 @@ yarn.lock
 .gitignore
 .gitignore
 yarn.lock
+assets/scripts/missing_permissions.txt
+.gitignore
