@@ -5,13 +5,69 @@ title: Installation
 custom_edit_url: null
 ---
 
-### Installation Steps
+## Installation Steps
+
+### Preparing
+
+#### Obtain the AWS IAM credentials
+
+If you can use your permanent security credentials for the AWS account, you will need an **Access Key ID** and **Secret Access Key** for the deployer to setup an OpenShift cluster on AWS. 
+
+- Go to https://aws.amazon.com/
+- Login to the AWS console
+- Click on your user name at the top right of the screen
+- Select **Security credentials**. You can also reach this screen via https://console.aws.amazon.com/iam/home?region=us-east-2#/security_credentials.
+- If you do not yet have an access key (or you no longer have the associated secret), create an access key
+- Store your **Access Key ID** and **Secret Access Key** in safe place
+
+#### Configure AWS config
+
+Run the following command and then enter your Access Key ID, Secret Access Key, Region, and Output.
+
+```
+aws configure
+````
+
+#### Redhat pull secret
+
+The Red Hat pull secret must be downloaded from https://console.redhat.com/openshift/downloads#tool-pull-secret. 
+Rename the file from ```pull-secret.txt``` to ```pull_secret.json```
+
+#### Create s3 bucket
+
+```
+BUCKET="Bucket_NAME"
+aws s3api create-bucket --bucket $BUCKET --region us-east-1
+```
+
+#### Create pull-secrets folder in s3 bucket
+
+```
+aws s3api put-object --bucket $BUCKET --key "pull-secets" --region us-east-1
+```
+
+#### Upload pull-secrets.json to s3bucket/pull-secrets
+
+```
+aws s3 cp pull-secrets.json s3://$BUCKET/pull-secrets/pull-secrets.json
+```
+
+#### Create AWS KeyPair
+
+The following commands create the KeyPair, outputs the file to the default ssh folder. The second command modifies the permissions of the file.
+
+```
+aws ec2 create-key-pair  --key-name $KEYPAIR_NAME --key-type rsa --key-format pem --query "KeyMaterial" --output text > ~/.ssh/$KEYPAIR_NAME.pem
+chmod 400 ~/.ssh/$KEYPAIR_NAME.pem
+```
+
+### Prepare
 
 #### Preparing the installion files
 
 The default "AvailabilityZones" in ***clusters.yaml*** are **"us-east-2a,us-east-2b,us-east-2c"** but can be changed.\
-To change which Availability Zones are used, search ***clusters.yaml*** for **"us-east-2a,us-east-2b,us-east-2c"** and replace with the preferred Availability Zones.\
-Search ***clusters.yaml*** for "REPLACE_ME_WITH_SUBNET_ID" and replace with a specific subnetID.
+To change which Availability Zones are used, search ***clusters.yaml*** for ```us-east-2a,us-east-2b,us-east-2c``` and replace with the preferred Availability Zones.\
+Search ***clusters.yaml*** for ```REPLACE_ME_WITH_SUBNET_ID``` and replace with a specific subnetID.
 
 #### Preparing Parameters Override file
 
@@ -27,13 +83,22 @@ Review ***"parameters-override.yaml"***, the following changes will need to be m
 - Add Cluster Name
 - Add CPD External Registry
 
+### Deployment
 
 #### Create OCPInstall Role
-[Download the OCPInstall_Role.yaml](https://github.com/ibm-client-engineering/solution-wxai-aws/assets/Cloudformation/OCPInstall_Role.yaml)
+[Download the OCPInstall_Role.yaml](../../assets/Cloudformation/OCPInstall_Role.yaml)
 Create the role by running the following command:
 
 ```
 aws cloudformation deploy --stack-name OCPInstall-role-1 -template-file OCPInstall_Role.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
+```
+
+#### Create LambdaExecution Role
+[Download the LambdaExecutionRole.yaml](../../assets/Cloudformation/LambdaExecutionRole.yml)
+Create the role by running the following command:
+
+```
+aws cloudformation deploy --stack-name LambdaExecutionRole -template-file LambdaExecutionRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
 ```
 
 
@@ -47,10 +112,126 @@ aws cloudformation deploy --stack-name stack-deployment-1 --template-file cluste
 Check the AWS Console to see when the cloudformation template has progressed far enough that the bootnode is online.
 
 Using the ssh key from the Key Pair name used in parameters-override.yaml, ssh to the bootnode.
+
+
+### Monitor
+
+#### SSM into bootnode
+
+Add ```AmazonSSMManagedInstanceCore``` policy to role used to execute the cloudform template and the user/role that will be connecting to the instance.
+
+The cloudform template creates a boot node that will begin executing commands. One set of commands installs, enables, and starts ```amazon-ssm-agent```. It may take up to 20 minutes before this agent comes online in the boot node.
+
+Once the instance has started the ssm agent a connection can be initiated with following command:
+
+```
+aws ssm start-session --target $InstanceID
+```
+Once a connection has been opened, you may need to change users to the 'ec2-user'. This can be accomplished with the following commands:
+
+Become ```root```
+
+```
+sudo su
+```
+Become ```ec2-user```
+
+```
+su ec2-user
+```
+
+You will now be able to review deployment logs.
+
+<details>
+<summary><b> #### Fixing aws command in SSM </b></summary>
+SSM does not work exactly the same as SSH. If you intend to use any additional commands, such as ```aws```, then you need to do the following:
+
+Check the output of running the  ```aws``` command,
+If there is an error message like this:
+
+```
+[47863] Error loading Python lib '/usr/bin/libpython3.11.so.1.0': dlopen: /usr/bin/libpython3.11.so.1.0: cannot open shared object file: No such file or directory
+```
+Another possible error message:
+
+```
+$ aws
+Python path configuration:
+  PYTHONHOME = '/usr/bin'
+  PYTHONPATH = (not set)
+  program name = '/usr/bin/aws'
+  isolated = 0
+  environment = 0
+  user site = 0
+  safe_path = 0
+  import site = 0
+  is in build tree = 0
+  stdlib dir = ''
+  sys._base_executable = '/usr/bin/aws'
+  sys.base_prefix = ''
+  sys.base_exec_prefix = ''
+  sys.platlibdir = 'lib'
+  sys.executable = '/usr/bin/aws'
+  sys.prefix = ''
+  sys.exec_prefix = ''
+  sys.path = [
+    '/usr/bin/base_library.zip',
+    '/usr/bin/lib-dynload',
+    '/usr/bin',
+  ]
+Fatal Python error: init_fs_encoding: failed to get the Python codec of the filesystem encoding
+Python runtime state: core initialized
+ModuleNotFoundError: No module named 'encodings'
+
+Current thread 0x00007fed39a06c00 (most recent call first):
+  <no Python frame>
+```
+You may not have the correct $PATH. 
+
+Incorrect $PATH:
+```
+$ echo $PATH
+/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/bin:/usr/sbin
+```
+
+How to Correct $PATH:
+
+```
+export PATH="/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"
+```
+
+How to persist the change to $PATH:
+
+```
+echo 'export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"' >> .bashrc
+```
+
+Confirm this change works:
+
+```
+$ echo $PATH
+/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+$ aws
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+
+aws: error: the following arguments are required: command
+```
+
+</details>
+
+#### Monitor the deployment
+
 Check what folders exist in the ec2-home directory. if "cpd-status" has not been created yet, then wait a few minutes. Once "cpd-status" directory appears, run the following command:
 
 ```
-tail -f ~/cpd-status/state/deployer-state.out
+tail -f ~/cpd-status/log/cloud-pak-deployer
 ```
 
 This command will show the log file from the cp-deployer process. 
+

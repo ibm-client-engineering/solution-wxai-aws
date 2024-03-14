@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # Check for required arguments
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <role-name> <permissions-file>"
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <profile name> <role-name> <permissions-file>"
     exit 1
 fi
 
-ROLE_NAME=$1
-PERMISSIONS_FILE=$2
+PROFILE_NAME=$1
+ROLE_NAME=$2
+PERMISSIONS_FILE=$3
 
 # Output file where results will be stored
 OUTPUT_FILE="missing_permissions.txt"
@@ -19,7 +20,7 @@ if [ ! -f "$PERMISSIONS_FILE" ]; then
 fi
 
 # Retrieve the account ID
-ACCOUNT_ID=$(aws sts get-caller-identity --output text --query 'Account')
+ACCOUNT_ID=$(aws sts --profile $PROFILE_NAME get-caller-identity --output text --query 'Account')
 if [ -z "$ACCOUNT_ID" ]; then
     echo "Failed to retrieve AWS account ID. Ensure your AWS CLI is configured correctly."
     exit 1
@@ -36,7 +37,7 @@ do
         continue
     fi
 
-    OUTPUT=$(aws iam simulate-principal-policy --policy-source-arn "$ROLE_ARN" --action-names "$PERMISSION" --output text)
+    OUTPUT=$(aws iam simulate-principal-policy --profile $PROFILE_NAME --policy-source-arn "$ROLE_ARN" --action-names "$PERMISSION" --output text)
 
     # Check if the output does not contain an explicit "Allow" for the permission
     if ! echo "$OUTPUT" | grep -q 'allowed'; then

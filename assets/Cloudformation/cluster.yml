@@ -585,7 +585,7 @@ Resources:
     Type: 'AWS::IAM::User'
     Properties:
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AdministratorAccess
+        - arn:aws:iam::aws:policy/OCPInstall
   CPDIAMUserAccessKey:
     Type: 'AWS::IAM::AccessKey'
     Properties:
