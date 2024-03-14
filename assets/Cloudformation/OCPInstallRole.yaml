@@ -203,6 +203,6 @@ Resources:
             Effect: Allow
             Resource: '*'
           Version: '2012-10-17'
-        PolicyName: CustomPolicy
-      RoleName: CustomRole
+        PolicyName: OCPInstall-policy
+      RoleName: OCPInstall-role
     Type: AWS::IAM::Role
