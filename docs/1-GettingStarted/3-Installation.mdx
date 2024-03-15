@@ -108,7 +108,7 @@ aws cloudformation deploy --stack-name OCPInstall-role-1 --template-file OCPInst
 Create the role by running the following command:
 
 ```
-aws cloudformation deploy --stack-name LambdaExecutionRole- -template-file LambdaExecutionRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
+aws cloudformation deploy --stack-name LambdaExecutionRole --template-file LambdaExecutionRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
 ```
 #### Create OCPCloudform Role
 [Download the OCPCloudFormRole.yaml](../../assets/Cloudformation/OCPCloudFormRole.yaml) \
@@ -122,7 +122,7 @@ aws cloudformation deploy --stack-name OCPCloudFormRole --template-file OCPCloud
 Using the OCPInstall role arn, run the following command to start the main cloudformation deployment:
 
 ```
-aws cloudformation deploy --stack-name stack-deployment-1 --template-file cluster-sts.yaml --parameter-overrides file://STS-parameters-override.json --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here* --role-arn arn:aws:iam::<ACCOUNT>:role/OCPInstall
+aws cloudformation deploy --stack-name stack-deployment-1 --template-file cluster-sts.yaml --parameter-overrides file://STS-parameters-override.json --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here* --role-arn arn:aws:iam::<ACCOUNT>:/OCPInstall --disable-rollback
 ```
 
 Check the AWS Console to see when the cloudformation template has progressed far enough that the bootnode is online.
