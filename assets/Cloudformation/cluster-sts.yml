@@ -502,10 +502,10 @@ Mappings:
   AWSAMIRegionMap:
     us-east-1:
       BootNodeAmiId: ami-0c26d25ec2932e467
-      COREOSAmiId: ami-0b35795bcab04ee70
+      COREOSAmiId: ami-02c49727beec1d0ed
     us-east-2:
       BootNodeAmiId: ami-09a2344bd22fcf787
-      COREOSAmiId: ami-0c17b13bb8b268411
+      COREOSAmiId: ami-00a8ad62bbaede57f
     us-west-1:
       BootNodeAmiId: ami-0186e3fec9b0283ee
       COREOSAmiId: ami-004de02e4e2bba5f2
@@ -587,7 +587,7 @@ Resources:
       Type: String
       Value: !Sub "https://console-openshift-console.apps.${ClusterName}.${DomainName}"
 
-  BootnodeInstancePro le:
+  BootnodeInstanceProfile:
     Type: "AWS::IAM::InstanceProfile"
     Properties:
       Path: "/"
