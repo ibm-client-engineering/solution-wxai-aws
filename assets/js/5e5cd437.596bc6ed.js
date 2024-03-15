@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[2261],{3475:s=>{s.exports=JSON.parse('[{"label":"log","permalink":"/solution-wxai-aws/blog/tags/log","count":3},{"label":"sprint","permalink":"/solution-wxai-aws/blog/tags/sprint","count":3}]')}}]);

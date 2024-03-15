@@ -1,0 +1,115 @@
+[
+    {
+        "ParameterKey": "APIKey",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "KeyPairName",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "PrivateSubnet1ID",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "PrivateSubnet2ID",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "PrivateSubnet3ID",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "PublicSubnet1ID",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "PublicSubnet2ID",
+        "ParameterValue": "sREPLACE_ME"
+    },
+    {
+        "ParameterKey": "PublicSubnet3ID",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "BootNodeAccessCIDR",
+        "ParameterValue": "0.0.0.0/0"
+    },
+    {
+        "ParameterKey": "Redhat-Pull-Secret",
+        "ParameterValue": "s3//cp4d-ocp-cloudformation-dev1/pull-secrets/pull-secrets.json"
+    },
+    {
+        "ParameterKey": "VPCID",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "ICPDDeploymentLogsBucketName",
+        "ParameterValue": "cp4d-ocp-cloudformation-dev"
+    },
+    {
+        "ParameterKey": "DomainName",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "ClusterName",
+        "ParameterValue": "REPLACE_ME"
+    },
+    {
+        "ParameterKey": "PrivateCluster",
+        "ParameterValue": "False"
+    },
+    {
+        "ParameterKey": "OpenshiftVersion",
+        "ParameterValue": "4.12.45"
+    },
+    {
+        "ParameterKey": "CPDExternalRegistry",
+        "ParameterValue": "cp.icr.io"
+    },
+    {
+        "ParameterKey": "FACTSHEET",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WatsonAssistant",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WatsonDiscovery",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "OpenScale",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WKC",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WML",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WSL",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "OPENPAGES",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "WatsonxAI",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "IBMGranite13bChatV1",
+        "ParameterValue": "removed"
+    },
+    {
+        "ParameterKey": "MetaLlamaLlamaTwo70bChat",
+        "ParameterValue": "removed"
+
+    }
+]
