@@ -1,15 +1,22 @@
 ---
 id: installation
-sidebar_position: 3
+sidebar_position: 1
 title: Installation
 custom_edit_url: null
 ---
 
-## Installation Steps
+## Preparation Steps
 
-### Preparing
+### Obtain RedHat Pull Secret
 
-#### Obtain the AWS IAM credentials
+Use this URL to download your RedHat Pull Secret:
+https://console.redhat.com/openshift/install/pull-secret
+
+:::tip
+If your organization does not have an existing RedHat account, you can create a RedHat trial account for a temporary OCP deployment (60 days). Instructions [here](/GettingStarted/prerequisites#redhat-ocp-account-and-pull-secret) under the expandable section "Obtain a RedHat Trial Account"
+:::
+
+### Obtain the AWS IAM credentials
 
 If you can use your permanent security credentials for the AWS account, you will need an **Access Key ID** and **Secret Access Key** for the deployer to setup an OpenShift cluster on AWS. 
 
@@ -20,7 +27,7 @@ If you can use your permanent security credentials for the AWS account, you will
 - If you do not yet have an access key (or you no longer have the associated secret), create an access key
 - Store your **Access Key ID** and **Secret Access Key** in safe place
 
-#### Configure AWS config
+### Configure AWS
 
 Run the following command and then enter your Access Key ID, Secret Access Key, Region, and Output.
 
@@ -28,41 +35,31 @@ Run the following command and then enter your Access Key ID, Secret Access Key, 
 aws configure
 ````
 
-#### Redhat pull secret
+### Redhat pull secret
 
-The Red Hat pull secret can be downloaded from https://console.redhat.com/openshift/downloads#tool-pull-secret. \
+The Red Hat pull secret must be downloaded from https://console.redhat.com/openshift/downloads#tool-pull-secret. 
+Rename the file from ```pull-secret.txt``` to ```pull_secret.json```
 
-After downloading the file, it will need to be uploaded to s3.
-
-
-#### Create s3 bucket
+### Create s3 bucket
 
 ```
 BUCKET="Bucket_NAME"
 aws s3api create-bucket --bucket $BUCKET --region us-east-1
 ```
 
-#### Create pull-secrets folder in s3 bucket
+### Create pull-secrets folder in s3 bucket
 
 ```
 aws s3api put-object --bucket $BUCKET --key "pull-secets" --region us-east-1
 ```
 
-#### Rename pull-secrets
-
-The ```pull-secret``` downloads as a txt file and will need to be changed to json:
-
-```
-mv pull-secret.txt pull-secret.json
-```
-
-#### Upload pull-secrets.json to s3bucket/pull-secrets
+### Upload pull-secrets.json to s3bucket/pull-secrets
 
 ```
 aws s3 cp pull-secrets.json s3://$BUCKET/pull-secrets/pull-secrets.json
 ```
 
-#### Create AWS KeyPair
+### Create AWS KeyPair
 
 The following commands create the KeyPair, outputs the file to the default ssh folder. The second command modifies the permissions of the file.
 
@@ -71,15 +68,13 @@ aws ec2 create-key-pair  --key-name $KEYPAIR_NAME --key-type rsa --key-format pe
 chmod 400 ~/.ssh/$KEYPAIR_NAME.pem
 ```
 
-### Prepare
-
-#### Preparing the installion files
+### Preparing the installion files
 
 The default "AvailabilityZones" in ***clusters.yaml*** are **"us-east-2a,us-east-2b,us-east-2c"** but can be changed.\
 To change which Availability Zones are used, search ***clusters.yaml*** for ```us-east-2a,us-east-2b,us-east-2c``` and replace with the preferred Availability Zones.\
 Search ***clusters.yaml*** for ```REPLACE_ME_WITH_SUBNET_ID``` and replace with a specific subnetID.
 
-#### Preparing Parameters Override file
+### Preparing Parameters Override file
 
 Review ***"parameters-override.yaml"***, the following changes will need to be made
 - Add API Key
@@ -93,36 +88,30 @@ Review ***"parameters-override.yaml"***, the following changes will need to be m
 - Add Cluster Name
 - Add CPD External Registry
 
-### Deployment
+## Deployment Steps
 
-#### Create OCPInstall Role
-[Download the OCPInstallRole.yaml](/Cloudformation/OCPInstallRole.yaml) \
+### Create OCPInstall Role
+[Download the OCPInstall_Role.yaml](../../assets/Cloudformation/OCPInstall_Role.yaml)
 Create the role by running the following command:
 
 ```
-aws cloudformation deploy --stack-name OCPInstall-role-1 --template-file OCPInstallRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
+aws cloudformation deploy --stack-name OCPInstall-role-1 -template-file OCPInstall_Role.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
 ```
 
-#### Create LambdaExecution Role
-[Download the LambdaExecutionRole.yaml](/Cloudformation/LambdaExecutionRole.yaml) \
+### Create LambdaExecution Role
+[Download the LambdaExecutionRole.yaml](../../assets/Cloudformation/LambdaExecutionRole.yml)
 Create the role by running the following command:
 
 ```
-aws cloudformation deploy --stack-name LambdaExecutionRole --template-file LambdaExecutionRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
-```
-#### Create OCPCloudform Role
-[Download the OCPCloudFormRole.yaml](/Cloudformation/OCPCloudFormRole.yaml) \
-Create the role by running the following command:
-
-```
-aws cloudformation deploy --stack-name OCPCloudFormRole --template-file OCPCloudFormRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
+aws cloudformation deploy --stack-name LambdaExecutionRole -template-file LambdaExecutionRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
 ```
 
-#### Deply cloudformation template using AWS CLI
+
+### Deply cloudformation template using AWS CLI
 Using the OCPInstall role arn, run the following command to start the main cloudformation deployment:
 
 ```
-aws cloudformation deploy --stack-name stack-deployment-1 --template-file cluster-sts.yaml --parameter-overrides file://STS-parameters-override.json --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here* --role-arn arn:aws:iam::<ACCOUNT>:/OCPInstall --disable-rollback
+aws cloudformation deploy --stack-name stack-deployment-1 --template-file cluster.yaml --parameter-overrides file://parameters-override.json --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here* --role-arn arn:aws:iam::<ACCOUNT>:role/OCPInstall
 ```
 
 Check the AWS Console to see when the cloudformation template has progressed far enough that the bootnode is online.
@@ -130,7 +119,7 @@ Check the AWS Console to see when the cloudformation template has progressed far
 Using the ssh key from the Key Pair name used in parameters-override.yaml, ssh to the bootnode.
 
 
-### Monitor
+### Monitoring
 
 #### SSM into bootnode
 
@@ -158,10 +147,8 @@ su ec2-user
 
 You will now be able to review deployment logs.
 
-#### Fixing aws command in SSM
-
 <details>
-<summary><b>Fixing aws command in SSM</b></summary>
+<summary><b> #### Fixing aws command in SSM </b></summary>
 SSM does not work exactly the same as SSH. If you intend to use any additional commands, such as ```aws```, then you need to do the following:
 
 Check the output of running the  ```aws``` command,
