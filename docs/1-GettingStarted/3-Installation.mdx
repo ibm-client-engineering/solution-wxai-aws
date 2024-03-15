@@ -96,7 +96,7 @@ Review ***"parameters-override.yaml"***, the following changes will need to be m
 ### Deployment
 
 #### Create OCPInstall Role
-[Download the OCPInstallRole.yaml](../../assets/Cloudformation/OCPInstallRole.yaml) \
+[Download the OCPInstallRole.yaml](/Cloudformation/OCPInstallRole.yaml) \
 Create the role by running the following command:
 
 ```
@@ -104,14 +104,14 @@ aws cloudformation deploy --stack-name OCPInstall-role-1 --template-file OCPInst
 ```
 
 #### Create LambdaExecution Role
-[Download the LambdaExecutionRole.yaml](../../assets/Cloudformation/LambdaExecutionRole.yaml) \
+[Download the LambdaExecutionRole.yaml](/Cloudformation/LambdaExecutionRole.yaml) \
 Create the role by running the following command:
 
 ```
 aws cloudformation deploy --stack-name LambdaExecutionRole --template-file LambdaExecutionRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
 ```
 #### Create OCPCloudform Role
-[Download the OCPCloudFormRole.yaml](../../assets/Cloudformation/OCPCloudFormRole.yaml) \
+[Download the OCPCloudFormRole.yaml](/Cloudformation/OCPCloudFormRole.yaml) \
 Create the role by running the following command:
 
 ```
