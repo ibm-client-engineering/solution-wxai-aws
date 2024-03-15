@@ -48,6 +48,14 @@ aws s3api create-bucket --bucket $BUCKET --region us-east-1
 aws s3api put-object --bucket $BUCKET --key "pull-secets" --region us-east-1
 ```
 
+#### Rename pull-secrets
+
+The ```pull-secret``` downloads as a txt file and will need to be changed to json:
+
+```
+mv pull-secret.txt pull-secret.json
+```
+
 #### Upload pull-secrets.json to s3bucket/pull-secrets
 
 ```
@@ -92,7 +100,7 @@ Review ***"parameters-override.yaml"***, the following changes will need to be m
 Create the role by running the following command:
 
 ```
-aws cloudformation deploy --stack-name OCPInstall-role-1 -template-file OCPInstallRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
+aws cloudformation deploy --stack-name OCPInstall-role-1 --template-file OCPInstallRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
 ```
 
 #### Create LambdaExecution Role
@@ -100,14 +108,14 @@ aws cloudformation deploy --stack-name OCPInstall-role-1 -template-file OCPInsta
 Create the role by running the following command:
 
 ```
-aws cloudformation deploy --stack-name LambdaExecutionRole -template-file LambdaExecutionRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
+aws cloudformation deploy --stack-name LambdaExecutionRole- -template-file LambdaExecutionRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
 ```
 #### Create OCPCloudform Role
 [Download the OCPCloudFormRole.yaml](../../assets/Cloudformation/OCPCloudFormRole.yaml) \
 Create the role by running the following command:
 
 ```
-aws cloudformation deploy --stack-name OCPCloudFormRole -template-file OCPCloudFormRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
+aws cloudformation deploy --stack-name OCPCloudFormRole --template-file OCPCloudFormRole.yaml --capabilities CAPABILITY_NAMED_IAM --tags *add Key=Value tag here*
 ```
 
 #### Deply cloudformation template using AWS CLI
