@@ -4,10 +4,81 @@
         <title>IBM Client Engineering Blog</title>
         <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog</link>
         <description>IBM Client Engineering Blog</description>
-        <lastBuildDate>Mon, 18 Mar 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 22 Mar 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Log - Sprint 7 🛫]]></title>
+            <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7</link>
+            <guid>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7</guid>
+            <pubDate>Fri, 22 Mar 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Flight Log of Co-Creation Activities]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objectives">Objectives<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#objectives" class="hash-link" aria-label="Direct link to Objectives" title="Direct link to Objectives">​</a></h2>
+<ul>
+<li>Deploy watsonx.ai on self-managed AWS infrastructure.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="accomplishments">Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#accomplishments" class="hash-link" aria-label="Direct link to Accomplishments" title="Direct link to Accomplishments">​</a></h2>
+<p><strong>AWS</strong></p>
+<ul>
+<li>Fixes to cluster-sts.yaml and other deployment resources.<!-- -->
+<ul>
+<li>Fixed error in cluster-sts.yml by commenting out lines 590-599.</li>
+<li>Changed <code>IamInstanceProfile: !Ref BootnodeInstanceProfile</code> to <code>IamInstanceProfile: &lt;InstanceProfileName&gt;</code></li>
+<li>Changed <code>SubnetId: !Ref PublicSubnet1ID</code>  to <code>SubnetId: &lt;PrivateSubnetID&gt;</code> to account for private deployments</li>
+<li>Updated LambdaExecutionRole.json line 14: from <code>ec2.aws.com</code> to <code>lambda.aws.com</code> and added <code>cloudformation.aws.com</code> of allowed services.</li>
+<li>Fixed LambdaExecutionRole ARN to proper role name.</li>
+<li>Commented out <code>/bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName} [--accept-all-licenses]</code></li>
+<li>Added VPC and Subnet IDs to the “CleanupLambda”  lambda function in cluster-sts, which then required adding “ec2<!-- -->:CreateNetworkInterface<!-- -->” permission to LambdaExecutionRole</li>
+<li>Adding tags to CleanupLambda with Application IDs.</li>
+</ul>
+</li>
+<li>Successful deployment of BootNode instance.</li>
+</ul>
+<p><strong>RAG</strong></p>
+<ul>
+<li>Creation of cronjob to capture logs from Python app.</li>
+<li>Enabled metadata insertion into chunks in vector store -&gt; (hopefully) increases retrieval accuracy</li>
+<li>Return context to user (shows sources used to generate responses)</li>
+<li>Added mixtral model support</li>
+<li>Enable functionality for user to give custom rag parameters</li>
+<li>Migrated vector DB from FAISS to chromaDB to enable the metadata functionality</li>
+<li>Script written to easily test rag implementation and save results in csv</li>
+<li>Implemented cache logic to make sure it considers combination of parameters as well before chosing to send a cached response</li>
+<li>Added better logic for caching to improve performance</li>
+<li>Remove unwanted parameters from request body</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="in-progress">In Progress<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#in-progress" class="hash-link" aria-label="Direct link to In Progress" title="Direct link to In Progress">​</a></h2>
+<ul>
+<li>End-to-end deployment of OCP, CP4D, and watsonx.ai (with GPU node)</li>
+<li>Tagging cp-deployer.sh generated resources.</li>
+<li>Updating solution docs with better asset linking.</li>
+<li>Exploring WatsonX Discovery</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<ul>
+<li>Continue over the shoulder working sessions<!-- -->
+<ul>
+<li>Kick off CloudFormation template install with updated STS templates.</li>
+</ul>
+</li>
+<li>Compilation of required endpoints</li>
+<li>Deploy latest RAG version on AWS</li>
+<li>Build out actions &amp; flow in Watsonx Assistant after properly defining personas &amp; objectives.</li>
+<li>Kick off Cloud Pak for Deployment entitlement key.</li>
+<li>Build RAG application using WatsonX Discovery.</li>
+<li>Compare WatsonX Discovery RAG with existing RAG results.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
+<ul>
+<li>Require sign-off on final CloudFormation template.</li>
+<li>Red Hat CoreOS AMI pending approval.</li>
+<li>LambdaCleanup error from not being able to assume role.</li>
+<li>Double checking role names in Cloudformation template.</li>
+</ul>]]></content:encoded>
+            <category>log</category>
+            <category>sprint</category>
+        </item>
         <item>
             <title><![CDATA[Log - Sprint 6 🛫]]></title>
             <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-6</link>
