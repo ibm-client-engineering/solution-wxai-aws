@@ -1,0 +1,6 @@
+vpc
+network
+sg-lb
+bootstrap
+control-plane
+worker

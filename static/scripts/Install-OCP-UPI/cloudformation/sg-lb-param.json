@@ -1,0 +1,18 @@
+[
+  {
+    "ParameterKey": "InfrastructureName",
+    "ParameterValue": "awstest-m9snr" 
+  },
+  {
+    "ParameterKey": "VpcCidr",
+    "ParameterValue": "172.31.0.0/16"
+  },
+  {
+    "ParameterKey": "PrivateSubnets",
+    "ParameterValue": "subnet-43a76d08" 
+  },
+  {
+    "ParameterKey": "VpcId",
+    "ParameterValue": "vpc-ea0bf492" 
+  }
+]

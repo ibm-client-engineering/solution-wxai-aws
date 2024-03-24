@@ -1,0 +1,217 @@
+---
+id: upi_install
+sidebar_position: 3
+title: UPI Installation Instructions
+custom_edit_url: null
+---
+
+
+### Prepare the Bastion Node
+
+
+#### Update the OS and install additional tools
+
+```
+sudo yum update -y; sudo yum install git -y
+```
+
+
+
+#### Clone the repository to the bootnode.
+
+
+```
+git clone https://github.com/ibm-client-engineering/solution-wxai-aws
+```
+
+
+#### Run 'setup_bastion' script
+
+Run the 'setup_bastion' script which will install additional tools, and configure an HTTP server to host the Bootstrap ignition file.
+
+```
+cd $HOME/aws-openshift410-cloudformation-noIAM-noR53/utils
+./setup_bastion.sh
+```
+
+#### Change the bootnode hostname to 'registry.$DOMAIN'
+
+```
+sudo hostnamectl set-hostname registry.$DOMAIN.com
+sudo reboot
+```
+
+
+### Setup Services
+
+#### Create Registry
+
+Create a new directory for the registry, select a port (suggested port: 5000), a username and a password.
+
+```
+sudo mkdir -p /ibm/
+sudo chown -R ec2-user:ec2-user /ibm/
+./create_registry.sh <registry_directory> <port> <userid> <password> <local_dir_install>
+```
+
+Example:
+
+```
+./create_registry.sh /ibm 5000 wxai CeFsm2024 /home/ec2-user/openshift-upi-master/aws-openshift410-cloudformation-noIAM-noR53
+```
+
+#### Start the registry
+
+```
+./start_registry.sh <registry_directory> <port>
+```
+
+Example:
+
+```
+./start_registry.sh /ibm 5000
+```
+
+#### Add your local registry login details 
+
+```
+mkdir -p /ibm/security/auth/
+```
+
+```
+echo -n '<user_name>:<password>' | base64 -w0 
+```
+
+#### Add your details to the auth.json
+
+```
+{
+  "auths": {
+    "<mirror_registry>": { 
+      "auth": "<credentials>", 
+      "email": "you@example.com"
+    }
+  }
+}
+```
+
+```
+<mirror_registry> - the URL of the registry including the port
+<credentials> - the output from "echo -n '<user_name>:<password>' | base64 -w0 "
+```
+
+Confirm the registry is accessible:
+
+```
+podman login <Registry_URL> --authfile /ibm/security/auth/auth.json
+```
+### Setup Local and Internal registries
+
+#### Load the registry with the OCP files
+```
+./load_ocp.sh <ocprelease> <registryip:port> <contentpath> <authfile>
+```
+
+Example: 
+
+```
+./load_ocp.sh 4.14.9 registry.cpdu8vscs.ibmworkshops.com:5000 /ibm/openshift-4.14.9/export /ibm/openshift/auth.json
+```
+
+```
+export OCP_RELEASE="4.14.9"
+
+export LOCAL_REGISTRY="registry.cpdu8vscs.ibmworkshops.com:5000"
+
+export LOCAL_REPOSITORY="openshift"
+
+export PRODUCT_REPO="openshift-release-dev"
+
+export RELEASE_NAME="ocp-release"
+
+export ARCHITECTURE="x86_64"
+
+export REMOVABLE_MEDIA_PATH="/ibm/ocp-images"
+
+export LOCAL_SECRET_JSON="/ibm/openshift/auth.json"
+
+
+```
+
+Review images and configurations
+
+```
+oc adm release mirror -a ${LOCAL_SECRET_JSON} --from=quay.io/${PRODUCT_REPO}/${RELEASE_NAME}:${OCP_RELEASE}-${ARCHITECTURE} --to=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY} --to-release-image=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}-${ARCHITECTURE} --dry-run
+```
+
+
+Pull down images and send to local registry.
+
+```
+oc image mirror -a ${LOCAL_SECRET_JSON} --from-dir=${REMOVABLE_MEDIA_PATH}/mirror "file://openshift/release:${OCP_RELEASE}*" ${LOCAL_REGISTRY}/${LOCAL_REPOSITORY} 
+```
+
+
+#### Extract the OpenShift Installer 
+Generate the openshift-install binary for the version of openshift images that were pulled.
+
+```
+oc adm release extract -a ${LOCAL_SECRET_JSON} --command=openshift-install "${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}-${ARCHITECTURE}"
+```
+
+Move openshift-install to /usr/bin.
+
+```
+sudo mv openshift-install /usr/bin/openshift-install
+```
+
+### Start cluster creation
+
+#### Collect information for 'config.sh'
+
+Information needed to update 'config.sh'
+
+```
+Cluster Name
+Base Domain
+Registry URL
+Local Pull Secret updated with local registry auth.
+Additional Trust certs generated during the registry creation process.
+AWS Region
+AWS Private Subnets
+AWS VPC ID
+AWS VPC CIDR
+AWS RHCOS AMI ID
+
+Bootstrap allowed SSH CIDR
+Bootstrap Ignition URL (Bastion node's hostname, port, and file name)
+Master Instance Type
+Worker Count
+Worker Instance Type
+```
+
+****Important Node: AWS CLI will need to be configured, and output format MUST be json
+
+#### Start the installation
+
+After updating config.sh, run "create_cluster_step_1.sh".
+
+```
+./create_cluster_step_1.sh
+```
+
+Once this completes, create the DNS records listed in the script output:
+
+```
+api.{ClusterName}.{DOMAINNAME} -> wxai-int-(random_string).elb.us-east-2.amazonaws.com
+api-int.{ClusterName}.{DOMAINNAME} -> wxai-int-(random_string).elb.us-east-2.amazonaws.com
+*.apps.{ClusterName}.{DOMAINNAME} -> wxai-int-(random_string).elb.us-east-2.amazonaws.com
+```
+
+Now run step 2:
+
+```
+./create_cluster_step_2.sh
+```
+
+
