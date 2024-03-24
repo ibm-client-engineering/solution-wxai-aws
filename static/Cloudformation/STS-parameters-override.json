@@ -21,15 +21,15 @@
     },
     {
         "ParameterKey": "PublicSubnet1ID",
-        "ParameterValue": "-"
+        "ParameterValue": ""
     },
     {
         "ParameterKey": "PublicSubnet2ID",
-        "ParameterValue": "-"
+        "ParameterValue": ""
     },
     {
         "ParameterKey": "PublicSubnet3ID",
-        "ParameterValue": "-"
+        "ParameterValue": ""
     },
     {
         "ParameterKey": "BootNodeAccessCIDR",

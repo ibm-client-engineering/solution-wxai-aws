@@ -11,7 +11,10 @@
               {
                 "Effect": "Allow",
                 "Principal": {
-                  "Service": "ec2.amazonaws.com"
+                  "Service": [
+                    "lamba.amazonaws.com",
+                    "cloudformation.amazonaws.com"
+                  ]
                 },
                 "Action": "sts:AssumeRole"
               },
