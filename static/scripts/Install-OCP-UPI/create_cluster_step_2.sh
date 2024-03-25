@@ -21,7 +21,7 @@ wait_for_stack_completion() {
     do
         status=$(aws cloudformation describe-stacks --stack-name "${stack_name}" | jq '.Stacks[].StackStatus' | sed -e 's/"//g')
         if [[ "${status}" == "CREATE_COMPLETE" ]]
-        thenx
+        then
             done=1
             rc=0
         elif [[ "${status}" == "CREATE_IN_PROGRESS" ]]
