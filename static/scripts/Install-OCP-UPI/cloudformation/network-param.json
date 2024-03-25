@@ -1,0 +1,22 @@
+[
+  {
+    "ParameterKey": "ClusterName", 
+    "ParameterValue": "awstest" 
+  },
+  {
+    "ParameterKey": "InfrastructureName", 
+    "ParameterValue": "awstest" 
+  },
+  {
+    "ParameterKey": "HostedZoneName", 
+    "ParameterValue": "ilfts.com" 
+  },
+  {
+    "ParameterKey": "PrivateSubnets", 
+    "ParameterValue": "subnet-43a76d08" 
+  },
+  {
+    "ParameterKey": "VpcId", 
+    "ParameterValue": "vpc-ea0bf492" 
+  }
+]

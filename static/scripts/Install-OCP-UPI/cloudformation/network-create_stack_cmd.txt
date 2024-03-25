@@ -1,0 +1,5 @@
+aws cloudformation create-stack --stack-name network-stack --template-body file://network-template.yaml --parameters file://network-param.json --capabilities CAPABILITY_NAMED_IAM 
+
+aws cloudformation describe-stacks --stack-name network-stack
+
+aws cloudformation delete-stack --stack-name network-stack

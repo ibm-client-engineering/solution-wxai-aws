@@ -1,0 +1,2 @@
+aws cloudformation create-stack --stack-name bootstrap-stack --template-body file://bootstrap-template.yaml --parameters file://bootstrap-param.json --capabilities CAPABILITY_NAMED_IAM 
+
