@@ -1,0 +1,30 @@
+[
+  {
+    "ParameterKey": "InfrastructureName", 
+    "ParameterValue": "awstest-m9snr" 
+  },
+  {
+    "ParameterKey": "RhcosAmi", 
+    "ParameterValue": "ami-041bbb5b11378f8ba" 
+  },
+  {
+    "ParameterKey": "AllowedBootstrapSshCidr", 
+    "ParameterValue": "0.0.0.0/0" 
+  },
+  {
+    "ParameterKey": "PublicSubnet", 
+    "ParameterValue": "subnet-43a76d08" 
+  },
+  {
+    "ParameterKey": "MasterSecurityGroupId", 
+    "ParameterValue": "sg-0e8d0d25116017977" 
+  },
+  {
+    "ParameterKey": "VpcId", 
+    "ParameterValue": "vpc-ea0bf492" 
+  },
+  {
+    "ParameterKey": "BootstrapIgnitionLocation", 
+    "ParameterValue": "http://172.31.26.137:8080/bootstrap.ign" 
+  }
+]

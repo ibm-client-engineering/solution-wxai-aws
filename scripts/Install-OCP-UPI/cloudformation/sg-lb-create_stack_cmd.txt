@@ -1,0 +1,2 @@
+aws cloudformation create-stack --stack-name sg-lb-stack --template-body file://sg-lb-template.yaml --parameters file://sg-lb-param.json --capabilities CAPABILITY_NAMED_IAM 
+
