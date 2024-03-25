@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[3129],{5244:e=>{e.exports=JSON.parse('{"permalink":"/solution-wxai-aws/blog/tags/sprint","page":1,"postsPerPage":10,"totalPages":1,"totalCount":8,"blogDescription":"Blog","blogTitle":"Journey Log"}')}}]);
