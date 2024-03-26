@@ -1,8 +1,8 @@
 ---
-title: Log - Sprint 5 🛫
+title: Log 6 🛫
 description: Flight Log of Co-Creation Activities
-slug: flight-log-5
-tags: [log, sprint ]
+slug: flight-log-6
+tags: [log]
 ---
 
 ## Objectives
@@ -11,9 +11,16 @@ tags: [log, sprint ]
 
 ## Accomplishments
 **AWS**
-- Populated parameter overrides JSON.
-- Created RH Trial account and uploaded pull secret to S3 bucket.
-- Updated CloudFormation STS template with permissions to create and assume Role with respective JSON versions.
+- Fixes to cluster-sts.yaml and other deployment resources.
+    - Fixed error in cluster-sts.yml by commenting out lines 590-599.
+    - Changed ``IamInstanceProfile: !Ref BootnodeInstanceProfile`` to ``IamInstanceProfile: <InstanceProfileName>``
+    - Changed ``SubnetId: !Ref PublicSubnet1ID``  to ``SubnetId: <PrivateSubnetID>`` to account for private deployments
+    - Updated LambdaExecutionRole.json line 14: from ``ec2.aws.com`` to ``lambda.aws.com`` and added ``cloudformation.aws.com`` of allowed services.
+    - Fixed LambdaExecutionRole ARN to proper role name.
+    - Commented out ```/bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName} [--accept-all-licenses]```
+    - Added VPC and Subnet IDs to the “CleanupLambda”  lambda function in cluster-sts, which then required adding “ec2:CreateNetworkInterface” permission to LambdaExecutionRole
+    - Adding tags to CleanupLambda with Application IDs.
+- Successful deployment of BootNode instance.
 
 
 
@@ -42,9 +49,13 @@ tags: [log, sprint ]
 - Compilation of required endpoints
 - Deploy latest RAG version on AWS
 - Build out actions & flow in Watsonx Assistant after properly defining personas & objectives.
+- Kick off Cloud Pak for Deployment entitlement key.
 
 
 ## Tracking (Issues)
 - Require sign-off on final CloudFormation template.
-- CoreOS AMI pending approval.
+- Red Hat CoreOS AMI pending approval.
+- LambdaCleanup error from not being able to assume role.
+- Double checking role names in Cloudformation template.
+
 
