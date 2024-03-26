@@ -3,7 +3,7 @@
 if [[ $# -ne 8 ]]
 then
     echo "ERROR: incorrect number of parameters"
-    echo "$0 <output_dir> <infraid> <amiid> <master0subnet> <mastersg> <masterignitionurl> <certificateauthorities> <masterinstancetype>"
+    echo "$0 <output_dir> <infraid> <amiid> <mastersubnet> <mastersg> <masterignitionurl> <certificateauthorities> <masterinstancetype>"
     exit 1
 fi
 
@@ -47,7 +47,7 @@ cat << EOF > "${output_dir}/control-plane-param.json"
   },
   {
     "ParameterKey": "Master1Subnet",
-    "ParameterValue": "${masters1ubnet}"
+    "ParameterValue": "${master1subnet}"
   },
   {
     "ParameterKey": "Master2Subnet",
