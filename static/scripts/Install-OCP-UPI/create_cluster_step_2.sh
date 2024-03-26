@@ -84,8 +84,8 @@ then
     ssh_pub_key=$(cat ~/.ssh/id_rsa.pub)
 fi
 
-echo "**** Running: " ${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${cluster_name}" "${registry_url}" "${registry_creds}" "${ssh_pub_key}" "${additional_trust_cert}"
-${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${cluster_name}" "${registry_url}" "${registry_creds}" "${ssh_pub_key}" "${additional_trust_cert}"
+echo "**** Running: " ${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${cluster_name}" "${registry_url}" "${registry_creds}" "${ssh_pub_key}" "${additional_trust_cert}" "${httpProxy}" "${httpsProxy}" "${noProxy}"
+${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${cluster_name}" "${registry_url}" "${registry_creds}" "${ssh_pub_key}" "${additional_trust_cert}" "${httpProxy}" "${httpsProxy}" "${noProxy}"
 
 if [[ -f "${ocp_data_dir}/install-config.yaml" ]]
 then
