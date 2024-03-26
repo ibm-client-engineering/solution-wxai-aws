@@ -3,7 +3,7 @@
 if [[ $# -ne 7 ]]
 then
     echo "Incorrect number of parameters"
-    echo "Usage: $0 <output_dir> <base_domain> <cluster_name> <registry_url> <registry_creds> <ssh_key> <additionalcacert>"
+    echo "Usage: $0 <output_dir> <base_domain> <cluster_name> <registry_url> <registry_creds> <ssh_key> <additionalcacert> <httpProxy> <httpsProxy> <noProxy>"
     exit 1
 fi
 
@@ -14,6 +14,9 @@ registry_url=$4
 registry_creds=$5
 ssh_key=$6
 ca_cert=$7
+httpProxy=$8
+httpsProxy=$9
+noProxy=${10}
 
 ssh_line=""
 if [[ ! -z "${ssh_key}" ]]
@@ -24,6 +27,10 @@ fi
 cat << EOF > "${output_dir}/install-config.yaml"
 apiVersion: v1
 baseDomain: ${base_domain}
+proxy: 
+  httpProxy: ${httpProxy}
+  httpsProxy: ${httpsProxy}
+  noProxy: ${noProxy}
 compute: 
 - hyperthreading: Enabled 
   name: worker
