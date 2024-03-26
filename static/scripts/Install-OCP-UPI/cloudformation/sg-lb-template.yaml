@@ -67,6 +67,11 @@ Resources:
         FromPort: 22623
         ToPort: 22623
         CidrIp: !Ref VpcCidr
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 0
+        CidrIp: 10.0.0.0/8
       VpcId: !Ref VpcId
 
   WorkerSecurityGroup:
@@ -89,6 +94,11 @@ Resources:
       - IpProtocol: tcp
         FromPort: 443
         ToPort: 443
+        CidrIp: 10.0.0.0/8
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 0
         CidrIp: 10.0.0.0/8
       VpcId: !Ref VpcId
 
