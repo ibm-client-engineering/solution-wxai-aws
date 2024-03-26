@@ -144,12 +144,12 @@ Resources:
       BlockDeviceMappings:
       - DeviceName: /dev/xvda
         Ebs:
-          VolumeSize: "240"
-          VolumeType: "gp2"
+          VolumeSize: "300"
+          VolumeType: "gp3"
       - DeviceName: /dev/xvdb
         Ebs:
           VolumeSize: "1024"
-          VolumeType: "gp2"
+          VolumeType: "gp3"
       InstanceType: !Ref WorkerInstanceType
       NetworkInterfaces:
       - AssociatePublicIpAddress: "false"

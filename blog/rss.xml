@@ -4,10 +4,173 @@
         <title>IBM Client Engineering Blog</title>
         <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog</link>
         <description>IBM Client Engineering Blog</description>
-        <lastBuildDate>Mon, 25 Mar 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 26 Mar 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Log - Sprint 9 🛫]]></title>
+            <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-9</link>
+            <guid>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-9</guid>
+            <pubDate>Tue, 26 Mar 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Flight Log of Co-Creation Activities]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-9#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
+<p>Deploy watsonx.ai on self-managed AWS infrastructure forr customer software evaluation</p>
+<!-- -->
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-9#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
+<ol>
+<li>Deploy and configuration of boot node to establish a beach-head into the Fidelity AWS environment<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Deploy OCP using the documented UPI installation steps<!-- -->
+<ul>
+<li>In progress</li>
+</ul>
+</li>
+<li>Install CloudPak for Data</li>
+<li>Deploy and configure watsonx.ai on self-managed AWS infrastructure</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-9#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h2>
+<ul>
+<li>Verify ‘quay.io’ is the registry in config.sh<!-- -->
+<ul>
+<li>Verified in the registry</li>
+</ul>
+</li>
+<li>Create a small instance on a different subnet, same VPC, and confirm that <a href="http://10.19.170.17:8080/test" target="_blank" rel="noopener noreferrer">http://10.19.170.17:8080/test</a> can be curled. Make require adjusting the Security Group rules for the bootnode. If 8080 fails, then HTTPD config will need be to changed to port 80 and service restarted<!-- -->
+<ul>
+<li>Initial onnectectivity over port 8080 failed</li>
+<li>Fixed opoening port via security group</li>
+</ul>
+</li>
+<li>Changed certificate organization (O) to match the domain<!-- -->
+<ul>
+<li>
+<p>Cert validated vurrent certificate using output of <code>openssl x509 -in /ibm/security/certs/ca.crt -text -noout</code></p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain">Issuer: C = US, O = ec2.internal, CN = CA</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">Subject: C = US, O = ec2.internal, CN = CA</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+<li>
+<p>Changed to</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain">Issuer: C = US, O = `customer domain name`, CN = CA</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">Subject: C = US, O =  `customer domain name`, CN = CA</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+</ul>
+</li>
+<li>Re-run step 1 script with required security tagging, as customer's security scans "remediated" improperly tagged items</li>
+<li>Depoyment script changes<!-- -->
+<ul>
+<li><code>gp2 -&gt; gpt3</code></li>
+</ul>
+</li>
+<li>Renaming "bootnode" to bastion.'basedomain'<!-- -->
+<ul>
+<li>Renamed certificates to match</li>
+</ul>
+</li>
+<li>Reran create registry command</li>
+<li>Reran DNS steps for new ELB</li>
+<li>Running Step 2 Script<!-- -->
+<ul>
+<li>
+<p>First run failed - unable to find bootstrap</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain">Every Parameters object must contain a Type member</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">An error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id ibmwxai-6wvkv-bootstrap-stack does not exist</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+<li>
+<p>Solution - Needed to add Type string for parameter</p>
+<div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token key atrule" style="color:#FAC863">BootstrapIgnitionLocation</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">Default</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> s3</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain">//my</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">s3</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">bucket/bootstrap.ign</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">Description</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> Ignition config file location.</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">Type</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> String </span><span class="token comment" style="color:#999999">### This line was not here</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+<li>
+<p>Second run faled - same AMI issue</p>
+<ul>
+<li>Customer security team unable to add public AMI access</li>
+</ul>
+</li>
+<li>
+<p>Third run failed - new error</p>
+<ul>
+<li>yaml validation on control plane stack
+<code>Parameter validation failed: parameter value for parameter name Master1Subnet does not exist. Rollback requested by user</code></li>
+<li>Investigating why script is not generating parameter for <code>Master1Subnet</code></li>
+<li>Typo found in script create_control_plane_param.sh - masters1ubnet -&gt; master1subnet</li>
+</ul>
+</li>
+<li>
+<p>Cleanup when step 2 script fails</p>
+<ul>
+<li>Remove metadata from wxai</li>
+<li>Delete stacks created</li>
+</ul>
+</li>
+<li>
+<p>Ignore FATAL error</p>
+</li>
+<li>
+<p>Fourth run failed</p>
+<ul>
+<li>
+<p>Automated customer security scan "remediation" removed non-compliant security groups on bootstrap and master (Ingress and Egress)</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain">Security Event: Security Group with Unapproved Egress. The security group non-compliant egress rules have been deleted. Please check your application to ensure the functionality has not been negatively impacted.</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain">Security Event: Security Group with Unapproved Ingress. The security group non-compliant ingress rules have been deleted. Please check your application to ensure the functionality has not been negatively impacted.</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+<li>
+<p>LB template currently assuming public in sg-lb-template.yaml, bootstrap-template.yaml</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain">CidrIp: 0.0.0.0/0</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+<li>
+<p>CidrIps need to be replaced with proper public format per customer security</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain">CidrIp: 10.0.0.0/8</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+</ul>
+</li>
+<li>
+<p>Cloudforms must be updated to create encrypted resources</p>
+</li>
+<li>
+<p>Manually created the ssh key as root user on the bastion node. (This will be added to the bastion_setup script)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="blockers">Blockers<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-9#blockers" class="hash-link" aria-label="Direct link to Blockers" title="Direct link to Blockers">​</a></h2>
+<ul>
+<li>Cleared: CoreOS AMI approval from customer (Public AMI's are blocked)<!-- -->
+<ul>
+<li>AMI approved, step 2 script succeeded AMI portion</li>
+</ul>
+</li>
+<li>Future Blocker: Software evaluation licenses for CP4D and watsonx.ai<!-- -->
+<ul>
+<li>Pending IBM precurment team approval</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-9#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<ul>
+<li>License and configure Cloud Pak for Data<!-- -->
+<ul>
+<li>Cloud Pak Considerations<!-- -->
+<ul>
+<li>Security scans needed on container images</li>
+<li>Customer has no OpenShift experience</li>
+<li>Customer requires on-prem, offline install</li>
+<li>Customer uses their own container registry that might introduce extra effort or compatability issues</li>
+<li>Version compatibility with OpenShift (e.g. 4.10 required and customer has 4.11)</li>
+<li>Supported storage not available</li>
+<li>Multiple cloudpaks on the same cluster</li>
+<li>custom connections to data sources not supported OOTB</li>
+<li>AWS-specific: IAM users required for install/deploy and are not allowed</li>
+<li>OpenShift specific: CoreOS requirement for control nodes</li>
+<li>Automatic updating of Cloud Pak, this can interrupt engagements (solution is to always remove update polling from operators)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Deploy watsonx.ai- Add <code>/usr/local/bin</code> to <code>.bashrc</code> and <code>.bash_profile</code> for root</li>
+</ul>]]></content:encoded>
+            <category>log</category>
+            <category>sprint</category>
+        </item>
         <item>
             <title><![CDATA[Log - Sprint 8 🛫]]></title>
             <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-8</link>
@@ -15,7 +178,7 @@
             <pubDate>Mon, 25 Mar 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Flight Log of Co-Creation Activities]]></description>
             <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-8#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
-<p>Deploy watsonx.ai on self-managed AWS infrastructure forr customer software evaluation</p>
+<p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
 <!-- -->
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-8#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
 <ol>
@@ -32,7 +195,7 @@
 <li>Install CloudPak for Data</li>
 <li>Deploy and configure watsonx.ai on self-managed AWS infrastructure</li>
 </ol>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="accomplishments">Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-8#accomplishments" class="hash-link" aria-label="Direct link to Accomplishments" title="Direct link to Accomplishments">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-8#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h2>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="aws-deployment">AWS Deployment<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-8#aws-deployment" class="hash-link" aria-label="Direct link to AWS Deployment" title="Direct link to AWS Deployment">​</a></h3>
 <ul>
 <li>Configuration of the boot node<!-- -->
@@ -68,18 +231,13 @@
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-8#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
 <ul>
-<li>
-<p>AWS CLI had a previous installation. Had to manually remove that installation and re-run the aws cli install command.</p>
-</li>
-<li>
-<p>We decided to run the installation as root user. Root user needed to have the <code>/usr/local/bin</code> added to the PATH. Did this manually on the fly with an <code>export</code> command.</p>
-</li>
-<li></li>
-<li></li>
-</ul>
-<p>Customer security to approve selected AMI for coreOS</p>
+<li>AWS CLI had a previous installation. Had to manually remove that installation and re-run the aws cli install command.</li>
+<li>We decided to run the installation as root user. Root user needed to have the <code>/usr/local/bin</code> added to the PATH. Did this manually on the fly with an <code>export</code> command.
+-Customer security to approve selected AMI for coreOS<!-- -->
 <ul>
 <li>The AMI for CoreOS is a public AMI. The customer security team needs to copy it into the dev account as public AMI's are blocked in this environment</li>
+</ul>
+</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-8#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
 <ul>
@@ -102,7 +260,7 @@
 </li>
 </ul>
 </li>
-<li>Deploy watsonx.ai- Add <code>/usr/local/ in bin</code> to .bash<code>.bashrcd</code> fo r root.</li>
+<li>Deploy watsonx.ai- Add <code>/usr/local/ in bin</code> to .bash<code>.bashrcd</code> for root</li>
 </ul>]]></content:encoded>
             <category>log</category>
             <category>sprint</category>
@@ -120,19 +278,10 @@
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="accomplishments">Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#accomplishments" class="hash-link" aria-label="Direct link to Accomplishments" title="Direct link to Accomplishments">​</a></h2>
 <p><strong>AWS</strong></p>
 <ul>
-<li>Fixes to cluster-sts.yaml and other deployment resources.<!-- -->
-<ul>
-<li>Fixed error in cluster-sts.yml by commenting out lines 590-599.</li>
-<li>Changed <code>IamInstanceProfile: !Ref BootnodeInstanceProfile</code> to <code>IamInstanceProfile: &lt;InstanceProfileName&gt;</code></li>
-<li>Changed <code>SubnetId: !Ref PublicSubnet1ID</code>  to <code>SubnetId: &lt;PrivateSubnetID&gt;</code> to account for private deployments</li>
-<li>Updated LambdaExecutionRole.json line 14: from <code>ec2.aws.com</code> to <code>lambda.aws.com</code> and added <code>cloudformation.aws.com</code> of allowed services.</li>
-<li>Fixed LambdaExecutionRole ARN to proper role name.</li>
-<li>Commented out <code>/bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName} [--accept-all-licenses]</code></li>
-<li>Added VPC and Subnet IDs to the “CleanupLambda”  lambda function in cluster-sts, which then required adding “ec2<!-- -->:CreateNetworkInterface<!-- -->” permission to LambdaExecutionRole</li>
-<li>Adding tags to CleanupLambda with Application IDs.</li>
-</ul>
-</li>
-<li>Successful deployment of BootNode instance.</li>
+<li>Shift from CP Deployer to OpenShift UPI deployment.</li>
+<li>Artifactory proxy details procured.</li>
+<li>Discussion of on-site logistics</li>
+<li>RHEL 8 AMI changed for BootNode.</li>
 </ul>
 <p><strong>RAG</strong></p>
 <ul>
@@ -144,36 +293,28 @@
 <li>Migrated vector DB from FAISS to chromaDB to enable the metadata functionality</li>
 <li>Script written to easily test rag implementation and save results in csv</li>
 <li>Implemented cache logic to make sure it considers combination of parameters as well before chosing to send a cached response</li>
-<li>Added better logic for caching to improve performance</li>
-<li>Remove unwanted parameters from request body</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="in-progress">In Progress<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#in-progress" class="hash-link" aria-label="Direct link to In Progress" title="Direct link to In Progress">​</a></h2>
 <ul>
 <li>End-to-end deployment of OCP, CP4D, and watsonx.ai (with GPU node)</li>
 <li>Tagging cp-deployer.sh generated resources.</li>
 <li>Updating solution docs with better asset linking.</li>
-<li>Exploring WatsonX Discovery</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
 <ul>
-<li>Continue over the shoulder working sessions<!-- -->
-<ul>
-<li>Kick off CloudFormation template install with updated STS templates.</li>
-</ul>
-</li>
-<li>Compilation of required endpoints</li>
+<li>Setup bootnode with necessary downloads and resources.</li>
+<li>Creation of IAM Role request creation Cloudformation templates.</li>
+<li>Kick off on-site over the shoulder working sessions.</li>
+<li>Collating information and resources to be created via OpenShift UPI deployment.</li>
+<li>Setup Artifactory proxy.</li>
+<li>Kick off Cloud Pak for Deployment entitlement key.</li>
 <li>Deploy latest RAG version on AWS</li>
 <li>Build out actions &amp; flow in Watsonx Assistant after properly defining personas &amp; objectives.</li>
-<li>Kick off Cloud Pak for Deployment entitlement key.</li>
-<li>Build RAG application using WatsonX Discovery.</li>
-<li>Compare WatsonX Discovery RAG with existing RAG results.</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
 <ul>
 <li>Require sign-off on final CloudFormation template.</li>
-<li>Red Hat CoreOS AMI pending approval.</li>
-<li>LambdaCleanup error from not being able to assume role.</li>
-<li>Double checking role names in Cloudformation template.</li>
+<li>Red Hat CoreOS AMI still pending approval.</li>
 </ul>]]></content:encoded>
             <category>log</category>
             <category>sprint</category>
@@ -191,19 +332,10 @@
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="accomplishments">Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#accomplishments" class="hash-link" aria-label="Direct link to Accomplishments" title="Direct link to Accomplishments">​</a></h2>
 <p><strong>AWS</strong></p>
 <ul>
-<li>Fixes to cluster-sts.yaml and other deployment resources.<!-- -->
-<ul>
-<li>Fixed error in cluster-sts.yml by commenting out lines 590-599.</li>
-<li>Changed <code>IamInstanceProfile: !Ref BootnodeInstanceProfile</code> to <code>IamInstanceProfile: &lt;InstanceProfileName&gt;</code></li>
-<li>Changed <code>SubnetId: !Ref PublicSubnet1ID</code>  to <code>SubnetId: &lt;PrivateSubnetID&gt;</code> to account for private deployments</li>
-<li>Updated LambdaExecutionRole.json line 14: from <code>ec2.aws.com</code> to <code>lambda.aws.com</code> and added <code>cloudformation.aws.com</code> of allowed services.</li>
-<li>Fixed LambdaExecutionRole ARN to proper role name.</li>
-<li>Commented out <code>/bin/bash ./cp-deploy.sh env apply -e env_id=${ClusterName} [--accept-all-licenses]</code></li>
-<li>Added VPC and Subnet IDs to the “CleanupLambda”  lambda function in cluster-sts, which then required adding “ec2<!-- -->:CreateNetworkInterface<!-- -->” permission to LambdaExecutionRole</li>
-<li>Adding tags to CleanupLambda with Application IDs.</li>
-</ul>
-</li>
-<li>Successful deployment of BootNode instance.</li>
+<li>Shift from CP Deployer to OpenShift UPI deployment.</li>
+<li>Artifactory proxy details procured.</li>
+<li>Discussion of on-site logistics</li>
+<li>RHEL 8 AMI changed for BootNode.</li>
 </ul>
 <p><strong>RAG</strong></p>
 <ul>
@@ -215,36 +347,28 @@
 <li>Migrated vector DB from FAISS to chromaDB to enable the metadata functionality</li>
 <li>Script written to easily test rag implementation and save results in csv</li>
 <li>Implemented cache logic to make sure it considers combination of parameters as well before chosing to send a cached response</li>
-<li>Added better logic for caching to improve performance</li>
-<li>Remove unwanted parameters from request body</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="in-progress">In Progress<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#in-progress" class="hash-link" aria-label="Direct link to In Progress" title="Direct link to In Progress">​</a></h2>
 <ul>
 <li>End-to-end deployment of OCP, CP4D, and watsonx.ai (with GPU node)</li>
 <li>Tagging cp-deployer.sh generated resources.</li>
 <li>Updating solution docs with better asset linking.</li>
-<li>Exploring WatsonX Discovery</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
 <ul>
-<li>Continue over the shoulder working sessions<!-- -->
-<ul>
-<li>Kick off CloudFormation template install with updated STS templates.</li>
-</ul>
-</li>
-<li>Compilation of required endpoints</li>
+<li>Setup bootnode with necessary downloads and resources.</li>
+<li>Creation of IAM Role request creation Cloudformation templates.</li>
+<li>Kick off on-site over the shoulder working sessions.</li>
+<li>Collating information and resources to be created via OpenShift UPI deployment.</li>
+<li>Setup Artifactory proxy.</li>
+<li>Kick off Cloud Pak for Deployment entitlement key.</li>
 <li>Deploy latest RAG version on AWS</li>
 <li>Build out actions &amp; flow in Watsonx Assistant after properly defining personas &amp; objectives.</li>
-<li>Kick off Cloud Pak for Deployment entitlement key.</li>
-<li>Build RAG application using WatsonX Discovery.</li>
-<li>Compare WatsonX Discovery RAG with existing RAG results.</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-7#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
 <ul>
 <li>Require sign-off on final CloudFormation template.</li>
-<li>Red Hat CoreOS AMI pending approval.</li>
-<li>LambdaCleanup error from not being able to assume role.</li>
-<li>Double checking role names in Cloudformation template.</li>
+<li>Red Hat CoreOS AMI still pending approval.</li>
 </ul>]]></content:encoded>
             <category>log</category>
             <category>sprint</category>
