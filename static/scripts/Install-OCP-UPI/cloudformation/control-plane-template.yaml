@@ -169,8 +169,8 @@ Resources:
       BlockDeviceMappings:
       - DeviceName: /dev/xvda
         Ebs:
-          VolumeSize: "120"
-          VolumeType: "gp2"
+          VolumeSize: "250"
+          VolumeType: "gp3"
       InstanceType: !Ref MasterInstanceType
       NetworkInterfaces:
       - AssociatePublicIpAddress: "false"
@@ -198,8 +198,8 @@ Resources:
       BlockDeviceMappings:
       - DeviceName: /dev/xvda
         Ebs:
-          VolumeSize: "120"
-          VolumeType: "gp2"
+          VolumeSize: "250"
+          VolumeType: "gp3"
       InstanceType: !Ref MasterInstanceType
       NetworkInterfaces:
       - AssociatePublicIpAddress: "false"
@@ -227,8 +227,8 @@ Resources:
       BlockDeviceMappings:
       - DeviceName: /dev/xvda
         Ebs:
-          VolumeSize: "120"
-          VolumeType: "gp2"
+          VolumeSize: "250"
+          VolumeType: "gp3"
       InstanceType: !Ref MasterInstanceType
       NetworkInterfaces:
       - AssociatePublicIpAddress: "false"

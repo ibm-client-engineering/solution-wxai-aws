@@ -241,7 +241,6 @@ Resources:
       FromPort: 30000
       ToPort: 32767
       IpProtocol: udp
-
   WorkerIngressVxlan:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:

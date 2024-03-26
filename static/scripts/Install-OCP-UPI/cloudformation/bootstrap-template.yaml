@@ -30,7 +30,6 @@ Parameters:
   BootstrapIgnitionLocation:
     Default: s3://my-s3-bucket/bootstrap.ign
     Description: Ignition config file location.
-    Type: String
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -84,11 +83,11 @@ Resources:
         CidrIp: 0.0.0.0/0
       VpcId: !Ref VpcId
 
+
   BootstrapInstance:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref RhcosAmi
-      KeyName: "fidelity-test"
       InstanceType: "i3.large"
       NetworkInterfaces:
       - AssociatePublicIpAddress: "false"

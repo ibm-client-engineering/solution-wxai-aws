@@ -12,7 +12,6 @@ base_domain="ocp-cluster.com"
 registry_url="HOSTNAME:PORT"
 local_auth_json="/ibm/security/auth/auth.json"
 additional_trust_cert="/ibm/security/certs/ca.crt"
-
 ###
 # AWS info
 ###
@@ -21,6 +20,12 @@ aws_private_subnets="subnet-01010010101010101,subnet-01010101011010101,subnet-01
 aws_vpc_id="vpc-010101010101010101"
 aws_vpc_cidr="10.0.0.0/16"
 aws_rhcos_ami_id="ami-"
+
+
+tag1key="test"
+tag1value="one"
+tag2key="test"
+tag2value="two"
 
 ###
 # ocp architecture

@@ -16,8 +16,8 @@ sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/
 sudo chmod a+x /usr/local/bin/yq
 
 # Download and Install openshift client
-wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.14.9/openshift-client-linux-4.14.9.tar.gz
-tar xzvf openshift-client-linux-4.14.9.tar.gz 
+wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.12.8/openshift-client-linux-4.12.8.tar.gz
+tar xzvf openshift-client-linux-4.12.8.tar.gz 
 sudo cp oc /usr/local/bin/ 
 sudo cp oc /usr/bin/ 
 sudo cp kubectl /usr/local/bin/ 
