@@ -146,10 +146,12 @@ Resources:
         Ebs:
           VolumeSize: "300"
           VolumeType: "gp3"
+          Encrypted: 'true'
       - DeviceName: /dev/xvdb
         Ebs:
           VolumeSize: "1024"
           VolumeType: "gp3"
+          Encrypted: 'true'
       InstanceType: !Ref WorkerInstanceType
       NetworkInterfaces:
       - AssociatePublicIpAddress: "false"
