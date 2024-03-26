@@ -184,7 +184,6 @@ Resources:
       TargetGroupAttributes:
       - Key: deregistration_delay.timeout_seconds
         Value: 60
-
 Outputs:
   InternalApiLoadBalancerName:
     Description: Full name of the internal API load balancer.
