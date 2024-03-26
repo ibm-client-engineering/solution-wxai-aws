@@ -47,7 +47,7 @@ cat << EOF > "${output_dir}/control-plane-param.json"
   },
   {
     "ParameterKey": "Master1Subnet",
-    "ParameterValue": "${masters1ubnet}"
+    "ParameterValue": "${master1subnet}"
   },
   {
     "ParameterKey": "Master2Subnet",

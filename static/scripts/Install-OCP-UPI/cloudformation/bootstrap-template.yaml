@@ -30,6 +30,7 @@ Parameters:
   BootstrapIgnitionLocation:
     Default: s3://my-s3-bucket/bootstrap.ign
     Description: Ignition config file location.
+    Type: String
 
 Metadata:
   AWS::CloudFormation::Interface:
