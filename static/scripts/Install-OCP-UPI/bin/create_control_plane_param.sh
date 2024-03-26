@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $# -ne 10 ]]
+if [[ $# -ne 8 ]]
 then
     echo "ERROR: incorrect number of parameters"
     echo "$0 <output_dir> <infraid> <amiid> <master0subnet> <mastersg> <masterignitionurl> <certificateauthorities> <masterinstancetype>"

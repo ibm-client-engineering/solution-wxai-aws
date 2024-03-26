@@ -84,7 +84,7 @@ then
 fi
 
 stack_name="${cluster_name}-network-stack"
-aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/network-template.yaml --parameters file://${cloudformation_dir}/network-param.json --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/network-template.yaml --parameters file://${cloudformation_dir}/network-param.json --capabilities CAPABILITY_NAMED_IAM  --tags Key=${tag1key},Value=${tag1value} Key=${tag2key},Value=${tag2value}
 
 wait_for_stack_completion "${stack_name}"
 if [[ $? -ne 0 ]]

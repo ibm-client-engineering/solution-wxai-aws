@@ -169,7 +169,7 @@ Resources:
         Value: "shared"
       - Key: "Name"
         Value: !Join ["-", [!Ref InfrastructureName, "worker"]]
-
+        
 Outputs:
   PrivateIP:
     Description: The compute node private IP address.

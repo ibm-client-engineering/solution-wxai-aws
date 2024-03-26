@@ -167,7 +167,7 @@ then
 fi
 
 stack_name="${infra_id}-sg-lb-stack"
-aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/sg-lb-template.yaml --parameters file://${cloudformation_dir}/sg-lb-param.json --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/sg-lb-template.yaml --parameters file://${cloudformation_dir}/sg-lb-param.json --capabilities CAPABILITY_NAMED_IAM  --tags Key=${tag1key},Value=${tag1value} Key=${tag2key},Value=${tag2value}
 
 wait_for_stack_completion "${stack_name}"
 if [[ $? -ne 0 ]]
@@ -195,7 +195,7 @@ then
 fi
 
 stack_name="${infra_id}-bootstrap-stack"
-aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/bootstrap-template.yaml --parameters file://${cloudformation_dir}/bootstrap-param.json --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/bootstrap-template.yaml --parameters file://${cloudformation_dir}/bootstrap-param.json --capabilities CAPABILITY_NAMED_IAM  --tags Key=${tag1key},Value=${tag1value} Key=${tag2key},Value=${tag2value}
 
 wait_for_stack_completion "${stack_name}"
 if [[ $? -ne 0 ]]
@@ -231,7 +231,7 @@ then
 fi
 
 stack_name="${infra_id}-control-plane-stack"
-aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/control-plane-template.yaml --parameters file://${cloudformation_dir}/control-plane-param.json --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/control-plane-template.yaml --parameters file://${cloudformation_dir}/control-plane-param.json --capabilities CAPABILITY_NAMED_IAM  --tags Key=${tag1key},Value=${tag1value} Key=${tag2key},Value=${tag2value}
 
 wait_for_stack_completion "${stack_name}"
 if [[ $? -ne 0 ]]
@@ -286,7 +286,7 @@ do
     fi
 
     stack_name="${infra_id}-worker${index}-stack"
-    aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/worker-template.yaml --parameters file://${cloudformation_dir}/worker-param.json
+    aws cloudformation create-stack --stack-name ${stack_name} --template-body file://${cloudformation_dir}/worker-template.yaml --parameters file://${cloudformation_dir}/worker-param.json  --tags Key=${tag1key},Value=${tag1value} Key=${tag2key},Value=${tag2value}
 
     wait_for_stack_completion "${stack_name}"
     if [[ $? -ne 0 ]]
