@@ -93,7 +93,8 @@ async function createconfig() {
               "https://github.com/ibm-client-engineering/solution-wxai-aws/edit/main/${blogDirPath}/${blogPath}",
             blogTitle: "Journey Log",
             blogSidebarTitle: "All our logs",
-            postsPerPage: 10,
+            blogSidebarCount: 'ALL',
+            postsPerPage: 'ALL',
             remarkPlugins: [],
             rehypePlugins: [],
           }

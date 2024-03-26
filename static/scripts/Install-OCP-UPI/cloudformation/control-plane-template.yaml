@@ -171,6 +171,7 @@ Resources:
         Ebs:
           VolumeSize: "250"
           VolumeType: "gp3"
+          Encrypted: 'true'
       InstanceType: !Ref MasterInstanceType
       NetworkInterfaces:
       - AssociatePublicIpAddress: "false"
@@ -200,6 +201,7 @@ Resources:
         Ebs:
           VolumeSize: "250"
           VolumeType: "gp3"
+          Encrypted: 'true'
       InstanceType: !Ref MasterInstanceType
       NetworkInterfaces:
       - AssociatePublicIpAddress: "false"
@@ -229,6 +231,7 @@ Resources:
         Ebs:
           VolumeSize: "250"
           VolumeType: "gp3"
+          Encrypted: 'true'
       InstanceType: !Ref MasterInstanceType
       NetworkInterfaces:
       - AssociatePublicIpAddress: "false"
