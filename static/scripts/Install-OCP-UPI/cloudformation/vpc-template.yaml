@@ -96,7 +96,7 @@ Resources:
     DependsOn: GatewayToInternet
     Properties:
       RouteTableId: !Ref PublicRouteTable
-      DestinationCidrBlock: 0.0.0.0/0
+      DestinationCidrBlock: 10.0.0.0/8
       GatewayId: !Ref InternetGateway
   PublicSubnetRouteTableAssociation:
     Type: "AWS::EC2::SubnetRouteTableAssociation"
@@ -151,7 +151,7 @@ Resources:
     Properties:
       RouteTableId:
         Ref: PrivateRouteTable
-      DestinationCidrBlock: 0.0.0.0/0
+      DestinationCidrBlock: 10.0.0.0/8
       NatGatewayId:
         Ref: NAT
   PrivateSubnet2:
@@ -196,7 +196,7 @@ Resources:
     Properties:
       RouteTableId:
         Ref: PrivateRouteTable2
-      DestinationCidrBlock: 0.0.0.0/0
+      DestinationCidrBlock: 10.0.0.0/8
       NatGatewayId:
         Ref: NAT2
   PrivateSubnet3:
@@ -241,7 +241,7 @@ Resources:
     Properties:
       RouteTableId:
         Ref: PrivateRouteTable3
-      DestinationCidrBlock: 0.0.0.0/0
+      DestinationCidrBlock: 10.0.0.0/8
       NatGatewayId:
         Ref: NAT3
   S3Endpoint:
