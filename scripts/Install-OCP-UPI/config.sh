@@ -26,6 +26,9 @@ tag1key="test"
 tag1value="one"
 tag2key="test"
 tag2value="two"
+httpProxy="http://proxy.example.com:PORT"
+httpsProxy="http://proxy.example.com:PORT"
+noProxy=".${base_domain},172.30.0.0/16,10.128.0.0/14,${aws_vpc_cidr}
 
 ###
 # ocp architecture
