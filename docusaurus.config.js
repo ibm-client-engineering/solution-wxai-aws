@@ -73,7 +73,7 @@ async function createconfig() {
         /** @type {import("@docusaurus/preset-classic").Options} */
         ({
           docs: {
-            remarkPlugins: [[remarkKroki, { server: "https://kroki.io/", output: "inline-svg" }]],
+            remarkPlugins: [[remarkKroki, {alias: ['plantuml'], target: 'mdx3', output: "inline-svg"}]],
             routeBasePath: "/",
             sidebarPath: require.resolve("./sidebars.js"),
             // Please change this to your repo.
