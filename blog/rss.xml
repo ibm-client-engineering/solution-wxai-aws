@@ -208,11 +208,11 @@
 <li>AWS-specific: IAM users required for install/deploy and are not allowed</li>
 <li>OpenShift specific: CoreOS requirement for control nodes</li>
 <li>Automatic updating of Cloud Pak, this can interrupt engagements (solution is to always remove update polling from operators)</li>
-</ul>
-</li>
-</ul>
-</li>
 <li>Deploy watsonx.ai</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>]]></content:encoded>
             <category>log</category>
         </item>

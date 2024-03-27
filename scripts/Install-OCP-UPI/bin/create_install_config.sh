@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $# -ne 7 ]]
+if [[ $# -ne 10 ]]
 then
     echo "Incorrect number of parameters"
     echo "Usage: $0 <output_dir> <base_domain> <cluster_name> <registry_url> <registry_creds> <ssh_key> <additionalcacert> <httpProxy> <httpsProxy> <noProxy>"
