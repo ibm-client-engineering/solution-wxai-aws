@@ -1,12 +1,13 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
+import rehypeRaw from 'rehype-raw';
+import { remarkKroki } from 'remark-kroki';
+
 const lightCodeTheme = require("prism-react-renderer").themes.oceanicNext;
 const darkCodeTheme = require("prism-react-renderer").themes.oceanicNext;
 
 async function createconfig() {
-  const { remarkKroki } = await import("remark-kroki");
-
   /** @type {import("@docusaurus/types").Config} */
   const config = {
 
@@ -73,7 +74,21 @@ async function createconfig() {
         /** @type {import("@docusaurus/preset-classic").Options} */
         ({
           docs: {
-            remarkPlugins: [[remarkKroki, {alias: ['plantuml'], target: 'mdx3', output: "inline-svg"}]],
+            remarkPlugins: [[remarkKroki, {server: 'https://kroki.io', target: 'mdx3', output: "inline-svg"}]],
+            rehypePlugins: [
+              [
+                rehypeRaw,
+                {
+                  passThrough: [
+                    'mdxFlowExpression',
+                    'mdxJsxFlowElement',
+                    'mdxJsxTextElement',
+                    'mdxTextExpression',
+                    'mdxjsEsm'
+                  ]
+                }
+              ]
+            ],
             routeBasePath: "/",
             sidebarPath: require.resolve("./sidebars.js"),
             // Please change this to your repo.
@@ -95,8 +110,6 @@ async function createconfig() {
             blogSidebarTitle: "All our logs",
             blogSidebarCount: 'ALL',
             postsPerPage: 'ALL',
-            remarkPlugins: [],
-            rehypePlugins: [],
           }
         }),
       ],
