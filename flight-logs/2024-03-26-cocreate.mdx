@@ -6,7 +6,7 @@ tags: [log]
 ---
 
 ## Objective
-Deploy watsonx.ai on self-managed AWS infrastructure forr customer software evaluation
+Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation
 
 ```mermaid
 flowchart LR
@@ -20,7 +20,7 @@ flowchart LR
 ```
 
 ## Milestones
-1. Deploy and configuration of boot node to establish a beach-head into the Fidelity AWS environment
+1. Deploy and configuration of boot node to establish a beach-head into the customer AWS environment
     - Complete
 2. Deploy OCP using the documented UPI installation steps
     - In progress
@@ -37,7 +37,7 @@ flowchart LR
     - Initial onnectectivity over port 8080 failed
     - Fixed by opening port via security group
 - Changed certificate organization (O) to match the domain
-- Cert validated vurrent certificate using output of `openssl x509 -in /ibm/security/certs/ca.crt -text -noout`
+- Cert validated - current certificate using output of `openssl x509 -in /ibm/security/certs/ca.crt -text -noout`
 
     ```
     Issuer: C = US, O = ec2.internal, CN = CA
@@ -122,12 +122,11 @@ flowchart LR
 - Adding creation of the ssh key as root user on the bastion node
 - CoreOS AMI approval from customer (Public AMI's are blocked)
     - AMI approved, step 2 script succeeded AMI portion
-- Action Items: Customer security policies
-    - Ongoing: Port rule formatting
-        - Aligning to customer-determined security policies for port formating (Example: Using 10.0.0.0/8 instead of 0.0.0.0/0)
+- Customer security policies
+    - Ongoing: Port rule formatting (Example: Using 10.0.0.0/8 instead of 0.0.0.0/0)
     - Cleared: Role authorizations
 - Software evaluation licenses for CP4D and watsonx.ai
-    - Pending IBM precurment team approval
+    - Pending approval process
 - Potential Proxy Configuration Error
     - Prepared code changes for `create_cluster_step_2.sh` next session
 
