@@ -11,7 +11,8 @@ base_domain="ocp-cluster.com"
 ###
 registry_url="HOSTNAME:PORT"
 local_auth_json="/ibm/security/auth/auth.json"
-additional_trust_cert="/ibm/security/certs/ca.crt"
+#additional_trust_cert=""
+pull_secret=""
 ###
 # AWS info
 ###

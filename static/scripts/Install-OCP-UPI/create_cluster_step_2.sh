@@ -71,12 +71,14 @@ echo "**** Creating install-config.yaml"
 ### get registry creds for AWS
 ###registry_creds=$(${bin_dir}/ecr_creds.sh "${aws_region}")
 # get registry creds for local registry
-registry_creds=$(${bin_dir}/local_creds.sh "${local_auth_json}")
-if [[ $? -ne 0 ]]
-then
-    echo "ERROR: could not get registry credentials"
-    exit 1
-fi
+# registry_creds=$(${bin_dir}/local_creds.sh "${local_auth_json}")
+# if [[ $? -ne 0 ]]
+# then
+#     echo "ERROR: could not get registry credentials"
+#     exit 1
+# fi
+
+
 
 ssh_pub_key=""
 if [[ -f ~/.ssh/id_rsa.pub ]]
@@ -84,8 +86,10 @@ then
     ssh_pub_key=$(cat ~/.ssh/id_rsa.pub)
 fi
 
-echo "**** Running: " ${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${cluster_name}" "${registry_url}" "${registry_creds}" "${ssh_pub_key}" "${additional_trust_cert}" "${httpProxy}" "${httpsProxy}" "${noProxy}"
-${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${cluster_name}" "${registry_url}" "${registry_creds}" "${ssh_pub_key}" "${additional_trust_cert}" "${httpProxy}" "${httpsProxy}" "${noProxy}"
+#echo "**** Running: " ${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${cluster_name}" "${registry_url}" "${registry_creds}" "${ssh_pub_key}" "${additional_trust_cert}" "${httpProxy}" "${httpsProxy}" "${noProxy}"
+#${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${cluster_name}" "${pull_secret}" "${ssh_pub_key}" "${additional_trust_cert}" "${httpProxy}" "${httpsProxy}" "${noProxy}"
+echo "**** Running: " ${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${cluster_name}" "${pull_secret}" "${ssh_pub_key}" "${additional_trust_cert}" "${httpProxy}" "${httpsProxy}" "${noProxy}"
+${bin_dir}/create_install_config.sh "${ocp_data_dir}" "${base_domain}" "${pull_secret}" "${ssh_pub_key}" "${additional_trust_cert}" "${httpProxy}" "${httpsProxy}" "${noProxy}"
 
 if [[ -f "${ocp_data_dir}/install-config.yaml" ]]
 then
@@ -255,7 +259,7 @@ ${bin_dir}/add_control_plane_to_lbs.sh "${cluster_name}-network-stack" "${infra_
 
 # step 6 wait for bootstrap complete
 echo "**** wait for bootstrap complete"
-openshift-install create cluster --dir=${ocp_data_dir}
+
 openshift-install wait-for bootstrap-complete --dir=${ocp_data_dir}
 openshift-install wait-for bootstrap-complete --dir=${ocp_data_dir}
 

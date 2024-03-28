@@ -83,7 +83,7 @@ Resources:
         FromPort: 19531
         CidrIp: 10.0.0.0/8
       SecurityGroupEgress:
-      - IpProtocol: tcp
+      - IpProtocol: -1
         FromPort: 0
         ToPort: 65535
         CidrIp: 10.0.0.0/8
