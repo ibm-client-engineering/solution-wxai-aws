@@ -81,9 +81,9 @@ flowchart LR
     - Updated config and removed certificate configuration
 - Running cleanup process
 - Running `create_cluster_step_2.sh`
-- Witnessing certificate failures, but continueing install
+- Witnessing certificate failures in sctipy output, but continueing install
 - Error: Worker nodes not communicatting
-- Fix:
+- Fix/Root Causes
     - Removed IPI artififact from script
     - Removed `{registry_url}` image content sources from imageContentSources (Airgap) from install config.sh
     - Removed fips mode from install config.sh
