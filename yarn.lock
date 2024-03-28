@@ -5915,6 +5915,11 @@ katex@^0.16.8:
   dependencies:
     commander "^8.3.0"
 
+kebab-case@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/kebab-case/-/kebab-case-1.0.2.tgz#5eac97d5d220acf606d40e3c0ecfea21f1f9e1eb"
+  integrity sha512-7n6wXq4gNgBELfDCpzKc+mRrZFs7D+wgfF5WRFLNAr4DA/qtr9Js8uOAVAfHhuLMfAcQ0pRKqbpjx+TcJVdE1Q==
+
 keyv@^4.5.3:
   version "4.5.4"
   resolved "https://registry.npmjs.org/keyv/-/keyv-4.5.4.tgz"
@@ -8328,7 +8333,7 @@ regjsparser@^0.9.1:
 
 rehype-raw@^7.0.0:
   version "7.0.0"
-  resolved "https://registry.npmjs.org/rehype-raw/-/rehype-raw-7.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/rehype-raw/-/rehype-raw-7.0.0.tgz#59d7348fd5dbef3807bbaa1d443efd2dd85ecee4"
   integrity sha512-/aE8hCfKlQeA8LmyeyQvQF3eBiLRGNlfBJEvWH7ivp9sBqs7TNqBL5X3v157rM4IFETqDnIOO+z5M/biZbo9Ww==
   dependencies:
     "@types/hast" "^3.0.0"
@@ -8383,12 +8388,13 @@ remark-gfm@^4.0.0:
     remark-stringify "^11.0.0"
     unified "^11.0.0"
 
-remark-kroki@^0.2.12:
-  version "0.2.12"
-  resolved "https://registry.npmjs.org/remark-kroki/-/remark-kroki-0.2.12.tgz"
-  integrity sha512-QTlMoelEZrWFExYQHyZkEOL093xRXemO4fC4Eg0p/NdBBCB2jk8zgbkwBoT+3vEan6vwG4s1xiW3P8ZN14Mohw==
+remark-kroki@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/remark-kroki/-/remark-kroki-0.3.5.tgz#dca2f96e70e465e51b8c4792bb56a5b9dde49c9c"
+  integrity sha512-PwTlLuxJPdzX/Sp5qJHPkFB+ziF5lwoY5WNDF3/d0kagl1HWC06Boa4U6S4sfcBSevJEMma2DYV5dW67WoN1Tg==
   dependencies:
     is-plain-obj "^4.1.0"
+    kebab-case "^1.0.2"
     markdown-code-block-meta "^0.0.2"
     node-fetch "^3.3.2"
     p-memoize "^7.1.1"
