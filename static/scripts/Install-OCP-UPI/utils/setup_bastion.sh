@@ -28,6 +28,7 @@ echo "**** Setting web server to port 8080"
 sudo sed -i 's/^Listen 80$/Listen 8080/' /etc/httpd/conf/httpd.conf
 
 echo "**** Starting web server"
+sudo systemctl enable httpd
 sudo systemctl start httpd
 
 
