@@ -37,7 +37,8 @@
     "prism-react-renderer": "^2.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remark-kroki": "^0.2.12"
+    "rehype-raw": "^7.0.0",
+    "remark-kroki": "^0.3.5"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.0.1",
