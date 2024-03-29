@@ -15,7 +15,7 @@
             <pubDate>Thu, 28 Mar 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Flight Log of Co-Creation Activities]]></description>
             <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-12#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
-<p>Deploy watsonx.ai on self-managed AWS infrastructure forr customer software evaluation</p>
+<p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
 <!-- -->
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-12#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
 <ol>
@@ -59,7 +59,7 @@
 <li>Issue - <code>ConnectivityCheckController</code> is waiting for transition to desired version (4.12.8) to be completed.<!-- -->
 <ul>
 <li>Investigating proxy configuration</li>
-<li>Adding cluster domain to proxy configuration - telling local nodes to not use proxy</li>
+<li>Adding cluster domain to proxy configuration - configuring local nodes to not use proxy</li>
 </ul>
 </li>
 <li>Fix: Adding noproxy spec to proxy configuration allowed for traffic locally (not through proxy) for nodes</li>
@@ -129,7 +129,7 @@
             <pubDate>Wed, 27 Mar 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Flight Log of Co-Creation Activities]]></description>
             <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-11#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
-<p>Deploy watsonx.ai on self-managed AWS infrastructure forr customer software evaluation</p>
+<p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
 <!-- -->
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-11#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
 <ol>
@@ -249,7 +249,7 @@
 </li>
 <li>Running cleanup process</li>
 <li>Running <code>create_cluster_step_2.sh</code></li>
-<li>Witnessing certificate failures in sctipy output, but continueing install</li>
+<li>Witnessing certificate failures in script output, but continuing install</li>
 <li>Error: Worker nodes not communicatting</li>
 <li>Fix/Root Causes<!-- -->
 <ul>
