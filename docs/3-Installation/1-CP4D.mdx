@@ -1,0 +1,226 @@
+---
+id: CP4D
+sidebar_position: 1
+title: CP4D Installation
+custom_edit_url: null
+---
+
+## Installing CP4D Cli
+
+### Download binary
+CP4D CLI can be found at the following link.
+
+https://github.com/IBM/cpd-cli/releases/download/v13.1.4/cpd-cli-linux-EE-13.1.4.tgz
+
+
+:::note
+ This binary is for linux, if running from a windows machine, please use the linux binary but run it from Windows Subsystem for Linux.
+
+ Also as of this writing the latest version of the cli is 13.1.4.
+:::
+
+```tsx
+wget https://github.com/IBM/cpd-cli/releases/download/v13.1.4/cpd-cli-linux-EE-13.1.4.tgz
+```
+
+Extract the files:
+
+```
+tar xzvf https://github.com/IBM/cpd-cli/releases/download/v13.1.4/cpd-cli-linux-EE-13.1.4.tgz
+```
+
+This will create the following directory:
+
+```tsx
+cpd-cli-linux-EE-13.1.4-109
+```
+
+### Configure environmental vars
+
+The following creates a CPD env file
+
+
+```tsx
+cat<<EOF> cpd_vars_48.sh
+#===============================================================================
+
+# Cloud Pak for Data installation variables
+
+#===============================================================================
+
+  
+
+# ------------------------------------------------------------------------------
+# Client workstation
+# ------------------------------------------------------------------------------
+
+# Set the following variables if you want to override the default behavior of the Cloud Pak for Data CLI.
+#
+# To export these variables, you must uncomment each command in this section.
+# export CPD_CLI_MANAGE_WORKSPACE=<enter a fully qualified directory>
+# export OLM_UTILS_LAUNCH_ARGS=<enter launch arguments>
+
+# ------------------------------------------------------------------------------
+# Cluster
+# ------------------------------------------------------------------------------
+
+export OCP_URL=<enter your Red Hat OpenShift Container Platform URL>
+export OPENSHIFT_TYPE=self-managed
+export IMAGE_ARCH=amd64
+export OCP_USERNAME=kubeadmin
+export OCP_PASSWORD=<enter your password>
+export SERVER_ARGUMENTS="--server=${OCP_URL}"
+export CPDM_OC_LOGIN="cpd-cli manage login-to-ocp ${SERVER_ARGUMENTS} ${LOGIN_ARGUMENTS}"
+export OC_LOGIN="oc login ${OCP_URL} ${LOGIN_ARGUMENTS}"
+
+# export OCP_TOKEN=<enter your token>
+# export LOGIN_ARGUMENTS="--username=${OCP_USERNAME} --password=${OCP_PASSWORD}"
+# export LOGIN_ARGUMENTS="--token=${OCP_TOKEN}"
+
+# ------------------------------------------------------------------------------
+
+# Projects
+
+# ------------------------------------------------------------------------------
+
+export PROJECT_CERT_MANAGER=ibm-cert-manager
+export PROJECT_LICENSE_SERVICE=ibm-license-server
+export PROJECT_SCHEDULING_SERVICE=ibm-scheduler
+export PROJECT_CPD_INST_OPERATORS=cpd-operators
+export PROJECT_CPD_INST_OPERANDS=cpd
+
+# export PROJECT_IBM_EVENTS=<enter your IBM Events Operator project>
+# export PROJECT_PRIVILEGED_MONITORING_SERVICE=<enter your privileged monitoring service project>
+# export PROJECT_CPD_INSTANCE_TETHERED=<enter your tethered project>
+# export PROJECT_CPD_INSTANCE_TETHERED_LIST=<a comma-separated list of tethered projects>
+
+# ------------------------------------------------------------------------------
+# Storage
+# ------------------------------------------------------------------------------
+
+export STG_CLASS_BLOCK=nfs-client
+export STG_CLASS_FILE=nfs-client
+
+# ------------------------------------------------------------------------------
+# IBM Entitled Registry
+# ------------------------------------------------------------------------------
+
+export IBM_ENTITLEMENT_KEY=<enter your IBM entitlement API key>
+
+# ------------------------------------------------------------------------------
+# Private container registry
+# ------------------------------------------------------------------------------
+
+# Set the following variables if you mirror images to a private container registry.
+#
+# To export these variables, you must uncomment each command in this section. 
+
+# export PRIVATE_REGISTRY_LOCATION=<enter the location of your private container registry>
+# export PRIVATE_REGISTRY_PUSH_USER=<enter the username of a user that can push to the registry>
+# export PRIVATE_REGISTRY_PUSH_PASSWORD=<enter the password of the user that can push to the registry>
+# export PRIVATE_REGISTRY_PULL_USER=<enter the username of a user that can pull from the registry>
+# export PRIVATE_REGISTRY_PULL_PASSWORD=<enter the password of the user that can pull from the registry>
+
+  
+  
+
+# ------------------------------------------------------------------------------
+# Cloud Pak for Data version
+# ------------------------------------------------------------------------------
+
+export VERSION=4.8.4
+
+# ------------------------------------------------------------------------------
+# Components
+# ------------------------------------------------------------------------------
+
+#export COMPONENTS=ibm-cert-manager,ibm-licensing,scheduler,cpfs,cpd_platform,ws,wml,openpages,wkc,watson_assistant
+export COMPONENTS=ibm-cert-manager,ibm-licensing,scheduler,cpfs,cpd_platform
+
+
+# export COMPONENTS_TO_SKIP=<component-ID-1>,<component-ID-2>
+
+# ------------------------------------------------------------------------------
+# watsonx Orchestrate
+# ------------------------------------------------------------------------------
+
+# export PROJECT_IBM_APP_CONNECT=<enter your IBM App Connect in containers project>
+# export AC_CASE_VERSION=<version>
+# export AC_CHANNEL_VERSION=<version>
+EOF
+```
+
+You will need to open the resultant `cpd_vars_48.sh` file and update the following vars:
+
+```tsx
+OCP_URL
+OCP_PASSWORD
+IBM_ENTITLEMENT_KEY
+```
+
+By default we set our storage classes to the `nfs-client` storage class. Your mileage may vary.
+
+If you are an IBM employee, entitlement key can be fetched from [here](https://myibm.ibm.com/products-services/containerlibrary)
+
+The `OCP_URL` can be pulled with this command:
+```tsx
+oc cluster-info
+Kubernetes control plane is running at https://api.wxai.cpdu8vscs.ibmworkshops.com:6443
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+```
+
+The kubeadmin password can be found in the build directory for the cluster under `auth/kubeadmin-password`
+
+### Login to the cluster with cpd-cli
+
+Source the env file
+
+`source cpd_vars_48.sh`
+
+login with cpd-cli
+```
+cpd-cli manage login-to-ocp \
+--username=${OCP_USERNAME} \
+--password=${OCP_PASSWORD} \
+--server=${OCP_URL}
+```
+### Add the entitlement key
+
+```tsx
+cpd-cli manage add-icr-cred-to-global-pull-secret \
+--entitled_registry_key=${IBM_ENTITLEMENT_KEY}
+```
+
+## Installing CP4D 
+
+### Authorizing instances
+
+This step creates all required projects, creates the NamespaceScope operator in the operators project, and binds the applied role to the service account of the NamespaceScope operator.
+
+```tsx
+cpd-cli manage authorize-instance-topology \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS}
+```
+
+### Installation of primary CPD components
+
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=${COMPONENTS}
+```
+
+
+### Setup instance topology
+
+```tsx
+cpd-cli manage setup-instance-topology \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--license_acceptance=true \
+--block_storage_class=${STG_CLASS_BLOCK}
+```
