@@ -6,7 +6,7 @@ tags: [log]
 ---
 
 ## Objective
-Deploy watsonx.ai on self-managed AWS infrastructure forr customer software evaluation
+Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation
 
 ```mermaid
 flowchart LR
@@ -42,7 +42,7 @@ flowchart LR
         - Replacing ICMP range 0 with all on 10.0.0.0/8
 - Issue - `ConnectivityCheckController` is waiting for transition to desired version (4.12.8) to be completed.
     - Investigating proxy configuration
-    - Adding cluster domain to proxy configuration - telling local nodes to not use proxy
+    - Adding cluster domain to proxy configuration - configuring local nodes to not use proxy
 - Fix: Adding noproxy spec to proxy configuration allowed for traffic locally (not through proxy) for nodes
 - Waiting for configurations to apply (automatically)
 - <strong>OCP cluster verified working</strong>
