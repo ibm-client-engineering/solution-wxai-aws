@@ -1,0 +1,476 @@
+---
+id: upi_install
+sidebar_position: 2
+title: UPI Installation Instructions
+custom_edit_url: null
+---
+
+
+### Prepare the Bastion Node
+
+
+#### Update the OS and install additional tools
+
+```
+sudo yum update -y; sudo yum install git -y
+```
+
+
+
+#### Clone the repository to the bootnode.
+
+
+```
+git clone https://github.com/ibm-client-engineering/solution-wxai-aws
+```
+
+
+#### Run 'setup_bastion' script
+
+Run the 'setup_bastion' script which will install additional tools, and configure an HTTP server to host the Bootstrap ignition file.
+
+```
+cd $HOME/aws-openshift410-cloudformation-noIAM-noR53/utils
+./setup_bastion.sh
+```
+
+#### Change the bootnode hostname to 'registry.$DOMAIN'
+
+```
+sudo hostnamectl set-hostname registry.$DOMAIN.com
+sudo reboot
+```
+
+
+### Setup Services
+
+#### Create Registry
+
+Create a new directory for the registry, select a port (suggested port: 5000), a username and a password.
+
+```
+sudo mkdir -p /ibm/
+sudo chown -R ec2-user:ec2-user /ibm/
+./create_registry.sh <registry_directory> <port> <userid> <password> <local_dir_install>
+```
+
+Example:
+
+```
+./create_registry.sh /ibm 5000 wxai CeFsm2024 /home/ec2-user/openshift-upi-master/aws-openshift410-cloudformation-noIAM-noR53
+```
+
+#### Start the registry
+
+```
+./start_registry.sh <registry_directory> <port>
+```
+
+Example:
+
+```
+./start_registry.sh /ibm 5000
+```
+
+#### Add your local registry login details 
+
+```
+mkdir -p /ibm/security/auth/
+```
+
+```
+echo -n '<user_name>:<password>' | base64 -w0 
+```
+
+#### Add your details to the auth.json
+
+```
+{
+  "auths": {
+    "<mirror_registry>": { 
+      "auth": "<credentials>", 
+      "email": "you@example.com"
+    }
+  }
+}
+```
+
+```
+<mirror_registry> - the URL of the registry including the port
+<credentials> - the output from "echo -n '<user_name>:<password>' | base64 -w0 "
+```
+
+Confirm the registry is accessible:
+
+```
+podman login <Registry_URL> --authfile /ibm/security/auth/auth.json
+```
+### Setup Local and Internal registries
+
+#### Load the registry with the OCP files
+```
+./load_ocp.sh <ocprelease> <registryip:port> <contentpath> <authfile>
+```
+
+Example: 
+
+```
+./load_ocp.sh 4.14.9 registry.cpdu8vscs.ibmworkshops.com:5000 /ibm/openshift-4.14.9/export /ibm/openshift/auth.json
+```
+
+```
+export OCP_RELEASE="4.14.9"
+
+export LOCAL_REGISTRY="registry.cpdu8vscs.ibmworkshops.com:5000"
+
+export LOCAL_REPOSITORY="openshift"
+
+export PRODUCT_REPO="openshift-release-dev"
+
+export RELEASE_NAME="ocp-release"
+
+export ARCHITECTURE="x86_64"
+
+export REMOVABLE_MEDIA_PATH="/ibm/ocp-images"
+
+export LOCAL_SECRET_JSON="/ibm/openshift/auth.json"
+
+
+```
+
+Review images and configurations
+
+```
+oc adm release mirror -a ${LOCAL_SECRET_JSON} --from=quay.io/${PRODUCT_REPO}/${RELEASE_NAME}:${OCP_RELEASE}-${ARCHITECTURE} --to=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY} --to-release-image=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}-${ARCHITECTURE} --dry-run
+```
+
+
+Pull down images and send to local registry.
+
+```
+oc image mirror -a ${LOCAL_SECRET_JSON} --from-dir=${REMOVABLE_MEDIA_PATH}/mirror "file://openshift/release:${OCP_RELEASE}*" ${LOCAL_REGISTRY}/${LOCAL_REPOSITORY} 
+```
+
+
+#### Extract the OpenShift Installer 
+Generate the openshift-install binary for the version of openshift images that were pulled.
+
+```
+oc adm release extract -a ${LOCAL_SECRET_JSON} --command=openshift-install "${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}-${ARCHITECTURE}"
+```
+
+Move openshift-install to /usr/bin.
+
+```
+sudo mv openshift-install /usr/bin/openshift-install
+```
+
+### Start cluster creation
+
+#### Collect information for 'config.sh'
+
+Information needed to update 'config.sh'
+
+```
+Cluster Name
+Base Domain
+Registry URL
+Local Pull Secret updated with local registry auth.
+Additional Trust certs generated during the registry creation process.
+AWS Region
+AWS Private Subnets
+AWS VPC ID
+AWS VPC CIDR
+AWS RHCOS AMI ID
+
+Bootstrap allowed SSH CIDR
+Bootstrap Ignition URL (Bastion node's hostname, port, and file name)
+Master Instance Type
+Worker Count
+Worker Instance Type
+```
+
+****Important Node: AWS CLI will need to be configured, and output format MUST be json
+
+#### Start the installation
+
+After updating config.sh, run "create_cluster_step_1.sh".
+
+```
+./create_cluster_step_1.sh
+```
+
+Once this completes, create the DNS records listed in the script output:
+
+```
+api.{ClusterName}.{DOMAINNAME} -> wxai-int-(random_string).elb.us-east-2.amazonaws.com
+api-int.{ClusterName}.{DOMAINNAME} -> wxai-int-(random_string).elb.us-east-2.amazonaws.com
+*.apps.{ClusterName}.{DOMAINNAME} -> wxai-int-(random_string).elb.us-east-2.amazonaws.com
+```
+
+Now run step 2:
+
+```
+./create_cluster_step_2.sh
+```
+
+## NFS Provisioner setup
+
+:::note
+In a user managed instance of OCP on AWS, the EFS provisioner from AWS is not available. In our case we will be provisioning an EFS share, and then installing the NFS provioner to the cluster.2a
+:::
+
+### Creating the EFS filesystem
+
+- commands in AWS CLI to deploy an EFS filesystem
+
+### Deploying the provisioner with helm
+
+#### Installing helm
+
+Verify and/or install openssl
+
+```tsx
+sudo dnf -y install openssl
+```
+
+Run the following commands to install helm to the bastion host
+```tsx
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod +x get_helm.sh
+./get_helm.sh
+```
+
+Verify helm is available
+
+```tsx
+helm
+
+The Kubernetes package manager
+
+Common actions for Helm:
+
+- helm search:    search for charts
+- helm pull:      download a chart to your local directory to view
+- helm install:   upload the chart to Kubernetes
+- helm list:      list releases of charts
+
+Environment variables:
+
+| Name                               | Description                                                                                                |
+|------------------------------------|------------------------------------------------------------------------------------------------------------|
+| $HELM_CACHE_HOME                   | set an alternative location for storing cached files.                                                      |
+| $HELM_CONFIG_HOME                  | set an alternative location for storing Helm configuration.                                                |
+| $HELM_DATA_HOME                    | set an alternative location for storing Helm data.                                                         |
+| $HELM_DEBUG                        | indicate whether or not Helm is running in Debug mode                                                      |
+| $HELM_DRIVER                       | set the backend storage driver. Values are: configmap, secret, memory, sql.                                |
+| $HELM_DRIVER_SQL_CONNECTION_STRING | set the connection string the SQL storage driver should use.                                               |
+| $HELM_MAX_HISTORY                  | set the maximum number of helm release history.                                                            |
+| $HELM_NAMESPACE                    | set the namespace used for the helm operations.                                                            |
+| $HELM_NO_PLUGINS                   | disable plugins. Set HELM_NO_PLUGINS=1 to disable plugins.                                                 |
+| $HELM_PLUGINS                      | set the path to the plugins directory                                                                      |
+| $HELM_REGISTRY_CONFIG              | set the path to the registry config file.                                                                  |
+| $HELM_REPOSITORY_CACHE             | set the path to the repository cache directory                                                             |
+| $HELM_REPOSITORY_CONFIG            | set the path to the repositories file.                                                                     |
+| $KUBECONFIG                        | set an alternative Kubernetes configuration file (default "~/.kube/config")                                |
+| $HELM_KUBEAPISERVER                | set the Kubernetes API Server Endpoint for authentication                                                  |
+| $HELM_KUBECAFILE                   | set the Kubernetes certificate authority file.                                                             |
+| $HELM_KUBEASGROUPS                 | set the Groups to use for impersonation using a comma-separated list.                                      |
+| $HELM_KUBEASUSER                   | set the Username to impersonate for the operation.                                                         |
+| $HELM_KUBECONTEXT                  | set the name of the kubeconfig context.                                                                    |
+| $HELM_KUBETOKEN                    | set the Bearer KubeToken used for authentication.                                                          |
+| $HELM_KUBEINSECURE_SKIP_TLS_VERIFY | indicate if the Kubernetes API server's certificate validation should be skipped (insecure)                |
+| $HELM_KUBETLS_SERVER_NAME          | set the server name used to validate the Kubernetes API server certificate                                 |
+| $HELM_BURST_LIMIT                  | set the default burst limit in the case the server contains many CRDs (default 100, -1 to disable)         |
+| $HELM_QPS                          | set the Queries Per Second in cases where a high number of calls exceed the option for higher burst values |
+
+Helm stores cache, configuration, and data based on the following configuration order:
+
+- If a HELM_*_HOME environment variable is set, it will be used
+- Otherwise, on systems supporting the XDG base directory specification, the XDG variables will be used
+- When no other location is set a default location will be used based on the operating system
+
+By default, the default directories depend on the Operating System. The defaults are listed below:
+
+| Operating System | Cache Path                | Configuration Path             | Data Path               |
+|------------------|---------------------------|--------------------------------|-------------------------|
+| Linux            | $HOME/.cache/helm         | $HOME/.config/helm             | $HOME/.local/share/helm |
+| macOS            | $HOME/Library/Caches/helm | $HOME/Library/Preferences/helm | $HOME/Library/helm      |
+| Windows          | %TEMP%\helm               | %APPDATA%\helm                 | %APPDATA%\helm          |
+
+Usage:
+  helm [command]
+
+Available Commands:
+  completion  generate autocompletion scripts for the specified shell
+  create      create a new chart with the given name
+  dependency  manage a chart's dependencies
+  env         helm client environment information
+  get         download extended information of a named release
+  help        Help about any command
+  history     fetch release history
+  install     install a chart
+  lint        examine a chart for possible issues
+  list        list releases
+  package     package a chart directory into a chart archive
+  plugin      install, list, or uninstall Helm plugins
+  pull        download a chart from a repository and (optionally) unpack it in local directory
+  push        push a chart to remote
+  registry    login to or logout from a registry
+  repo        add, list, remove, update, and index chart repositories
+  rollback    roll back a release to a previous revision
+  search      search for a keyword in charts
+  show        show information of a chart
+  status      display the status of the named release
+  template    locally render templates
+  test        run tests for a release
+  uninstall   uninstall a release
+  upgrade     upgrade a release
+  verify      verify that a chart at the given path has been signed and is valid
+  version     print the client version information
+
+Flags:
+      --burst-limit int                 client-side default throttling limit (default 100)
+      --debug                           enable verbose output
+  -h, --help                            help for helm
+      --kube-apiserver string           the address and the port for the Kubernetes API server
+      --kube-as-group stringArray       group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string             username to impersonate for the operation
+      --kube-ca-file string             the certificate authority file for the Kubernetes API server connection
+      --kube-context string             name of the kubeconfig context to use
+      --kube-insecure-skip-tls-verify   if true, the Kubernetes API server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kube-tls-server-name string     server name to use for Kubernetes API server certificate validation. If it is not provided, the hostname used to contact the server is used
+      --kube-token string               bearer token used for authentication
+      --kubeconfig string               path to the kubeconfig file
+  -n, --namespace string                namespace scope for this request
+      --qps float32                     queries per second used when communicating with the Kubernetes API, not including bursting
+      --registry-config string          path to the registry config file (default "/home/kramerro/.config/helm/registry/config.json")
+      --repository-cache string         path to the file containing cached repository indexes (default "/home/kramerro/.cache/helm/repository")
+      --repository-config string        path to the file containing repository names and URLs (default "/home/kramerro/.config/helm/repositories.yaml")
+
+Use "helm [command] --help" for more information about a command.
+```
+
+### Install to OCP
+
+From the OC cli:
+```tsx
+oc new-project nfs-provisioner
+```
+
+This will automatically put you in that project.
+
+Now set up the SCCs
+
+```tsx
+oc apply -f - <<EOF
+allowHostDirVolumePlugin: true
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: null
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: null
+fsGroup:
+  type: RunAsAny
+groups: []
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    kubernetes.io/description: 'hostmount-anyuid provides all the features of the
+      restricted SCC but allows host mounts and any UID by a pod.  This is primarily
+      used by the persistent volume recycler. WARNING: this SCC allows host file system
+      access as any UID, including UID 0.  Grant with caution.'
+  name: nfs-storage-hostmount-anyuid
+readOnlyRootFilesystem: false
+requiredDropCapabilities:
+- MKNOD
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+users:
+- system:serviceaccount:nfs-provisioner:nfs-subdir-external-provisioner
+volumes:
+- configMap
+- downwardAPI
+- emptyDir
+- hostPath
+- nfs
+- persistentVolumeClaim
+- projected
+- secret
+EOF
+```
+
+### Install the helm chart and run the helm install
+
+The <EFS URL> should be returned by the aws cli creation of the EFS storage filesystem.
+
+```tsx
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+    --namespace nfs-provisioner \
+    --set nfs.server=<EFS URL>\
+    --set nfs.path=/ \
+    --set storageClass.defaultClass=true
+```
+
+Verify the pods are up
+
+```tsx
+oc get pods
+```
+
+_EXAMPLE RETURNED OUTPUT HERE_
+
+Make sure the storage class now exists and is set to default
+
+```tsx
+oc get sc
+```
+
+Verify that the storage will provision with the following test deployment
+
+```tsx
+oc apply -f - <<EOF
+kind: Pod
+apiVersion: v1
+metadata:
+  name: test-pod
+spec:
+  containers:
+  - name: test-pod
+    image: busybox:stable
+    command:
+      - "/bin/sh"
+    args:
+      - "-c"
+      - "touch /mnt/SUCCESS && exit 0 || exit 1"
+    volumeMounts:
+      - name: nfs-pvc
+        mountPath: "/mnt"
+  restartPolicy: "Never"
+  volumes:
+    - name: nfs-pvc
+      persistentVolumeClaim:
+        claimName: test-claim
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: test-claim
+spec:
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
+EOF
+```
