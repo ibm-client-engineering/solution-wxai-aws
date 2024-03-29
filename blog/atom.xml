@@ -14,110 +14,25 @@
         <updated>2024-03-29T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
         <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-13#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
-<p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
-<!-- -->
+<ul>
+<li>Evaluate Watsonx Discovery vs Chromadb for vector store</li>
+<li>Start ideating &amp; testing sample complete workflows</li>
+</ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-13#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
 <ol>
-<li>Deploy and configuration of boot node to establish a beach-head into the customer AWS environment<!-- -->
-<ul>
-<li>Complete</li>
-</ul>
-</li>
-<li>Deploy OCP using the documented UPI installation steps<!-- -->
-<ul>
-<li>In progress</li>
-</ul>
-</li>
-<li>Install CloudPak for Data</li>
-<li>Deploy and configure watsonx.ai on self-managed AWS infrastructure</li>
+<li>Successfully configured working Wx Discovery Vector Store with chunking, embeddings and ELSER semantic search</li>
+<li>Connected this KB in WXD to Watsonx Assistant</li>
+<li>Developed method to parse &amp; detect RAG responses that give step by step instructions, which can be used to create guided workflows</li>
 </ol>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-13#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h2>
-<ul>
-<li>Successful deployment of OpenShift</li>
-<li>Successful setup of storage class</li>
-</ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-13#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
-<ul>
-<li>Nodes were shut down after-hours by customer compliance automated scan<!-- -->
-<ul>
-<li>All nodes must be whitelisted by customer security</li>
-</ul>
-</li>
-<li>Validating health of OCP installation<!-- -->
-<ul>
-<li>All nodes started and responding</li>
-<li>Investigating pods<!-- -->
-<ul>
-<li>Some pods appear to be stuck due to node shutdowns</li>
-<li>Deleting non-responsive pods</li>
-<li>Replacing ICMP range 0 with all on 10.0.0.0/8</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Issue - <code>ConnectivityCheckController</code> is waiting for transition to desired version (4.12.8) to be completed.<!-- -->
-<ul>
-<li>Investigating proxy configuration</li>
-<li>Adding cluster domain to proxy configuration - configuring local nodes to not use proxy</li>
-</ul>
-</li>
-<li>Fix: Adding noproxy spec to proxy configuration allowed for traffic locally (not through proxy) for nodes</li>
-<li>Waiting for configurations to apply (automatically)</li>
-<li>
-<strong>OCP cluster verified working</strong>
-</li>
-<li>Adding storage to cluster for CP4D support<!-- -->
-<ul>
-<li>Creating storage class</li>
-</ul>
-<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain"># Requires kubeconfig</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">oc new-project nfs-provisioner</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">oc config set-context --current --namespace=nfs-provisioner</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain">helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --namespace nfs-provisioner \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --set nfs.server=&lt;EFS URL&gt; \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --set nfs.path=/ \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --set storageClass.defaultClass=true</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<ul>
-<li>Initial install - Local helm install needed</li>
-<li>Retrying by retrieving the external provisioner and copying locally</li>
-<li>Default storage class operational</li>
-<li>Deleted test pod</li>
-<li>Deleted pvx</li>
-</ul>
-</li>
-</ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-13#lessons-learned" class="hash-link" aria-label="Direct link to Lessons learned" title="Direct link to Lessons learned">​</a></h2>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ocp-deployment">OCP Deployment<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-13#ocp-deployment" class="hash-link" aria-label="Direct link to OCP Deployment" title="Direct link to OCP Deployment">​</a></h3>
 <ul>
-<li>Customer environment heavily affected configuration of the original deployment script and process<!-- -->
-<ul>
-<li>Security considerations</li>
-<li>Proxy configurations in setup</li>
-</ul>
-</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-13#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
-<ul>
-<li>Software evaluation licenses for CP4D and watsonx.ai</li>
-<li>Customer decision is required to determine cluster console access</li>
-<li>Add documentation for the CP4D deployment</li>
+<li>Wx Discovery seems to have more accurate chunk retrieval than Chromadb</li>
+<li>Wx Discovery out-of-the box chatbot answers are also better</li>
+<li>Config is simple and can be done in an hour with prewritten code by just passing in credentials</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-13#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
 <ul>
-<li>License and configure Cloud Pak for Data<!-- -->
-<ul>
-<li>Cloud Pak Considerations<!-- -->
-<ul>
-<li>Security scans needed on container images</li>
-<li>Customer requires on-prem, offline install</li>
-<li>Customer uses their own container registry that might introduce extra effort or compatability issues</li>
-<li>Version compatibility with OpenShift (e.g. 4.10 required and customer has 4.11)</li>
-<li>Supported storage not available</li>
-<li>Multiple cloudpaks on the same cluster</li>
-<li>custom connections to data sources not supported OOTB</li>
-<li>AWS-specific: IAM users required for install/deploy and are not allowed</li>
-<li>OpenShift specific: CoreOS requirement for control nodes</li>
-<li>Automatic updating of Cloud Pak, this can interrupt engagements (solution is to always remove update polling from operators)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Deploy watsonx.ai</li>
+<li>Continue building guided conversations &amp; enable them to conduct operations autonomously</li>
 </ul>]]></content>
         <category label="log" term="log"/>
     </entry>
