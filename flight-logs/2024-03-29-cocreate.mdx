@@ -1,7 +1,7 @@
 ---
-title: Log 12 🛫
+title: Log 13 🛫
 description: Flight Log of Co-Creation Activities
-slug: flight-log-12
+slug: flight-log-13
 tags: [log]
 ---
 
@@ -11,11 +11,11 @@ Deploy watsonx.ai on self-managed AWS infrastructure for customer software evalu
 ```mermaid
 flowchart LR
     A(Deploy bootnode) --> B(Deploy infrastructure)
+    B -->C(Deploy OCP)
+    C --> D
     subgraph "You are here"
-    C(Deploy OCP)
+    D(Prepare CP4D & watsonx ai cartdridge)
     end
-    B -->C
-    C --> D(Prepare CP4D & watsonx ai cartdridge)
     D -->E(Install CP4D)
     E -->F(Deploy watsonx.ai)
 ```
