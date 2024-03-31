@@ -1,0 +1,378 @@
+---
+id: CP4D
+sidebar_position: 1
+title: CP4D Installation
+custom_edit_url: null
+---
+
+## Installing Multicloud Object Gateway
+
+:::note
+Associated links with this section
+
+https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=software-installing-multicloud-object-gateway
+
+https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.15/html/deploying_openshift_data_foundation_using_amazon_web_services/deploy-standalone-multicloud-object-gateway
+:::
+
+Multicloud Object Gateway is required for the following CP4D components:
+
+- watsonx Assistant
+- Watson Discovery
+- Watson Speech services
+
+### Install Object Data Foundation operator
+
+Open the console of your OCP instance. This can be retrieved with the following commandline:
+
+```tsx
+oc whoami --show-console
+
+https://console-openshift-console.apps.wxai.cpdu8vscs.ibmworkshops.com
+```
+Open the URL returned in a browser window and use the `kubeadmin` user and the password from the generated auth directory to login.
+
+***screenshots showing the installation process here***
+
+#### Procedure to install OpenShift Data Foundation operator  **Cribbed from the RHEL Docs**
+
+1. Log in to the OpenShift Web Console.
+2. Click Operators → OperatorHub.
+3. Scroll or type OpenShift Data Foundation into the Filter by keyword box to find the OpenShift Data Foundation Operator.
+4. Click Install.
+5. Set the following options on the Install Operator page:
+    1. Update Channel as **stable-4.14**.
+    1. Installation Mode as **A specific namespace on the cluster.**
+    1. Installed Namespace as **Operator recommended namespace openshift-storage**. If Namespace `openshift-storage` does not exist, it is created during the operator installation.
+    1. Select Approval Strategy as **Automatic** or **Manual**.
+    1. If you select **Automatic** updates, then the Operator Lifecycle Manager (OLM) automatically upgrades the running instance of your Operator without any intervention.
+    1. If you select **Manual** updates, then the OLM creates an update request. As a cluster administrator, you must then manually approve that update request to update the Operator to a newer version.
+    1. Ensure that the **Enable** option is selected for the **Console plugin**.
+    1. Click **Install**.
+
+#### Verification steps for ODF Operator
+
+- After the operator is successfully installed, a pop-up with a message, `Web console update is available` appears on the user interface. Click **Refresh web console** from this pop-up for the console changes to reflect.
+- In the Web Console:
+  - Navigate to Installed Operators and verify that the **OpenShift Data Foundation Operator** shows a green tick indicating successful installation.
+  - Navigate to **Storage** and verify if the **Data Foundation** dashboard is available. 
+
+#### Creating a standalone Multicloud Object Gateway
+
+You can create only the standalone Multicloud Object Gateway component while deploying OpenShift Data Foundation.
+
+**Prerequisites**
+
+- Ensure that the OpenShift Data Foundation Operator is installed.
+
+**Procedure**
+
+1. In the OpenShift Web Console, click **Operators → Installed Operators** to view all the installed operators.
+    1. Ensure that the Project selected is `openshift-storage`.
+1. Click **OpenShift Data Foundation** operator and then click **Create StorageSystem.**
+1. In the **Backing storage** page, select the following:
+    1. Select **Multicloud Object Gateway** for **Deployment type**.
+    1. Select the **Use an existing StorageClass** option.
+    1. Click **Next**.
+1. In the **Review and create** page, review the configuration details:
+    1. To modify any configuration settings, click **Back**.
+1. Click **Create StorageSystem**.
+
+**Verification steps**
+
+##### Verifying that the OpenShift Data Foundation cluster is healthy
+
+1. In the OpenShift Web Console, click **Storage → Data Foundation.**
+1. In the **Status** card of the **Overview** tab, click **Storage System** and then click the storage system link from the pop up that appears.
+    1. In the **Status** card of the **Object** tab, verify that both _Object Service_ and _Data Resiliency_ have a green tick.
+    1. In the **Details** card, verify that the MCG information is displayed.
+
+##### Verifying the state of the pods
+1. Click **Workloads → Pods** from the OpenShift Web Console.
+1. Select `openshift-storage` from the **Project** drop-down list and verify that the following pods are in Running state.
+
+## Installing CP4D Cli
+
+### Download binary
+CP4D CLI can be found at the following link.
+
+https://github.com/IBM/cpd-cli/releases/download/v13.1.4/cpd-cli-linux-EE-13.1.4.tgz
+
+
+:::note
+ This binary is for linux, if running from a windows machine, please use the linux binary but run it from Windows Subsystem for Linux.
+
+ Also as of this writing the latest version of the cli is 13.1.4.
+:::
+
+```tsx
+wget https://github.com/IBM/cpd-cli/releases/download/v13.1.4/cpd-cli-linux-EE-13.1.4.tgz
+```
+
+Extract the files:
+
+```
+tar xzvf https://github.com/IBM/cpd-cli/releases/download/v13.1.4/cpd-cli-linux-EE-13.1.4.tgz
+```
+
+This will create the following directory:
+
+```tsx
+cpd-cli-linux-EE-13.1.4-109
+```
+
+### Configure environmental vars
+
+The following creates a CPD env file
+
+
+```tsx
+cat<<EOF> cpd_vars_48.sh
+#===============================================================================
+
+# Cloud Pak for Data installation variables
+
+#===============================================================================
+
+  
+
+# ------------------------------------------------------------------------------
+# Client workstation
+# ------------------------------------------------------------------------------
+
+# Set the following variables if you want to override the default behavior of the Cloud Pak for Data CLI.
+#
+# To export these variables, you must uncomment each command in this section.
+# export CPD_CLI_MANAGE_WORKSPACE=<enter a fully qualified directory>
+# export OLM_UTILS_LAUNCH_ARGS=<enter launch arguments>
+
+# ------------------------------------------------------------------------------
+# Cluster
+# ------------------------------------------------------------------------------
+
+export OCP_URL=<enter your Red Hat OpenShift Container Platform URL>
+export OPENSHIFT_TYPE=self-managed
+export IMAGE_ARCH=amd64
+export OCP_USERNAME=kubeadmin
+export OCP_PASSWORD=<enter your password>
+export SERVER_ARGUMENTS="--server=${OCP_URL}"
+export CPDM_OC_LOGIN="cpd-cli manage login-to-ocp ${SERVER_ARGUMENTS} ${LOGIN_ARGUMENTS}"
+export OC_LOGIN="oc login ${OCP_URL} ${LOGIN_ARGUMENTS}"
+
+# export OCP_TOKEN=<enter your token>
+# export LOGIN_ARGUMENTS="--username=${OCP_USERNAME} --password=${OCP_PASSWORD}"
+# export LOGIN_ARGUMENTS="--token=${OCP_TOKEN}"
+
+# ------------------------------------------------------------------------------
+
+# Projects
+
+# ------------------------------------------------------------------------------
+
+export PROJECT_CERT_MANAGER=ibm-cert-manager
+export PROJECT_LICENSE_SERVICE=ibm-license-server
+export PROJECT_SCHEDULING_SERVICE=ibm-scheduler
+export PROJECT_CPD_INST_OPERATORS=cpd-operators
+export PROJECT_CPD_INST_OPERANDS=cpd
+
+# export PROJECT_IBM_EVENTS=<enter your IBM Events Operator project>
+# export PROJECT_PRIVILEGED_MONITORING_SERVICE=<enter your privileged monitoring service project>
+# export PROJECT_CPD_INSTANCE_TETHERED=<enter your tethered project>
+# export PROJECT_CPD_INSTANCE_TETHERED_LIST=<a comma-separated list of tethered projects>
+
+# ------------------------------------------------------------------------------
+# Storage
+# ------------------------------------------------------------------------------
+
+export STG_CLASS_BLOCK=nfs-client
+export STG_CLASS_FILE=nfs-client
+
+# ------------------------------------------------------------------------------
+# IBM Entitled Registry
+# ------------------------------------------------------------------------------
+
+export IBM_ENTITLEMENT_KEY=<enter your IBM entitlement API key>
+
+# ------------------------------------------------------------------------------
+# Private container registry
+# ------------------------------------------------------------------------------
+
+# Set the following variables if you mirror images to a private container registry.
+#
+# To export these variables, you must uncomment each command in this section. 
+
+# export PRIVATE_REGISTRY_LOCATION=<enter the location of your private container registry>
+# export PRIVATE_REGISTRY_PUSH_USER=<enter the username of a user that can push to the registry>
+# export PRIVATE_REGISTRY_PUSH_PASSWORD=<enter the password of the user that can push to the registry>
+# export PRIVATE_REGISTRY_PULL_USER=<enter the username of a user that can pull from the registry>
+# export PRIVATE_REGISTRY_PULL_PASSWORD=<enter the password of the user that can pull from the registry>
+
+  
+  
+
+# ------------------------------------------------------------------------------
+# Cloud Pak for Data version
+# ------------------------------------------------------------------------------
+
+export VERSION=4.8.4
+
+# ------------------------------------------------------------------------------
+# Components
+# ------------------------------------------------------------------------------
+
+#export COMPONENTS=ibm-cert-manager,ibm-licensing,scheduler,cpfs,cpd_platform,ws,wml,openpages,wkc,watson_assistant
+export COMPONENTS=ibm-cert-manager,ibm-licensing,scheduler,cpfs,cpd_platform
+
+
+# export COMPONENTS_TO_SKIP=<component-ID-1>,<component-ID-2>
+
+# ------------------------------------------------------------------------------
+# watsonx Orchestrate
+# ------------------------------------------------------------------------------
+
+# export PROJECT_IBM_APP_CONNECT=<enter your IBM App Connect in containers project>
+# export AC_CASE_VERSION=<version>
+# export AC_CHANNEL_VERSION=<version>
+EOF
+```
+
+You will need to open the resultant `cpd_vars_48.sh` file and update the following vars:
+
+```tsx
+OCP_URL
+OCP_PASSWORD
+IBM_ENTITLEMENT_KEY
+```
+
+By default we set our storage classes to the `nfs-client` storage class. Your mileage may vary.
+
+If you are an IBM employee, entitlement key can be fetched from [here](https://myibm.ibm.com/products-services/containerlibrary)
+
+The `OCP_URL` can be pulled with this command:
+```tsx
+oc cluster-info
+Kubernetes control plane is running at https://api.wxai.cpdu8vscs.ibmworkshops.com:6443
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+```
+
+The kubeadmin password can be found in the build directory for the cluster under `auth/kubeadmin-password`
+
+### Login to the cluster with cpd-cli
+
+Source the env file
+
+`source cpd_vars_48.sh`
+
+login with cpd-cli
+```
+cpd-cli manage login-to-ocp \
+--username=${OCP_USERNAME} \
+--password=${OCP_PASSWORD} \
+--server=${OCP_URL}
+```
+### Add the entitlement key
+
+```tsx
+cpd-cli manage add-icr-cred-to-global-pull-secret \
+--entitled_registry_key=${IBM_ENTITLEMENT_KEY}
+```
+
+## Installing CP4D 
+
+:::note
+Important links:
+
+This apparently is a requirement for watsonx Assistant
+https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=software-installing-red-hat-openshift-serverless-knative-eventing
+
+:::
+
+### Preparing the cluster nodes
+
+:::note
+We need to patch the cluster with the following since the initial cluster creation with our scripts assumed a default private registry.
+
+```tsx
+oc patch OperatorHub cluster --type json -p '[{"op": "add", "path": "/spec/disableAllDefaultSources", "value": false}]'
+```
+:::
+
+Processes derived from the following links
+
+https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=settings-changing-process-ids-limit
+
+To ensure that some services can run correctly, you might need to increase the process IDs limit setting on the OpenShift® Container Platform.
+
+Log into your bastion node and then login to the cluster and run the following:
+
+```tsx
+oc apply -f - << EOF
+apiVersion: machineconfiguration.openshift.io/v1
+kind: KubeletConfig
+metadata:
+  name: cpd-pidslimit-kubeletconfig
+spec:
+  kubeletConfig:
+    podPidsLimit: 16384
+  machineConfigPoolSelector:
+    matchExpressions:
+    - key: pools.operator.machineconfiguration.openshift.io/worker
+      operator: Exists
+EOF
+```
+
+### Authorizing instances
+
+This step creates all required projects, creates the NamespaceScope operator in the operators project, and binds the applied role to the service account of the NamespaceScope operator.
+
+```tsx
+cpd-cli manage authorize-instance-topology \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS}
+```
+
+**This was successful**
+
+### Installation of shared components
+
+These two tasks come from here:
+https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=cluster-installing-shared-components
+
+```tsx
+cpd-cli manage apply-cluster-components \
+--release=${VERSION} \
+--license_acceptance=true \
+--cert_manager_ns=${PROJECT_CERT_MANAGER} \
+--licensing_ns=${PROJECT_LICENSE_SERVICE}
+```
+
+Install the scheduler
+
+```tsx
+cpd-cli manage apply-scheduler \
+--release=${VERSION} \
+--license_acceptance=true \
+--scheduler_ns=${PROJECT_SCHEDULING_SERVICE}
+```
+
+### Installation of primary CPD components
+
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=${COMPONENTS}
+```
+
+
+### Setup instance topology
+
+```tsx
+cpd-cli manage setup-instance-topology \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--license_acceptance=true \
+--block_storage_class=${STG_CLASS_BLOCK}
+```

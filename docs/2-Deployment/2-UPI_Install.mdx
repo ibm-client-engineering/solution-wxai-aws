@@ -239,6 +239,11 @@ Run the following commands to install helm to the bastion host
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod +x get_helm.sh
 ./get_helm.sh
+
+Downloading https://get.helm.sh/helm-v3.14.3-linux-amd64.tar.gz
+Verifying checksum... Done.
+Preparing to install helm into /usr/local/bin
+helm installed into /usr/local/bin/helm
 ```
 
 Verify helm is available
@@ -356,6 +361,16 @@ Use "helm [command] --help" for more information about a command.
 From the OC cli:
 ```tsx
 oc new-project nfs-provisioner
+
+Now using project "nfs-provisioner" on server "https://api.wxai.cpdu8vscs.ibmworkshops.com:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app rails-postgresql-example
+
+to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.43 -- /agnhost serve-hostname
 ```
 
 This will automatically put you in that project.
@@ -406,6 +421,11 @@ volumes:
 - projected
 - secret
 EOF
+```
+
+output:
+```tsx
+securitycontextconstraints.security.openshift.io/nfs-storage-hostmount-anyuid created
 ```
 
 ### Install the helm chart and run the helm install
