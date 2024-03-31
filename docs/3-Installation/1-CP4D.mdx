@@ -5,28 +5,91 @@ title: CP4D Installation
 custom_edit_url: null
 ---
 
-## Installing Multi Cloud Gateway
+## Installing Multicloud Object Gateway
 
-### Download binary
+:::note
+Associated links with this section
 
-Download the `noobaa` tar file from here **link to be added**
+https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=software-installing-multicloud-object-gateway
 
-Extract the `nooba-amd64`
+https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.15/html/deploying_openshift_data_foundation_using_amazon_web_services/deploy-standalone-multicloud-object-gateway
+:::
+
+Multicloud Object Gateway is required for the following CP4D components:
+
+- watsonx Assistant
+- Watson Discovery
+- Watson Speech services
+
+### Install Object Data Foundation operator
+
+Open the console of your OCP instance. This can be retrieved with the following commandline:
 
 ```tsx
-tar zxvf mcg-cli-4.15.0-linux-amd64.tar.gz
+oc whoami --show-console
 
-mv noobaa-amd64 /usr/local/bin/noobaa
+https://console-openshift-console.apps.wxai.cpdu8vscs.ibmworkshops.com
 ```
+Open the URL returned in a browser window and use the `kubeadmin` user and the password from the generated auth directory to login.
 
-### Install the local storage operator
+***screenshots showing the installation process here***
 
-```tsx
-oc apply -f https://raw.githubusercontent.com/openshift/local-storage-operator/master/examples/olm/catalog-create-subscribe.yaml
-```
+#### Procedure to install OpenShift Data Foundation operator  **Cribbed from the RHEL Docs**
 
+1. Log in to the OpenShift Web Console.
+2. Click Operators → OperatorHub.
+3. Scroll or type OpenShift Data Foundation into the Filter by keyword box to find the OpenShift Data Foundation Operator.
+4. Click Install.
+5. Set the following options on the Install Operator page:
+    1. Update Channel as **stable-4.14**.
+    1. Installation Mode as **A specific namespace on the cluster.**
+    1. Installed Namespace as **Operator recommended namespace openshift-storage**. If Namespace `openshift-storage` does not exist, it is created during the operator installation.
+    1. Select Approval Strategy as **Automatic** or **Manual**.
+    1. If you select **Automatic** updates, then the Operator Lifecycle Manager (OLM) automatically upgrades the running instance of your Operator without any intervention.
+    1. If you select **Manual** updates, then the OLM creates an update request. As a cluster administrator, you must then manually approve that update request to update the Operator to a newer version.
+    1. Ensure that the **Enable** option is selected for the **Console plugin**.
+    1. Click **Install**.
 
+#### Verification steps for ODF Operator
 
+- After the operator is successfully installed, a pop-up with a message, `Web console update is available` appears on the user interface. Click **Refresh web console** from this pop-up for the console changes to reflect.
+- In the Web Console:
+  - Navigate to Installed Operators and verify that the **OpenShift Data Foundation Operator** shows a green tick indicating successful installation.
+  - Navigate to **Storage** and verify if the **Data Foundation** dashboard is available. 
+
+#### Creating a standalone Multicloud Object Gateway
+
+You can create only the standalone Multicloud Object Gateway component while deploying OpenShift Data Foundation.
+
+**Prerequisites**
+
+- Ensure that the OpenShift Data Foundation Operator is installed.
+
+**Procedure**
+
+1. In the OpenShift Web Console, click **Operators → Installed Operators** to view all the installed operators.
+    1. Ensure that the Project selected is `openshift-storage`.
+1. Click **OpenShift Data Foundation** operator and then click **Create StorageSystem.**
+1. In the **Backing storage** page, select the following:
+    1. Select **Multicloud Object Gateway** for **Deployment type**.
+    1. Select the **Use an existing StorageClass** option.
+    1. Click **Next**.
+1. In the **Review and create** page, review the configuration details:
+    1. To modify any configuration settings, click **Back**.
+1. Click **Create StorageSystem**.
+
+**Verification steps**
+
+##### Verifying that the OpenShift Data Foundation cluster is healthy
+
+1. In the OpenShift Web Console, click **Storage → Data Foundation.**
+1. In the **Status** card of the **Overview** tab, click **Storage System** and then click the storage system link from the pop up that appears.
+    1. In the **Status** card of the **Object** tab, verify that both _Object Service_ and _Data Resiliency_ have a green tick.
+    1. In the **Details** card, verify that the MCG information is displayed.
+
+##### Verifying the state of the pods
+1. Click **Workloads → Pods** from the OpenShift Web Console.
+1. Select `openshift-storage` from the **Project** drop-down list and verify that the following pods are in Running state.
 
 ## Installing CP4D Cli
 
@@ -223,8 +286,41 @@ Important links:
 This apparently is a requirement for watsonx Assistant
 https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=software-installing-red-hat-openshift-serverless-knative-eventing
 
-
 :::
+
+### Preparing the cluster nodes
+
+:::note
+We need to patch the cluster with the following since the initial cluster creation with our scripts assumed a default private registry.
+
+```tsx
+oc patch OperatorHub cluster --type json -p '[{"op": "add", "path": "/spec/disableAllDefaultSources", "value": false}]'
+```
+:::
+
+Processes derived from the following links
+
+https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=settings-changing-process-ids-limit
+
+To ensure that some services can run correctly, you might need to increase the process IDs limit setting on the OpenShift® Container Platform.
+
+Log into your bastion node and then login to the cluster and run the following:
+
+```tsx
+oc apply -f - << EOF
+apiVersion: machineconfiguration.openshift.io/v1
+kind: KubeletConfig
+metadata:
+  name: cpd-pidslimit-kubeletconfig
+spec:
+  kubeletConfig:
+    podPidsLimit: 16384
+  machineConfigPoolSelector:
+    matchExpressions:
+    - key: pools.operator.machineconfiguration.openshift.io/worker
+      operator: Exists
+EOF
+```
 
 ### Authorizing instances
 
@@ -251,28 +347,6 @@ cpd-cli manage apply-cluster-components \
 --licensing_ns=${PROJECT_LICENSE_SERVICE}
 ```
 
-This installed broken and now subsequent runs try to upgrade and break
-
-```tsx
-[✔] Successfully patched subscription ibm-cert-manager-operator in ibm-cert-manager
-[INFO] Waiting for operator ibm-cert-manager-operator to be upgraded
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (10 left)
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (9 left)
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (8 left)
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (7 left)
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (6 left)
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (5 left)
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (4 left)
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (3 left)
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (2 left)
-[INFO] RETRYING: Waiting for operator ibm-cert-manager-operator to be upgraded (1 left)
-[✘] Error in /tmp/work/cpfs_scripts/4.8.4/cp3pt0-deployment/common/utils.sh at line 126 in function wait_for_condition: Timeout after 5 minutes waiting for operator ibm-cert-manager-operator to be upgraded
-[ERROR] 2024-03-29T19:38:59.356382Z cmd.Run() failed with exit status 1
-[ERROR] 2024-03-29T19:38:59.356662Z Command exception: The apply-cluster-components command failed (exit status 1). You may find output and logs in the /home/ec2-user/UPI-Install/cpd-cli-workspace/olm-utils-workspace/work directory.
-[ERROR] 2024-03-29T19:38:59.357131Z RunPluginCommand:Execution error:  exit status 1
-```
-
-
 Install the scheduler
 
 ```tsx
@@ -282,46 +356,7 @@ cpd-cli manage apply-scheduler \
 --scheduler_ns=${PROJECT_SCHEDULING_SERVICE}
 ```
 
-This breaks too
-
-```tsx
-TASK [utils : get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0] ***********************************************************************************************************
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (20 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (19 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (18 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (17 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (16 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (15 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (14 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (13 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (12 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (11 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (10 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (9 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (8 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (7 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (6 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (5 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (4 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (3 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (2 Retries left)
-Not ready yet - Retrying: get installedCSV for Subscription: ibm-cpd-scheduling-catalog-subscription .v1.21.0 (1 Retries left)
-fatal: [localhost]: FAILED! => {"api_found": true, "attempts": 20, "changed": false, "resources": [{"apiVersion": "operators.coreos.com/v1alpha1", "kind": "Subscription", "metadata": {"creationTimestamp": "2024-03-29T23:36:29Z", "generation": 1, "labels": {"operators.coreos.com/ibm-cpd-scheduling-operator.ibm-scheduler": ""}, "managedFields": [{"apiVersion": "operators.coreos.com/v1alpha1", "fieldsType": "FieldsV1", "fieldsV1": {"f:metadata": {"f:labels": {".": {}, "f:operators.coreos.com/ibm-cpd-scheduling-operator.ibm-scheduler": {}}}}, "manager": "Go-http-client", "operation": "Update", "time": "2024-03-29T23:36:29Z"}, {"apiVersion": "operators.coreos.com/v1alpha1", "fieldsType": "FieldsV1", "fieldsV1": {"f:spec": {".": {}, "f:channel": {}, "f:installPlanApproval": {}, "f:name": {}, "f:source": {}, "f:sourceNamespace": {}}}, "manager": "OpenAPI-Generator", "operation": "Update", "time": "2024-03-29T23:36:29Z"}, {"apiVersion": "operators.coreos.com/v1alpha1", "fieldsType": "FieldsV1", "fieldsV1": {"f:status": {".": {}, "f:catalogHealth": {}, "f:conditions": {}, "f:lastUpdated": {}}}, "manager": "catalog", "operation": "Update", "subresource": "status", "time": "2024-03-29T23:36:29Z"}], "name": "ibm-cpd-scheduling-catalog-subscription", "namespace": "ibm-scheduler", "resourceVersion": "129548", "uid": "e781748d-b045-40ce-bc85-caad228c74cc"}, "spec": {"channel": "v1.21", "installPlanApproval": "Automatic", "name": "ibm-cpd-scheduling-operator", "source": "ibm-cpd-scheduling-catalog", "sourceNamespace": "ibm-scheduler"}, "status": {"catalogHealth": [{"catalogSourceRef": {"apiVersion": "operators.coreos.com/v1alpha1", "kind": "CatalogSource", "name": "ibm-cpd-scheduling-catalog", "namespace": "ibm-scheduler", "resourceVersion": "129219", "uid": "e9d2e106-5794-427f-a865-c90dae22eb30"}, "healthy": true, "lastUpdated": "2024-03-29T23:36:29Z"}, {"catalogSourceRef": {"apiVersion": "operators.coreos.com/v1alpha1", "kind": "CatalogSource", "name": "index-olm-mirror-redhat-operator-index", "namespace": "openshift-marketplace", "resourceVersion": "129238", "uid": "e41f9647-e5eb-45bd-a7ee-9fdd3bb1b411"}, "healthy": true, "lastUpdated": "2024-03-29T23:36:29Z"}], "conditions": [{"lastTransitionTime": "2024-03-29T23:36:29Z", "message": "all available catalogsources are healthy", "reason": "AllCatalogSourcesHealthy", "status": "False", "type": "CatalogSourcesUnhealthy"}, {"message": "failed to populate resolver cache from source index-olm-mirror-redhat-operator-index/openshift-marketplace: failed to list bundles: rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing dial tcp 172.30.212.36:50051: connect: connection refused\"", "reason": "ErrorPreventedResolution", "status": "True", "type": "ResolutionFailed"}], "lastUpdated": "2024-03-29T23:36:29Z"}}]}
-
-TASK [utils : fail] ******************************************************************************************************************************************************************************************
-fatal: [localhost]: FAILED! => {"changed": false, "msg": "Playbook fail while running 'wait_for_csv.yml'. Fail to wait for subscription 'ibm-cpd-scheduling-catalog-subscription' in namespace 'ibm-scheduler' to be ready"}
-
-PLAY RECAP ***************************************************************************************************************************************************************************************************
-localhost                  : ok=48   changed=8    unreachable=0    failed=1    skipped=52   rescued=1    ignored=0
-
-[ERROR] 2024-03-29T19:46:14.450030Z cmd.Run() failed with exit status 2
-[ERROR] 2024-03-29T19:46:14.450131Z Command exception: The apply-scheduler command failed (exit status 2). You may find output and logs in the /home/ec2-user/UPI-Install/cpd-cli-workspace/olm-utils-workspace/work directory.
-[ERROR] 2024-03-29T19:46:14.450773Z RunPluginCommand:Execution error:  exit status 1
-```
-
 ### Installation of primary CPD components
-
-***This might be legacy from my notes, but the complaint was that the cert manager wasn't found***
 
 ```tsx
 cpd-cli manage apply-olm \
@@ -341,30 +376,3 @@ cpd-cli manage setup-instance-topology \
 --license_acceptance=true \
 --block_storage_class=${STG_CLASS_BLOCK}
 ```
-
-This of course breaks with this chicken/egg noise
-
-```tsx
-#  Smoke test for Cert Manager existence...
-error: the server doesn't have a resource type "issuer"
-error: the server doesn't have a resource type "certificate"
-[DEBUG] Creating Issuer test-issuer in namespace cpd-operators .
-[INFO] Creating following issuer:
-
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: test-issuer
-  namespace: cpd-operators
-spec:
-  selfSigned: {}
-
-error: resource mapping not found for name: "test-issuer" namespace: "cpd-operators" from "STDIN": no matches for kind "Issuer" in version "cert-manager.io/v1"
-ensure CRDs are installed first
-[✘] Error in /tmp/work/cpfs_scripts/4.8.4/cp3pt0-deployment/common/utils.sh at line 819 in function create_issuer: Failed to create Issuer test-issuer in cpd-operators
-
-[ERROR] 2024-03-29T19:51:41.410225Z cmd.Run() failed with exit status 1
-[ERROR] 2024-03-29T19:51:41.411092Z Command exception: The setup-instance-topology command failed (exit status 1). You may find output and logs in the /home/ec2-user/UPI-Install/cpd-cli-workspace/olm-utils-workspace/work directory.
-[ERROR] 2024-03-29T19:51:41.413524Z RunPluginCommand:Execution error:  exit status 1
-```
-  
