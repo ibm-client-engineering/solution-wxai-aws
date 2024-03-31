@@ -365,7 +365,6 @@ cpd-cli manage apply-olm \
 --components=${COMPONENTS}
 ```
 
-
 ### Setup instance topology
 
 ```tsx
@@ -374,5 +373,35 @@ cpd-cli manage setup-instance-topology \
 --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
 --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
 --license_acceptance=true \
+--block_storage_class=${STG_CLASS_BLOCK}
+```
+
+### Installing Red Hat OpenShift Serverless Knative Eventing
+
+Red Hat OpenShift Serverless Knative Eventing and IBM Events are required for **watsonx Assistant**
+
+#### Authorize the projects where the software will be installed to communicate
+```tsx
+cpd-cli manage authorize-instance-topology \
+--release=${VERSION} \
+--cpd_operator_ns=ibm-knative-events \
+--cpd_instance_ns=knative-eventing
+```
+
+#### Install the IBM Events Operator in the ibm-knative-events project
+
+```tsx
+cpd-cli manage setup-instance-topology \
+--release=${VERSION} \
+--cpd_operator_ns=ibm-knative-events \
+--cpd_instance_ns=knative-eventing \
+--license_acceptance=true
+```
+
+#### Finally installing the OSKE
+
+```tsx
+cpd-cli manage deploy-knative-eventing \
+--release=${VERSION} \
 --block_storage_class=${STG_CLASS_BLOCK}
 ```
