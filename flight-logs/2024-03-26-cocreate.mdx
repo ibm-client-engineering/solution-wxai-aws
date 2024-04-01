@@ -10,13 +10,15 @@ Deploy watsonx.ai on self-managed AWS infrastructure for customer software evalu
 
 ```mermaid
 flowchart LR
-    A[Deploy bootnode]
+    A(Deploy bootnode)
     subgraph "You are here"
-    B(Deploy OCP)
+    B(Deploy infrastructure)
     end
-    A-->B
-    B --> C(Install CP4D)
-    C -->D[Deploy watsonx.ai]
+    A -->B
+    B -->C(Deploy OCP)
+    C --> D(Prepare CP4D & watsonx ai cartdridge)
+    D -->E(Install CP4D)
+    E -->F(Deploy watsonx.ai)
 ```
 
 ## Milestones
