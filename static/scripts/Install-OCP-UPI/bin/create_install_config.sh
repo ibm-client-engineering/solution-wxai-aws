@@ -1,23 +1,22 @@
 #!/bin/bash
 
-if [[ $# -ne 9 ]]
+if [[ $# -ne 10 ]]
 then
     echo "Incorrect number of parameters"
-    echo "Usage: $0 <output_dir> <base_domain> <cluster_name> <pull_secret> <ssh_key> <additionalcacert> <httpProxy> <httpsProxy> <noProxy>"
+    echo "Usage: $0 <output_dir> <base_domain> <cluster_name> <registry_url> <registry_creds> <ssh_key> <additionalcacert> <httpProxy> <httpsProxy> <noProxy>"
     exit 1
 fi
 
 output_dir=$1
 base_domain=$2
 cluster_name=$3
-# registry_url=$4
-# registry_creds=$5
-pull_secret=$4
-ssh_key=$5
-ca_cert=$6
-httpProxy=$7
-httpsProxy=$7
-noProxy=$9
+registry_url=$4
+registry_creds=$5
+ssh_key=$6
+ca_cert=$7
+httpProxy=$8
+httpsProxy=$9
+noProxy=${10}
 
 ssh_line=""
 if [[ ! -z "${ssh_key}" ]]
@@ -52,8 +51,15 @@ networking:
 platform:
   none: {} 
 fips: true 
-pullSecret: '${pull_secret}'
+pullSecret: '{ "auths": { "${registry_url}": { "auth": "${registry_creds}" } } }'
 ${ssh_line}
+imageContentSources: 
+- mirrors:
+  - ${registry_url}/openshift
+  source: quay.io/openshift-release-dev/ocp-release
+- mirrors:
+  - ${registry_url}/openshift
+  source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
 EOF
 
 if [[ -f "${ca_cert}" ]]

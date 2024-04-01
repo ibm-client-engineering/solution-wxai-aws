@@ -52,8 +52,8 @@ Resources:
       GroupDescription: Cluster Master Security Group
       SecurityGroupIngress:
       - IpProtocol: icmp
-        FromPort: -1
-        ToPort: -1
+        FromPort: 0
+        ToPort: 0
         CidrIp: !Ref VpcCidr
       - IpProtocol: tcp
         FromPort: 22
@@ -68,7 +68,7 @@ Resources:
         ToPort: 22623
         CidrIp: !Ref VpcCidr
       SecurityGroupEgress:
-      - IpProtocol: -1
+      - IpProtocol: tcp
         FromPort: 0
         ToPort: 65335
         CidrIp: 10.0.0.0/8
@@ -80,8 +80,8 @@ Resources:
       GroupDescription: Cluster Worker Security Group
       SecurityGroupIngress:
       - IpProtocol: icmp
-        FromPort: -1
-        ToPort: -1
+        FromPort: 0
+        ToPort: 0
         CidrIp: !Ref VpcCidr
       - IpProtocol: tcp
         FromPort: 22
@@ -96,7 +96,7 @@ Resources:
         ToPort: 443
         CidrIp: 10.0.0.0/8
       SecurityGroupEgress:
-      - IpProtocol: -1
+      - IpProtocol: tcp
         FromPort: 0
         ToPort: 65535
         CidrIp: 10.0.0.0/8
