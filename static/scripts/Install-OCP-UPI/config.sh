@@ -27,9 +27,9 @@ tag1key="test"
 tag1value="one"
 tag2key="test"
 tag2value="two"
-httpProxy="http://proxy.example.com:PORT"
-httpsProxy="http://proxy.example.com:PORT"
-noProxy=".${base_domain},172.30.0.0/16,10.128.0.0/14,${aws_vpc_cidr}
+# httpProxy="http://proxy.example.com:PORT"
+# httpsProxy="http://proxy.example.com:PORT"
+# noProxy=".${base_domain},172.30.0.0/16,10.128.0.0/14,${aws_vpc_cidr},.apps.${cluster}.${base_domain},.${cluster}.${base_domain}"
 
 ###
 # ocp architecture
@@ -44,3 +44,12 @@ master_2_subnet=$aws_private_subnets
 worker_subnet_list=$aws_private_subnets  #Don't Change
 worker_count=6
 worker_instance_type="m6i.8xlarge"
+
+###
+# GPU Node
+###
+gpu_count=1
+gpu_subnet="subnet-0797e8067a532db0d" #US-EAST-2
+#gpu_instance_type="p4d.24xlarge"
+gpu_instance_type="m6i.8xlarge"
+gpu_securitygroup=""

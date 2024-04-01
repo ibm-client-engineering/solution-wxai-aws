@@ -88,8 +88,8 @@ Resources:
         ToPort: 65535
         CidrIp: 10.0.0.0/8
       - IpProtocol: icmp
-        FromPort: 0
-        ToPort: 0
+        FromPort: -1
+        ToPort: -1
         CidrIp: 10.0.0.0/8
       VpcId: !Ref VpcId
 
