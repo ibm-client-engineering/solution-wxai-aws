@@ -1733,7 +1733,6 @@
   version "3.1.0"
   resolved "https://registry.npmjs.org/@docusaurus/utils-common/-/utils-common-3.1.0.tgz"
   integrity sha512-SfvnRLHoZ9bwTw67knkSs7IcUR0GY2SaGkpdB/J9pChrDiGhwzKNUhcieoPyPYrOWGRPk3rVNYtoy+Bc7psPAw==
-  dependencies:
     tslib "^2.6.0"
 
 "@docusaurus/utils-validation@3.1.0":
@@ -5372,7 +5371,6 @@ html-webpack-plugin@^5.5.3:
   version "5.5.4"
   resolved "https://registry.npmjs.org/html-webpack-plugin/-/html-webpack-plugin-5.5.4.tgz"
   integrity sha512-3wNSaVVxdxcu0jd4FpQFoICdqgxs4zIQQvj+2yQKFfBOnLETQ6X5CDWdeasuGlSsooFlMkEioWDTqBv1wvw5Iw==
-  dependencies:
     "@types/html-minifier-terser" "^6.0.0"
     html-minifier-terser "^6.0.2"
     lodash "^4.17.21"
@@ -6309,7 +6307,6 @@ mdast-util-mdx-jsx@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/mdast-util-mdx-jsx/-/mdast-util-mdx-jsx-3.0.0.tgz"
   integrity sha512-XZuPPzQNBPAlaqsTTgRrcJnyFbSOBovSadFgbFu8SnuNgm+6Bdx1K+IWoitsmj6Lq6MNtI+ytOqwN70n//NaBA==
-  dependencies:
     "@types/estree-jsx" "^1.0.0"
     "@types/hast" "^3.0.0"
     "@types/mdast" "^4.0.0"
@@ -8136,12 +8133,10 @@ react-json-view-lite@^1.2.0:
   version "1.2.1"
   resolved "https://registry.npmjs.org/react-json-view-lite/-/react-json-view-lite-1.2.1.tgz"
   integrity sha512-Itc0g86fytOmKZoIoJyGgvNqohWSbh3NXIKNgH6W6FT9PC1ck4xas1tT3Rr/b3UlFXyA9Jjaw9QSXdZy2JwGMQ==
-
 react-live@^4.1.5:
   version "4.1.5"
   resolved "https://registry.npmjs.org/react-live/-/react-live-4.1.5.tgz"
   integrity sha512-ul3Zwvqvh6KTg8j7xGCT26+c8J9vQ+LFUrZCbrrrzEExuVB/39s1GKG3NsywnL+aGAjpfnUTaVCe7KlKIvVPiw==
-  dependencies:
     prism-react-renderer "^2.0.6"
     sucrase "^3.31.0"
     use-editable "^2.3.3"
