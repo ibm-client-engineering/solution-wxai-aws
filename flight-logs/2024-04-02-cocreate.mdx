@@ -11,11 +11,11 @@ Deploy watsonx.ai on self-managed AWS infrastructure for customer software evalu
 ```mermaid
 flowchart LR
     A(Deploy bootnode) --> B(Deploy infrastructure)
-    B -->C(Deploy OCP)
     subgraph "You are here"
-    D(Prepare CP4D & watsonx ai cartdridge)
+    C(Deploy OCP)
     end
-    C -->D
+    B -->C
+    C --> D(Prepare CP4D & watsonx ai cartdridge)
     D -->E(Install CP4D)
     E -->F(Deploy watsonx.ai)
 ```
@@ -38,10 +38,6 @@ flowchart LR
     - Added required cluster-wide settings to proxy
         - Added wxai domain information to noProxy configuration `oc edit proxy/cluster`
         - Investigating OpenShift error `certificate is valid for oauth-openshift.openshift-authentication.svc`
-        - Cluster pieces updating, validating health of cluster on later call (may be related to current certificate errors)
-    - More nodes in "ready" state
-    - 1 master node continuing to update causing cluster connectivity issues
-    - Attempting to drain and restart pending nodes
 
 ## Decisions and Action Items (DAI)
 - Software evaluation awaiting customer's approval process. This blocks our ability to download software from cp.icr.io
