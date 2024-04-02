@@ -493,4 +493,64 @@ spec:
     requests:
       storage: 1Mi
 EOF
+
+```
+
+## Change Cluster Domain
+
+### Generate new self-signed certificate
+
+#### Generate CA certs
+
+```
+openssl genrsa -out ca.key 2048
+
+openssl req -new -x509 -days 365 -key ca.key -subj "/C=CN/ST=GD/L=SZ/O=Acme, Inc./CN=Acme Root CA" -out ca.crt
+
+```
+
+#### Generate Server certs
+
+Generate 'server.csr'
+
+```
+openssl req -newkey rsa:2048 -nodes -keyout server.key -subj "/C=CN/ST=GD/L=SZ/O=Acme, Inc./CN=*.{BASE_DOMAIN}" -out server.csr
+```
+
+Generate 'server.crt'
+
+```
+openssl x509 -req -extfile <(printf "subjectAltName=DNS:*.{BASE_DOMAIN}") -days 365 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt
+```
+
+
+#### Update the cluster:
+
+Create the new secret which will contain the cert and key:
+
+```
+oc create secret tls custom-cert --cert=server.crt --key=server.key -n openshift-config
+```
+
+
+Update the ingress:
+
+```
+oc edit ingresses.config/cluster -o yaml
+```
+
+Add the following under 'spec:'
+
+```
+  componentRoutes:
+  - hostname: console.{NEW_URL}
+    name: console
+    namespace: openshift-console
+    servingCertKeyPairSecret:
+      name: custom-cert
+  - hostname: oauth.{NEW_URL}
+    name: oauth-openshift
+    namespace: openshift-authentication
+    servingCertKeyPairSecret:
+      name: custom-cert
 ```
