@@ -10,9 +10,9 @@ custom_edit_url: null
 :::note
 Associated links with this section
 
-https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=software-installing-multicloud-object-gateway
+[Multicloud Object Gateway in CP4D](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=software-installing-multicloud-object-gateway)
 
-https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.15/html/deploying_openshift_data_foundation_using_amazon_web_services/deploy-standalone-multicloud-object-gateway
+[Installing Multicloud Object Gateway](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.15/html/deploying_openshift_data_foundation_using_amazon_web_services/deploy-standalone-multicloud-object-gateway)
 :::
 
 Multicloud Object Gateway is required for the following CP4D components:
@@ -31,8 +31,6 @@ oc whoami --show-console
 https://console-openshift-console.apps.wxai.cpdu8vscs.ibmworkshops.com
 ```
 Open the URL returned in a browser window and use the `kubeadmin` user and the password from the generated auth directory to login.
-
-***screenshots showing the installation process here***
 
 #### Procedure to install OpenShift Data Foundation operator  **Cribbed from the RHEL Docs**
 
@@ -89,7 +87,61 @@ You can create only the standalone Multicloud Object Gateway component while dep
 
 ##### Verifying the state of the pods
 1. Click **Workloads → Pods** from the OpenShift Web Console.
-1. Select `openshift-storage` from the **Project** drop-down list and verify that the following pods are in Running state.
+1. Select `openshift-storage` from the **Project** drop-down list and verify pods are in Running state.
+
+### Create required secrets for Services
+
+If we're planning on installing the following:
+
+- Watsonx Assistant
+- Watson Discovery
+
+The names of all NooBaa account credentials can be retrieved with the following command
+```tsx
+oc get secrets -n openshift-storage | grep noobaa
+```
+
+Running from our linux bastion host, we need to export the following secret names:
+
+```tsx
+export NOOBAA_ACCOUNT_CREDENTIALS_SECRET=noobaa-admin
+export NOOBAA_ACCOUNT_CERTIFICATE_SECRET=noobaa-s3-serving-cert
+```
+
+Create the secrets that watsonx Assistant will use to connect to Multicloud Object Gateway:
+```tsx
+cpd-cli manage setup-mcg \
+--components=watson_assistant \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--noobaa_account_secret=${NOOBAA_ACCOUNT_CREDENTIALS_SECRET} \
+--noobaa_cert_secret=${NOOBAA_ACCOUNT_CERTIFICATE_SECRET}
+```
+
+Verify the secrets were created
+```tsx
+oc get secrets --namespace=${PROJECT_CPD_INST_OPERANDS} \
+noobaa-account-watson-assistant \
+noobaa-cert-watson-assistant \
+noobaa-uri-watson-assistant
+```
+
+Should return 
+```tsx
+NAME                              TYPE     DATA   AGE
+noobaa-account-watson-assistant   Opaque   2      33s
+noobaa-cert-watson-assistant      Opaque   1      32s
+noobaa-uri-watson-assistant       Opaque   3      29s
+```
+
+Wash, rinse, repeat for Watson Discovery
+
+```tsx
+cpd-cli manage setup-mcg \
+--components=watson_discovery \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--noobaa_account_secret=${NOOBAA_ACCOUNT_CREDENTIALS_SECRET}
+```
+
 
 ## Installing CP4D Cli
 
@@ -358,6 +410,8 @@ cpd-cli manage apply-scheduler \
 
 ### Installation of primary CPD components
 
+This installs the operators in the operators project for the instance.
+
 ```tsx
 cpd-cli manage apply-olm \
 --release=${VERSION} \
@@ -405,3 +459,115 @@ cpd-cli manage deploy-knative-eventing \
 --release=${VERSION} \
 --block_storage_class=${STG_CLASS_BLOCK}
 ```
+
+### Installing the Cloud Pak for Data control plane and services
+
+This installs the operands in the operands project for the instance:
+
+```tsx
+cpd-cli manage apply-cr \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--components=${COMPONENTS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+
+This is a big one, so it might take a little while. When it completes, verify the operands are up:
+
+```tsx
+cpd-cli manage get-cr-status \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS}
+```
+This should return a `Completed` status.
+
+The routes should be created and ready at this point. You can retrieve the web-url for the client with the following command:
+
+```tsx
+cpd-cli manage get-cpd-instance-details \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--get_admin_initial_credentials=true
+```
+
+## Installing our Cartridges
+
+### Watson Machine Learning
+
+Apply the olm
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=wml
+```
+
+Apply the CR
+```tsx
+cpd-cli manage apply-cr \
+--components=wml \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+
+### Watsonx Assistant
+
+:::note
+By default the deployment size for WA is `Production`. If we want to go with something larger, we need to deploy with an `options` file.
+
+`install-options.yml`
+```tsx
+################################################################################
+# watsonx Assistant parameters
+################################################################################
+watson_assistant_size: Production
+watson_assistant_bigpv: false
+watson_assistant_analytics_enabled: true
+```
+The default Production size in this case is more the suited for our purposes.
+:::
+
+Apply the olm
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=watson_assistant
+```
+
+And run the install command
+
+```tsx
+cpd-cli manage apply-cr \
+--components=watson_assistant \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+
+### Watson Discovery
+
+Apply the olm
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=watson_discovery
+```
+
+And then apply the CR
+```tsx
+cpd-cli manage apply-cr \
+--components=watson_discovery \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+
