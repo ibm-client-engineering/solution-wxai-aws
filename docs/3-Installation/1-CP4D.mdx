@@ -500,28 +500,84 @@ cpd-cli manage get-cpd-instance-details \
 --get_admin_initial_credentials=true
 ```
 
+### Generate a cpd-cli Profile
+
+Log into the CP4D webui with the info retrieved from the `get-cpd-instance-details` and go to your Profile and settings page in the Cloud Pak for Data client and clicking Generate API key.
+
+In the upper right hand corner, click `API key` -> `Generate new key`
+
+Copy the generated key.
+
+Collect the web client URL and export it with the following command
+
+```tsx
+export CPD_PROFILE_URL=$(oc get route cpd --namespace=${PROJECT_CPD_INST_OPERANDS} | tail -1 | awk '{print "https://"$2}')
+```
+
+We'll set our `profile-name` to the cluster name.
+
+Set the following vars:
+```tsx
+export API_KEY=<key you copied above>
+export CPD_ADMIN_USER=cpadmin
+export LOCAL_USER=<local user name>
+export CPD_PROFILE_NAME=wxai
+```
+
+Create a local user configuration to store your username and API key by using the config users set command.
+
+```tsx
+cpd-cli config users set ${LOCAL_USER} \
+--username ${CPD_ADMIN_USER} \
+--apikey ${API_KEY}
+```
+
+Create a profile to store the Cloud Pak for Data URL and to associate the profile with your local user configuration by using the config profiles set command.
+
+```tsx
+cpd-cli config profiles set ${CPD_PROFILE_NAME} \
+--user ${LOCAL_USER} \
+--url ${CPD_PROFILE_URL}
+```
+
+You can now run cpd-cli commands with this profile as shown in the following example.
+
+```tsx
+cpd-cli service-instance list \
+--profile=${CPD_PROFILE_NAME}
+```
+
+
 ## Installing our Cartridges
 
-### Watson Machine Learning
+Source the env file
 
-Apply the olm
-```tsx
-cpd-cli manage apply-olm \
---release=${VERSION} \
---cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
---components=wml
+`source cpd_vars_48.sh`
+
+Login with cpd-cli
+```
+cpd-cli manage login-to-ocp \
+--username=${OCP_USERNAME} \
+--password=${OCP_PASSWORD} \
+--server=${OCP_URL}
 ```
 
-Apply the CR
+### Apply necessary Security Constraints 
+
+The apply-db2-kubelet command makes the following changes to the cluster nodes:
+
 ```tsx
-cpd-cli manage apply-cr \
---components=wml \
---release=${VERSION} \
---cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
---block_storage_class=${STG_CLASS_BLOCK} \
---file_storage_class=${STG_CLASS_FILE} \
---license_acceptance=true
+allowedUnsafeSysctls:
+  - "kernel.msg*"
+  - "kernel.shm*"
+  - "kernel.sem"
 ```
+
+```tsx
+cpd-cli manage apply-db2-kubelet
+```
+
+This might take a bit as the workers will be getting bounced.
 
 ### Watsonx Assistant
 
@@ -540,7 +596,7 @@ watson_assistant_analytics_enabled: true
 The default Production size in this case is more the suited for our purposes.
 :::
 
-Apply the olm
+#### Apply the olm
 ```tsx
 cpd-cli manage apply-olm \
 --release=${VERSION} \
@@ -558,6 +614,71 @@ cpd-cli manage apply-cr \
 --block_storage_class=${STG_CLASS_BLOCK} \
 --file_storage_class=${STG_CLASS_FILE} \
 --license_acceptance=true
+```
+
+#### Validate the installation
+
+```tsx
+cpd-cli manage get-cr-status \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--components=watson_assistant
+```
+
+#### Create an instance of WA
+
+https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=csi-creating-service-instance-cpd-cli-service-instance-create-2
+
+Set the INSTANCE_NAME environment variable to the unique name that you want to use as the display name for the service instance. We're just going to call this `wa-instance`.
+```tsx
+export INSTANCE_NAME="wa-instance"
+```
+
+Set the INSTANCE_VERSION env var to the version that corresponds to the version of CP4D. As of this writing and this guide, we are using 4.8.4. The Service instance version must match the release of CP4D.
+
+```tsx
+export INSTANCE_VERSION=4.8.4
+```
+
+Create the assistant-instance.json payload file:
+```tsx
+cat << EOF > ./assistant-instance.json
+{
+    "addon_type": "assistant",
+    "display_name": "${INSTANCE_NAME}",
+    "namespace": "${PROJECT_CPD_INST_OPERANDS}",
+    "addon_version": "${INSTANCE_VERSION}",
+    "create_arguments": {
+        "deployment_id": "${PROJECT_CPD_INST_OPERANDS}-wa", 
+	     "parameters": { 
+	         "serviceId": "assistant", 
+	         "url": "https://wa-store.${PROJECT_CPD_INST_OPERANDS}.svc.cluster.local:443/csb/v2/service_instances", 
+	         "watson": true 
+        }
+    }
+}
+EOF
+```
+
+Set the PAYLOAD_FILE environment variable to the fully qualified name of the JSON payload file
+
+```tsx
+export PAYLOAD_FILE=/path/to/whereever/this/file/is/assistant-instance.json
+```
+
+#### Create the service instance from the payload file:
+
+```tsx
+cpd-cli service-instance create \
+--profile=${CPD_PROFILE_NAME} \
+--from-source=${PAYLOAD_FILE}
+```
+
+#### Validating that the service instance was created
+
+```tsx
+cpd-cli service-instance status ${INSTANCE_NAME} \
+--profile=${CPD_PROFILE_NAME} \
+--output=json
 ```
 
 ### Watson Discovery
@@ -581,4 +702,119 @@ cpd-cli manage apply-cr \
 --license_acceptance=true
 ```
 
+Validate the installation
+
+```tsx
+cpd-cli manage get-cr-status \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--components=watson_discovery
+```
+
+
+### OpenPages
+
+Run the following command to create the required OLM objects for OpenPages in the operators project for the instance:
+
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=openpages
+```
+
+Create the custom resource for OpenPages
+
+```tsx
+cpd-cli manage apply-cr \
+--components=openpages \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--license_acceptance=true
+```
+
+Validate the installation
+
+```tsx
+cpd-cli manage get-cr-status \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--components=openpages
+```
+
+Create a service instance
+
+https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=csi-creating-service-instance-cpd-cli-service-instance-create-14
+
+### Watson Studio
+
+Run the following command to create the required OLM objects for Watson Studio in the operators project for the instance:
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=ws
+```
+
+Create the custom resource
+
+```tsx
+cpd-cli manage apply-cr \
+--components=ws \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+
+Validate the installation
+
+```tsx
+cpd-cli manage get-cr-status \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--components=ws
+```
+
+### Watson Machine Learning
+
+Apply the olm
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=wml
+```
+
+Apply the CR
+```tsx
+cpd-cli manage apply-cr \
+--components=wml \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+
+### IBM Knowledge Catalog
+
+Run the following command to create the required OLM objects for IBM Knowledge Catalog in the operators project for the instance:
+
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=wkc
+```
+
+We're using default options for this installation, so kick off the following CR
+```tsx
+cpd-cli manage apply-cr \
+--components=wkc \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+import { Profiler } from "react"
 
