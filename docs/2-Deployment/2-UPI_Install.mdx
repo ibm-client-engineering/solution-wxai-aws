@@ -222,7 +222,58 @@ In a user managed instance of OCP on AWS, the EFS provisioner from AWS is not av
 
 ### Creating the EFS filesystem
 
-- commands in AWS CLI to deploy an EFS filesystem
+Create an AWS Elastic File System with the following commands:
+
+```
+export CREATION_TOKEN='ibm-wxai-token'
+aws efs create-file-system --creation-token ${CREATION_TOKEN} --encrypted --backup --performance-mode generalPurpose --throughput-mode elastic --region us-east-2 --tags Key=key,Value=value Key=key1,Value=value1
+```
+
+Set the Subnet IDs and Worker Security Group ID variables:
+
+```
+export SUBNET_ID_1="US-EAST-2a Subnet ID"
+export SUBNET_ID_2="US-EAST-2b Subnet ID"
+export SUBNET_ID_3="US-EAST-2c Subnet ID"
+export WORKER_SG="Worker Security Group ID"
+export EFS_ID=$(aws efs describe-file-systems --creation-token ${CREATION_TOKEN} | jq '.FileSystems[] | ."FileSystemId"'| tr -d '"')
+```
+
+#### Create mount targets:
+
+Run the following commands to create mount targets that include the three subnets used by the worker nodes:
+
+```
+aws efs create-mount-target --file-system-id ${EFS_ID} --subnet-id  ${SUBNET_ID_1} --security-group ${WORKER_SG_ID} --region us-east-2
+aws efs create-mount-target --file-system-id ${EFS_ID} --subnet-id  ${SUBNET_ID_2} --security-group ${WORKER_SG_ID} --region us-east-2
+aws efs create-mount-target --file-system-id ${EFS_ID} --subnet-id  ${SUBNET_ID_3} --security-group ${WORKER_SG_ID} --region us-east-2
+```
+
+### Deploying the provisioner with a yaml 
+
+#### Download nfs-provisioner.yml
+Download the nfs-provisioner.yml file from here:
+
+https://raw.githubusercontent.com/ibm-client-engineering/solution-wxai-aws/main/static/scripts/nfs_provisioner.yml
+
+Confirm that the “EFS_ID” is properly set from the previous step:
+
+```
+echo $EFS_ID
+```
+
+Then update the ‘nfs_provisioner.yml’ to use the new EFS ID:
+
+```
+sed -i "s/EFS_ID/${EFS_ID}/g" nfs_provisioner.yml
+```
+
+#### Apply nfs_provisioner.yml
+Now create the nfs_provisioner in the cluster:
+
+``` 
+oc create -f nfs_provisioner.yml
+```
 
 ### Deploying the provisioner with helm
 
