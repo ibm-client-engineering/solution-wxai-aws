@@ -311,7 +311,7 @@ export KUBECONFIG=${ocp_data_dir}/auth/kubeconfig
 echo "**** KUBECONFIG: ${KUBECONFIG}"
 echo "**** disabling default catalog"
 # echo "**** Running: " oc patch OperatorHub cluster --type json -p '[{"op": "add", "path": "/spec/disableAllDefaultSources", "value": true}]'
-oc patch OperatorHub cluster --type json -p '[{"op": "add", "path": "/spec/disableAllDefaultSources", "value": true}]'
+# oc patch OperatorHub cluster --type json -p '[{"op": "add", "path": "/spec/disableAllDefaultSources", "value": true}]'
 
 echo "**** Watching for csrs and approve them"
 echo -n "Working"
