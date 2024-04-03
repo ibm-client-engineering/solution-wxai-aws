@@ -1,0 +1,56 @@
+---
+title: Log 16 🛫
+description: Flight Log of Co-Creation Activities
+slug: flight-log-16
+tags: [log]
+---
+
+## Objective
+Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation
+
+```mermaid
+flowchart LR
+    A(Deploy bootnode) --> B(Deploy infrastructure)
+    B -->C(Deploy OCP)
+    subgraph "You are here"
+    D(Prepare CP4D & watsonx ai cartdridge)
+    end
+    C -->D
+    D -->E(Install CP4D)
+    E -->F(Deploy watsonx.ai)
+```
+
+## Milestones
+1. Deploy and configuration of boot node to establish a beach-head into the customer AWS environment
+    - Complete
+2. Deploy OCP using the documented UPI installation steps
+    - Complete
+3. Install Cloud Pak for Data
+    - In Progress
+4. Deploy and configure watsonx.ai on self-managed AWS infrastructure
+
+## Today's Accomplishments
+
+
+### Summary
+- Master nodes attemting to upgrade and are in a stuck state preventing rollback of ingress changes
+- Attempting to deploy a new cluster
+
+## Decisions and Action Items (DAI)
+- Software evaluation awaiting customer's approval process. This blocks our ability to download software from cp.icr.io
+    - Customer to escalate internally
+
+## Next Steps
+- License and configure Cloud Pak for Data
+    - Cloud Pak Considerations
+        - Security scans needed on container images 
+        - Customer requires on-prem, offline install
+        - Customer uses their own container registry that might introduce extra effort or compatability issues 
+        - Version compatibility with OpenShift (e.g. 4.10 required and customer has 4.11) 
+        - Supported storage not available 
+        - Multiple cloudpaks on the same cluster 
+        - custom connections to data sources not supported OOTB 
+        - AWS-specific: IAM users required for install/deploy and are not allowed 
+        - OpenShift specific: CoreOS requirement for control nodes 
+        - Automatic updating of Cloud Pak, this can interrupt engagements (solution is to always remove update polling from operators)
+- Deploy watsonx.ai
