@@ -11,9 +11,7 @@ custom_edit_url: null
 Associated links with this section
 
 [Multicloud Object Gateway in CP4D](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=software-installing-multicloud-object-gateway)
-[Multicloud Object Gateway in CP4D](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=software-installing-multicloud-object-gateway)
 
-[Installing Multicloud Object Gateway](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.15/html/deploying_openshift_data_foundation_using_amazon_web_services/deploy-standalone-multicloud-object-gateway)
 [Installing Multicloud Object Gateway](https://access.redhat.com/documentation/en-us/red_hat_openshift_data_foundation/4.15/html/deploying_openshift_data_foundation_using_amazon_web_services/deploy-standalone-multicloud-object-gateway)
 :::
 
@@ -153,60 +151,6 @@ cpd-cli manage setup-mcg \
 --noobaa_account_secret=${NOOBAA_ACCOUNT_CREDENTIALS_SECRET}
 ```
 
-1. Select `openshift-storage` from the **Project** drop-down list and verify pods are in Running state.
-
-### Create required secrets for Services
-
-If we're planning on installing the following:
-
-- Watsonx Assistant
-- Watson Discovery
-
-The names of all NooBaa account credentials can be retrieved with the following command
-```tsx
-oc get secrets -n openshift-storage | grep noobaa
-```
-
-Running from our linux bastion host, we need to export the following secret names:
-
-```tsx
-export NOOBAA_ACCOUNT_CREDENTIALS_SECRET=noobaa-admin
-export NOOBAA_ACCOUNT_CERTIFICATE_SECRET=noobaa-s3-serving-cert
-```
-
-Create the secrets that watsonx Assistant will use to connect to Multicloud Object Gateway:
-```tsx
-cpd-cli manage setup-mcg \
---components=watson_assistant \
---cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
---noobaa_account_secret=${NOOBAA_ACCOUNT_CREDENTIALS_SECRET} \
---noobaa_cert_secret=${NOOBAA_ACCOUNT_CERTIFICATE_SECRET}
-```
-
-Verify the secrets were created
-```tsx
-oc get secrets --namespace=${PROJECT_CPD_INST_OPERANDS} \
-noobaa-account-watson-assistant \
-noobaa-cert-watson-assistant \
-noobaa-uri-watson-assistant
-```
-
-Should return 
-```tsx
-NAME                              TYPE     DATA   AGE
-noobaa-account-watson-assistant   Opaque   2      33s
-noobaa-cert-watson-assistant      Opaque   1      32s
-noobaa-uri-watson-assistant       Opaque   3      29s
-```
-
-Wash, rinse, repeat for Watson Discovery
-
-```tsx
-cpd-cli manage setup-mcg \
---components=watson_discovery \
---cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
---noobaa_account_secret=${NOOBAA_ACCOUNT_CREDENTIALS_SECRET}
-```
 
 
 ## Installing CP4D Cli
