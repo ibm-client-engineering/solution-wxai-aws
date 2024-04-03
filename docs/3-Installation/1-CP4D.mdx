@@ -34,6 +34,15 @@ https://console-openshift-console.apps.wxai.cpdu8vscs.ibmworkshops.com
 ```
 Open the URL returned in a browser window and use the `kubeadmin` user and the password from the generated auth directory to login.
 
+:::warning
+As of this writing, in ODF 4.14.x and higher the noobaa backing store uses extended file attributes to store file metadata. This is not supported in EFS. So these instructions will encompass installing 4.13.
+
+Future releases of ODF may have that fix in it to support EFS.
+
+https://github.com/noobaa/noobaa-core/issues/7843
+
+:::
+
 #### Procedure to install OpenShift Data Foundation operator  **Cribbed from the RHEL Docs**
 
 1. Log in to the OpenShift Web Console.
@@ -627,4 +636,5 @@ cpd-cli manage apply-cr \
 --file_storage_class=${STG_CLASS_FILE} \
 --license_acceptance=true
 ```
+
 
