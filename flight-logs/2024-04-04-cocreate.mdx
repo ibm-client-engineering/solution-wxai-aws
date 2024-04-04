@@ -1,7 +1,7 @@
 ---
-title: Log 16 🛫
+title: Log 17 🛫
 description: Flight Log of Co-Creation Activities
-slug: flight-log-16
+slug: flight-log-17
 tags: [log]
 ---
 
@@ -20,6 +20,7 @@ flowchart LR
     E -->F(Deploy watsonx.ai)
 ```
 
+
 ## Milestones
 1. Deploy and configuration of boot node to establish a beach-head into the customer AWS environment
     - Complete
@@ -29,17 +30,25 @@ flowchart LR
     - In Progress
 4. Deploy and configure watsonx.ai on self-managed AWS infrastructure
 
+## Today's Acomplishments
+- Kublet configuration update applied
+- Deployed instance of Multicloud Object Gateway
 
 ### Summary
-- Master nodes attempting to upgrade and are in a stuck state preventing rollback of ingress changes
-- Attempting to deploy a new cluster
-- New cluster successfully deployed via latest script
-- Deploying EFS
-- Installing OpenShift Data Foundation & Standalone Multicloud Object Gateway
+- Reinstalled NFS provisioner (Helm)
+- Installed OpenShift Data Foundation Operator
+- Deployed MultiCloud Object Gateway
+- OpenShift portal is active and cluster appears healthy
+- Configuring CP4D CLI
+- Awaiting for final cluster nodes to update through machine config pool
 
 ## Decisions and Action Items (DAI)
 - Software evaluation awaiting customer's approval process. This blocks our ability to download software from cp.icr.io
     - Customer to escalate internally
+
+## Lesons Learned
+- Preparation for Cloud Pak for Data on OpenShift sizing needed to be adjusted to reflect an under-provisioning of CPU resources
+    - This was resolved by..
 
 ## Next Steps
 - License and configure Cloud Pak for Data
