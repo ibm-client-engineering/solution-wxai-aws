@@ -2,11 +2,93 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog</id>
     <title>IBM Client Engineering Blog</title>
-    <updated>2024-04-04T00:00:00.000Z</updated>
+    <updated>2024-04-05T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog"/>
     <subtitle>IBM Client Engineering Blog</subtitle>
     <icon>https://ibm-client-engineering.github.io/solution-wxai-aws/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Log 18 🛫]]></title>
+        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18</id>
+        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18"/>
+        <updated>2024-04-05T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
+<p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
+<!-- -->
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
+<ol>
+<li>Deploy and configuration of boot node to establish a beach-head into the customer AWS environment<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Deploy OCP using the documented UPI installation steps<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Install Cloud Pak for Data<!-- -->
+<ul>
+<li>In Progress</li>
+</ul>
+</li>
+<li>Deploy and configure watsonx.ai on self-managed AWS infrastructure</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="todays-acomplishments">Today's Acomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#todays-acomplishments" class="hash-link" aria-label="Direct link to Today's Acomplishments" title="Direct link to Today's Acomplishments">​</a></h2>
+<ul>
+<li>CP4D Final Preparations<!-- -->
+<ul>
+<li>Added options to the CPD VARS file</li>
+<li>Recreation of work dir</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
+<ul>
+<li>Trobuleshooting the CP4D CLI</li>
+<li>Awaiting entitlement key approval</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
+<ul>
+<li>Software evaluation awaiting customer's approval process. This blocks our ability to download software from cp.icr.io<!-- -->
+<ul>
+<li>Customer to provide by EOD Monday</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lesons-learned">Lesons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#lesons-learned" class="hash-link" aria-label="Direct link to Lesons Learned" title="Direct link to Lesons Learned">​</a></h2>
+<ul>
+<li>Preparation for Cloud Pak for Data on OpenShift sizing needed to be adjusted to reflect an under-provisioning of CPU resources<!-- -->
+<ul>
+<li>This was resolved by..</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<ul>
+<li>License and configure Cloud Pak for Data<!-- -->
+<ul>
+<li>Cloud Pak Considerations<!-- -->
+<ul>
+<li>Security scans needed on container images</li>
+<li>Customer requires on-prem, offline install</li>
+<li>Customer uses their own container registry that might introduce extra effort or compatability issues</li>
+<li>Version compatibility with OpenShift (e.g. 4.10 required and customer has 4.11)</li>
+<li>Supported storage not available</li>
+<li>Multiple cloudpaks on the same cluster</li>
+<li>custom connections to data sources not supported OOTB</li>
+<li>AWS-specific: IAM users required for install/deploy and are not allowed</li>
+<li>OpenShift specific: CoreOS requirement for control nodes</li>
+<li>Automatic updating of Cloud Pak, this can interrupt engagements (solution is to always remove update polling from operators)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Deploy watsonx.ai</li>
+</ul>]]></content>
+        <category label="log" term="log"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Log 17 🛫]]></title>
         <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-17</id>
