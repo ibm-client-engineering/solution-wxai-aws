@@ -269,8 +269,12 @@ export IBM_ENTITLEMENT_KEY=<enter your IBM entitlement API key>
 # export PRIVATE_REGISTRY_PULL_USER=<enter the username of a user that can pull from the registry>
 # export PRIVATE_REGISTRY_PULL_PASSWORD=<enter the password of the user that can pull from the registry>
 
-  
-  
+# ------------------------------------------------------------------------------
+# Extra stuff
+# ------------------------------------------------------------------------------
+
+export NOOBAA_ACCOUNT_CREDENTIALS_SECRET=noobaa-admin
+export NOOBAA_ACCOUNT_CERTIFICATE_SECRET=noobaa-s3-serving-cert
 
 # ------------------------------------------------------------------------------
 # Cloud Pak for Data version
@@ -633,6 +637,16 @@ Set the INSTANCE_NAME environment variable to the unique name that you want to u
 export INSTANCE_NAME="wa-instance"
 ```
 
+:::note
+You should have followed the steps [here](/Installation/CP4D#generate-a-cpd-cli-profile) to generate a profile.
+
+The example profile we created we called `wxai`.
+:::
+
+```tsx
+export CPD_PROFILE_NAME="wxai"
+```
+
 Set the INSTANCE_VERSION env var to the version that corresponds to the version of CP4D. As of this writing and this guide, we are using 4.8.4. The Service instance version must match the release of CP4D.
 
 ```tsx
@@ -683,7 +697,7 @@ cpd-cli service-instance status ${INSTANCE_NAME} \
 
 ### Watson Discovery
 
-Apply the olm
+#### Apply the olm
 ```tsx
 cpd-cli manage apply-olm \
 --release=${VERSION} \
@@ -702,7 +716,7 @@ cpd-cli manage apply-cr \
 --license_acceptance=true
 ```
 
-Validate the installation
+#### Validate the installation
 
 ```tsx
 cpd-cli manage get-cr-status \
@@ -710,6 +724,9 @@ cpd-cli manage get-cr-status \
 --components=watson_discovery
 ```
 
+#### Create an instance of WD
+
+_TBD_
 
 ### OpenPages
 
