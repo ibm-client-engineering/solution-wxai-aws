@@ -30,6 +30,7 @@ Parameters:
     Default: m5.large
     Type: String
     AllowedValues:
+    - "p4d.24xlarge"
     - "m4.large"
     - "m4.xlarge"
     - "m4.2xlarge"
