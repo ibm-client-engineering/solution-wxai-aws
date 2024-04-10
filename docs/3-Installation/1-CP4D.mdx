@@ -812,6 +812,13 @@ cpd-cli manage apply-cr \
 --license_acceptance=true
 ```
 
+Verify the installation
+```tsx
+cpd-cli manage get-cr-status \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--components=ws
+```
+
 ### IBM Knowledge Catalog
 
 Run the following command to create the required OLM objects for IBM Knowledge Catalog in the operators project for the instance:
