@@ -1,0 +1,60 @@
+---
+id: WXAI
+sidebar_position: 2
+title: Watsonx ai installation
+custom_edit_url: null
+---
+
+:::note
+Associated links with this section
+
+[Installing Multicloud Object Gateway](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=watsonxai-installing)
+:::
+
+## Login to the cluster with cpd-cli
+
+Source the env file
+
+`source cpd_vars_48.sh`
+
+login with cpd-cli
+```
+cpd-cli manage login-to-ocp \
+--username=${OCP_USERNAME} \
+--password=${OCP_PASSWORD} \
+--server=${OCP_URL}
+```
+
+## Installing OLM
+
+The following services are automatically installed when you install the IBM watsonx.ai service, presuming you haven't installed them already.
+- Watson Studio
+- Watson Machine Learning
+
+Run the following command to create the required OLM objects for IBM watsonx.ai in the operators project for the instance:
+
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=watsonx_ai
+```
+
+## Install the CR
+
+```tsx
+cpd-cli manage apply-cr \
+--components=watsonx_ai \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+
+## Verifying the installation
+```tsx
+cpd-cli manage get-cr-status \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--components=watsonx_ai
+```
