@@ -552,6 +552,7 @@ cpd-cli service-instance list \
 ```
 
 
+
 ### Generate a cpd-cli Profile
 
 Log into the CP4D webui with the info retrieved from the `get-cpd-instance-details` and go to your Profile and settings page in the Cloud Pak for Data client and clicking Generate API key.
@@ -598,6 +599,7 @@ You can now run cpd-cli commands with this profile as shown in the following exa
 cpd-cli service-instance list \
 --profile=${CPD_PROFILE_NAME}
 ```
+
 
 
 ## Installing our Cartridges
@@ -649,7 +651,7 @@ The default Production size in this case is more the suited for our purposes.
 :::
 
 #### Apply the olm
-#### Apply the olm
+
 ```tsx
 cpd-cli manage apply-olm \
 --release=${VERSION} \
