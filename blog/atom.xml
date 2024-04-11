@@ -86,6 +86,24 @@
 </ul>
 </li>
 <li>Deploy watsonx.ai</li>
+</ul>
+<h1>RAG Portion</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective-1">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#objective-1" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
+<ul>
+<li>Start building guided workflows</li>
+<li>Attempt to improve parsing of unstructured tables with WDU (Watson Document Understanding)</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones-1">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#milestones-1" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
+<ol>
+<li>Designed some guided workflow concept ideas</li>
+<li>Coded flask app to expose an API to send emails to users from the Watsonx Assistant</li>
+<li>Table parsing with WDU sucesfully configured</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#lessons-learned" class="hash-link" aria-label="Direct link to Lessons learned" title="Direct link to Lessons learned">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps-1">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-18#next-steps-1" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<ul>
+<li>Integrate agent based workflows into guided workflows (langchain agents)</li>
+<li>Investigate if its possible to improve table parsing</li>
 </ul>]]></content>
         <category label="log" term="log"/>
     </entry>
