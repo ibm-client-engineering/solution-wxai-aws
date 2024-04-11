@@ -43,3 +43,11 @@ master_2_subnet=$aws_private_subnets
 worker_subnet_list=$aws_private_subnets  #Don't Change
 worker_count=6
 worker_instance_type="m6i.8xlarge"
+
+###
+# GPU Node
+###
+gpu_count=1
+gpu_subnet="" #US-EAST-2
+gpu_instance_type="p4d.24xlarge"
+gpu_securitygroup=""

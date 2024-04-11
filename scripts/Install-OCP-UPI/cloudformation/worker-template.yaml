@@ -30,6 +30,7 @@ Parameters:
     Default: m5.large
     Type: String
     AllowedValues:
+    - "p4d.24xlarge"
     - "m4.large"
     - "m4.xlarge"
     - "m4.2xlarge"
@@ -144,7 +145,7 @@ Resources:
       BlockDeviceMappings:
       - DeviceName: /dev/xvda
         Ebs:
-          VolumeSize: "300"
+          VolumeSize: 5300"
           VolumeType: "gp3"
           Encrypted: 'true'
       InstanceType: !Ref WorkerInstanceType
