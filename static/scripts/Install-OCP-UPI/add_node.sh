@@ -60,8 +60,8 @@ do
     worker_ignition_url="https://api-int.${cluster_name}.${base_domain}:22623/config/worker"
     certificate_authorities=$(jq '.ignition.security.tls.certificateAuthorities[].source' ${ocp_data_dir}/worker.ign | sed -e 's/\"//g')
 
-    echo "**** Running: " ${bin_dir}/create_worker_param.sh "${cloudformation_dir}" "${infra_id}" "${aws_rhcos_ami_id}" "${gpu_subnet}" "${gpu_securitygroup}" "${worker_ignition_url}" "${certificate_authorities}" "${worker_instance_type}"
-    ${bin_dir}/create_worker_param.sh "${cloudformation_dir}" "${infra_id}" "${aws_rhcos_ami_id}" "${gpu_subnet}" "${gpu_securitygroup}" "${worker_ignition_url}" "${certificate_authorities}" "${worker_instance_type}"
+    echo "**** Running: " ${bin_dir}/create_worker_param.sh "${cloudformation_dir}" "${infra_id}" "${aws_rhcos_ami_id}" "${gpu_subnet}" "${gpu_securitygroup}" "${worker_ignition_url}" "${certificate_authorities}" "${gpu_instance_type}"
+    ${bin_dir}/create_worker_param.sh "${cloudformation_dir}" "${infra_id}" "${aws_rhcos_ami_id}" "${gpu_subnet}" "${gpu_securitygroup}" "${worker_ignition_url}" "${certificate_authorities}" "${gpu_instance_type}"
     if [[ $? -ne 0 ]]
     then
         echo "ERROR: create_worker_param.sh did not complete successfully"

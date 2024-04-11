@@ -605,3 +605,96 @@ Add the following under 'spec:'
     servingCertKeyPairSecret:
       name: custom-cert
 ```
+
+## Increase Primary Disk size on worker nodes:
+
+1) Run the following bash one-liner to increase the primary disk on all worker nodes to 500GB:
+
+```
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,Tags[?Key==`Name`].Value|[0],BlockDeviceMappings[0].Ebs.VolumeId]' --output text | grep worker | awk '{print $3}' | while read volume_id; do aws ec2 modify-volume --volume-id $volume_id --size 500; done
+```
+
+2) Log into the node with following command:
+
+```
+oc debug node/<node_name>
+```
+
+3) Once in the node, run the following:
+
+```
+chroot /host
+```
+
+then:
+
+```
+sudo lsblk
+```
+
+The output should look like this:
+
+```
+# sudo lsblk
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+nvme1n1     259:0    0     1T  0 disk
+nvme0n1     259:1    0   500G  0 disk
+|-nvme0n1p1 259:2    0     1M  0 part
+|-nvme0n1p2 259:3    0   127M  0 part
+|-nvme0n1p3 259:4    0   384M  0 part /boot
+`-nvme0n1p4 259:5    0 239.5G  0 part /var/lib/kubelet/pods/555d6f90-41fd-49d2-8aad-fa7293a924e4/volume-subpaths/app-config-override/wd-discovery-cnm-api/2
+                                      /var/lib/kubelet/pods/57d28f73-d355-4092-8e52-6b6aeec28bd5/volume-subpaths/clouseau-config/search/4
+                                      /var/lib/kubelet/pods/fcb4b5ec-ea1a-42c7-908c-a027cf885ca1/volume-subpaths/db2wh-cm/zen-database-core/1
+                                      /var/lib/kubelet/pods/fcb4b5ec-ea1a-42c7-908c-a027cf885ca1/volume-subpaths/db2oltp-cm/zen-database-core/0
+                                      /var/lib/kubelet/pods/5e35fe3f-7e4d-4729-b3dd-b9553ffd73f6/volume-subpaths/nginx-conf/monitoring-plugin/1
+                                      /var
+                                      /sysroot/ostree/deploy/rhcos/var
+                                      /sysroot
+                                      /usr
+                                      /etc
+                                      /
+
+```
+
+4) Find the part on the disk that you wish to increase, in my case it was 'nvme0n1p4'.
+
+Now we extend the partition, by targeting the disk (Example: /dev/nvme0n1) and the partition (Example: 4)
+
+```
+sudo growpart /dev/nvme0n1 4
+```
+
+5) Check the disk sizes again:
+
+```
+sudo lsblk
+```
+
+This is what my output looks like now:
+
+```
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+nvme1n1     259:0    0     1T  0 disk
+nvme0n1     259:1    0   500G  0 disk
+|-nvme0n1p1 259:2    0     1M  0 part
+|-nvme0n1p2 259:3    0   127M  0 part
+|-nvme0n1p3 259:4    0   384M  0 part /boot
+`-nvme0n1p4 259:5    0 499.5G  0 part /var/lib/kubelet/pods/555d6f90-41fd-49d2-8aad-fa7293a924e4/volume-subpaths/app-config-override/wd-discovery-cnm-api/2
+                                      /var/lib/kubelet/pods/57d28f73-d355-4092-8e52-6b6aeec28bd5/volume-subpaths/clouseau-config/search/4
+                                      /var/lib/kubelet/pods/fcb4b5ec-ea1a-42c7-908c-a027cf885ca1/volume-subpaths/db2wh-cm/zen-database-core/1
+                                      /var/lib/kubelet/pods/fcb4b5ec-ea1a-42c7-908c-a027cf885ca1/volume-subpaths/db2oltp-cm/zen-database-core/0
+                                      /var/lib/kubelet/pods/5e35fe3f-7e4d-4729-b3dd-b9553ffd73f6/volume-subpaths/nginx-conf/monitoring-plugin/1
+                                      /var
+                                      /sysroot/ostree/deploy/rhcos/var
+                                      /sysroot
+                                      /usr
+                                      /etc
+                                      /
+```
+
+6) Last step is to extend the file system:
+
+```
+sudo xfs_growfs -d /
+```
+
