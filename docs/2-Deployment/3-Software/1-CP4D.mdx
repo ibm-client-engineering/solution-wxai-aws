@@ -310,6 +310,7 @@ OCP_PASSWORD
 IBM_ENTITLEMENT_KEY
 ```
 
+
 By default we set our storage classes to the `nfs-client` storage class. Your mileage may vary.
 
 If you are an IBM employee, entitlement key can be fetched from [here](https://myibm.ibm.com/products-services/containerlibrary)
@@ -337,7 +338,10 @@ cpd-cli manage login-to-ocp \
 --password=${OCP_PASSWORD} \
 --server=${OCP_URL}
 ```
+
 ### Add the entitlement key
+
+The key can be retrieved from [here](https://myibm.ibm.com/products-services/containerlibrary)
 
 ```tsx
 cpd-cli manage add-icr-cred-to-global-pull-secret \
