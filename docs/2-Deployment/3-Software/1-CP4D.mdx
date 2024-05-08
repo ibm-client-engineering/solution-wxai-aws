@@ -98,58 +98,6 @@ You can create only the standalone Multicloud Object Gateway component while dep
 1. Click **Workloads → Pods** from the OpenShift Web Console.
 1. Select `openshift-storage` from the **Project** drop-down list and verify pods are in Running state.
 
-### Create required secrets for Services
-
-If we're planning on installing the following:
-
-- Watsonx Assistant
-- Watson Discovery
-
-The names of all NooBaa account credentials can be retrieved with the following command
-```tsx
-oc get secrets -n openshift-storage | grep noobaa
-```
-
-Running from our linux bastion host, we need to export the following secret names:
-
-```tsx
-export NOOBAA_ACCOUNT_CREDENTIALS_SECRET=noobaa-admin
-export NOOBAA_ACCOUNT_CERTIFICATE_SECRET=noobaa-s3-serving-cert
-```
-
-Create the secrets that watsonx Assistant will use to connect to Multicloud Object Gateway:
-```tsx
-cpd-cli manage setup-mcg \
---components=watson_assistant \
---cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
---noobaa_account_secret=${NOOBAA_ACCOUNT_CREDENTIALS_SECRET} \
---noobaa_cert_secret=${NOOBAA_ACCOUNT_CERTIFICATE_SECRET}
-```
-
-Verify the secrets were created
-```tsx
-oc get secrets --namespace=${PROJECT_CPD_INST_OPERANDS} \
-noobaa-account-watson-assistant \
-noobaa-cert-watson-assistant \
-noobaa-uri-watson-assistant
-```
-
-Should return 
-```tsx
-NAME                              TYPE     DATA   AGE
-noobaa-account-watson-assistant   Opaque   2      33s
-noobaa-cert-watson-assistant      Opaque   1      32s
-noobaa-uri-watson-assistant       Opaque   3      29s
-```
-
-Wash, rinse, repeat for Watson Discovery
-
-```tsx
-cpd-cli manage setup-mcg \
---components=watson_discovery \
---cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
---noobaa_account_secret=${NOOBAA_ACCOUNT_CREDENTIALS_SECRET}
-```
 
 
 
@@ -344,6 +292,58 @@ The key can be retrieved from [here](https://myibm.ibm.com/products-services/con
 ```tsx
 cpd-cli manage add-icr-cred-to-global-pull-secret \
 --entitled_registry_key=${IBM_ENTITLEMENT_KEY}
+```
+### Create required secrets for Services
+
+If we're planning on installing the following:
+
+- Watsonx Assistant
+- Watson Discovery
+
+The names of all NooBaa account credentials can be retrieved with the following command
+```tsx
+oc get secrets -n openshift-storage | grep noobaa
+```
+
+Running from our linux bastion host, we need to export the following secret names:
+
+```tsx
+export NOOBAA_ACCOUNT_CREDENTIALS_SECRET=noobaa-admin
+export NOOBAA_ACCOUNT_CERTIFICATE_SECRET=noobaa-s3-serving-cert
+```
+
+Create the secrets that watsonx Assistant will use to connect to Multicloud Object Gateway:
+```tsx
+cpd-cli manage setup-mcg \
+--components=watson_assistant \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--noobaa_account_secret=${NOOBAA_ACCOUNT_CREDENTIALS_SECRET} \
+--noobaa_cert_secret=${NOOBAA_ACCOUNT_CERTIFICATE_SECRET}
+```
+
+Verify the secrets were created
+```tsx
+oc get secrets --namespace=${PROJECT_CPD_INST_OPERANDS} \
+noobaa-account-watson-assistant \
+noobaa-cert-watson-assistant \
+noobaa-uri-watson-assistant
+```
+
+Should return 
+```tsx
+NAME                              TYPE     DATA   AGE
+noobaa-account-watson-assistant   Opaque   2      33s
+noobaa-cert-watson-assistant      Opaque   1      32s
+noobaa-uri-watson-assistant       Opaque   3      29s
+```
+
+Wash, rinse, repeat for Watson Discovery
+
+```tsx
+cpd-cli manage setup-mcg \
+--components=watson_discovery \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--noobaa_account_secret=${NOOBAA_ACCOUNT_CREDENTIALS_SECRET}
 ```
 
 ## Installing CP4D 
