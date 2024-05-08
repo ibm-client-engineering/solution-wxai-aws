@@ -145,7 +145,7 @@ Resources:
       BlockDeviceMappings:
       - DeviceName: /dev/xvda
         Ebs:
-          VolumeSize: 5300"
+          VolumeSize: 500"
           VolumeType: "gp3"
           Encrypted: 'true'
       InstanceType: !Ref WorkerInstanceType
