@@ -2,11 +2,83 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog</id>
     <title>IBM Client Engineering Blog</title>
-    <updated>2024-05-08T00:00:00.000Z</updated>
+    <updated>2024-05-09T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog"/>
     <subtitle>IBM Client Engineering Blog</subtitle>
     <icon>https://ibm-client-engineering.github.io/solution-wxai-aws/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Log 21 🛫]]></title>
+        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21</id>
+        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21"/>
+        <updated>2024-05-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
+<p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
+<!-- -->
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
+<ol>
+<li>Deploy and configuration of boot node to establish a beach-head into the customer AWS environment<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Deploy OCP using the documented UPI installation steps<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Install Cloud Pak for Data<!-- -->
+<ul>
+<li>In Progress</li>
+</ul>
+</li>
+<li>Deploy and configure watsonx.ai on self-managed AWS infrastructure on ref environment and document<!-- -->
+<ul>
+<li>In Progress</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
+<ul>
+<li>Customer has approved required contracts and procedures have been followed to attain an entitlement key.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
+<ul>
+<li>MCG Secrets created for Cloud Pak components</li>
+<li>Authorized Instance Topology</li>
+<li>Installed Cloud Pak shared components</li>
+<li>Installed Knative</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
+<ul>
+<li>Had an issue with “apply-cluster-components” which requires connecting to github to download CASE files. Found a solution in the cpd-cli documentation: use two additioanl flags on the command “--case_download=true” and  “--from_oci=true” which tells cpd-cli to download the CASE files from IBM Open Container Initiative instead of github.</li>
+<li>While running “setup-instance-topology” for knative, received an error regarding storage. Added <code>“--block_storage_class=${STG_CLASS_BLOCK}”</code> to the command and it completed successfully.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<ul>
+<li>License and configure Cloud Pak for Data<!-- -->
+<ul>
+<li>Cloud Pak Considerations<!-- -->
+<ul>
+<li>Security scans needed on container images</li>
+<li>Customer requires on-prem, offline install</li>
+<li>Customer uses their own container registry that might introduce extra effort or compatability issues</li>
+<li>Version compatibility with OpenShift (e.g. 4.10 required and customer has 4.11)</li>
+<li>Supported storage not available</li>
+<li>Multiple cloudpaks on the same cluster</li>
+<li>custom connections to data sources not supported OOTB</li>
+<li>AWS-specific: IAM users required for install/deploy and are not allowed</li>
+<li>OpenShift specific: CoreOS requirement for control nodes</li>
+<li>Automatic updating of Cloud Pak, this can interrupt engagements (solution is to always remove update polling from operators)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Deploy watsonx.ai</li>
+</ul>]]></content>
+        <category label="log" term="log"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Log 20 🛫]]></title>
         <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-20</id>
@@ -1615,41 +1687,6 @@
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
 <ul>
 <li>Require sign-off on final CloudFormation template.</li>
-</ul>]]></content>
-        <category label="log" term="log"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Log 1 🛫]]></title>
-        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1</id>
-        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1"/>
-        <updated>2024-02-29T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objectives">Objectives<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#objectives" class="hash-link" aria-label="Direct link to Objectives" title="Direct link to Objectives">​</a></h2>
-<ul>
-<li>Deploy watsonx.ai on self-managed AWS infrastructure.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="accomplishments">Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#accomplishments" class="hash-link" aria-label="Direct link to Accomplishments" title="Direct link to Accomplishments">​</a></h2>
-<ul>
-<li>Established this GitHub repository as single source of truth for architecture, IaC, and documentation to collaborate with stakeholders.</li>
-<li>Developed draft CloudFormation template to provision AWS resources.</li>
-<li>Started incorporating STS into CloudFormation.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="in-progress">In Progress<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#in-progress" class="hash-link" aria-label="Direct link to In Progress" title="Direct link to In Progress">​</a></h2>
-<ul>
-<li>Awaiting approval for AWS credits to cover infrastructure costs. Following up to expedite.</li>
-<li>Finalizing deployment plan and cadence.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
-<ul>
-<li>Review deployment details in working session with stakeholders.</li>
-<li>Incorporate additional feedback into documentation and IaC templates.</li>
-<li>Upon AWS credit approval and stakeholder sign-off, begin provisioning.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-1#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
-<ul>
-<li>Need confirmation of AWS credit approval.</li>
-<li>Require sign-off on final CloudFormation template.</li>
-<li>Align on deployment cadence with customer.</li>
 </ul>]]></content>
         <category label="log" term="log"/>
     </entry>
