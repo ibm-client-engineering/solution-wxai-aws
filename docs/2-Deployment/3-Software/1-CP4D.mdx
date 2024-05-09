@@ -407,6 +407,15 @@ cpd-cli manage authorize-instance-topology \
 These two tasks come from here:
 https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=cluster-installing-shared-components
 
+:::note
+If you are unable to access github, include the following flags to the next two commands as well as _any_ `apply-olm` command below
+
+```tsx
+--case_download=true \
+--from_oci=true
+```
+:::
+
 ```tsx
 cpd-cli manage apply-cluster-components \
 --release=${VERSION} \
@@ -424,6 +433,16 @@ cpd-cli manage apply-scheduler \
 --scheduler_ns=${PROJECT_SCHEDULING_SERVICE}
 ```
 
+### Setup instance topology
+
+```tsx
+cpd-cli manage setup-instance-topology \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--license_acceptance=true \
+--block_storage_class=${STG_CLASS_BLOCK}
+```
 ### Installation of primary CPD components
 
 This installs the operators in the operators project for the instance.
@@ -435,16 +454,6 @@ cpd-cli manage apply-olm \
 --components=${COMPONENTS}
 ```
 
-### Setup instance topology
-
-```tsx
-cpd-cli manage setup-instance-topology \
---release=${VERSION} \
---cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
---cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
---license_acceptance=true \
---block_storage_class=${STG_CLASS_BLOCK}
-```
 
 ### Installing Red Hat OpenShift Serverless Knative Eventing
 
