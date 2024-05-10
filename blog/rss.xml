@@ -4,10 +4,80 @@
         <title>IBM Client Engineering Blog</title>
         <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog</link>
         <description>IBM Client Engineering Blog</description>
-        <lastBuildDate>Thu, 09 May 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 10 May 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Log 22 🛫]]></title>
+            <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22</link>
+            <guid>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22</guid>
+            <pubDate>Fri, 10 May 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Flight Log of Co-Creation Activities]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
+<p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
+<!-- -->
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
+<ol>
+<li>Deploy and configuration of boot node to establish a beach-head into the customer AWS environment<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Deploy OCP using the documented UPI installation steps<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Install Cloud Pak for Data<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Deploy and configure watsonx.ai on self-managed AWS infrastructure on ref environment and document<!-- -->
+<ul>
+<li>In Progress</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
+<ul>
+<li>Successful installation of watsonx Assistant</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
+<ul>
+<li>Trobuleshooting watsonx Assistant installation pods<!-- -->
+<ul>
+<li>Starting required pods/containers</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
+<ul>
+<li>MCG Secrets created for Cloud Pak components</li>
+<li>Authorized Instance Topology</li>
+<li>Installed Cloud Pak shared components</li>
+<li>Installed Knative</li>
+<li>GPU Node Activity and Billing</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
+<ul>
+<li>GPU Node Activity<!-- -->
+<ul>
+<li>AWS was charging for a GPU Node while powered-down</li>
+<li>Provisioned the GPU Node using a reserve instance (30 days starting May 6)</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<ul>
+<li>Deploy watsonx Discovery</li>
+<li>Deploy watson Studio</li>
+<li>Deploy watson Machine Learning</li>
+<li>Deploy IBM Knowledge Catalog</li>
+</ul>]]></content:encoded>
+            <category>log</category>
+        </item>
         <item>
             <title><![CDATA[Log 21 🛫]]></title>
             <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21</link>
@@ -40,9 +110,45 @@
 </ul>
 </li>
 </ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
+<ul>
+<li>Successful deployment of CP4D</li>
+</ul>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
 <ul>
-<li>Customer has approved required contracts and procedures have been followed to attain an entitlement key.</li>
+<li>Customer has approved required contracts and procedures have been followed to attain an entitlement key</li>
+<li>Updated bootnode IP reference in configuration</li>
+<li>Re-ran install scripts</li>
+<li>Verify cluster up v4.12.8<!-- -->
+<ul>
+<li>No errors</li>
+<li>Check storage size on nodes, have 5TB disks instead of 500gb as intended<!-- -->
+<ul>
+<li>This was set incorrectly in config, reconfiguring worker nodes with proper (worker-template.yaml)</li>
+</ul>
+</li>
+<li>Don't need secondary disks on the nodes, NFS will be used instead</li>
+</ul>
+</li>
+<li>Adding GPU node<!-- -->
+<ul>
+<li>Updating config.sh, gpu_subnet accurate, security groups set properly</li>
+<li>Logging into AWS via aws_sso</li>
+<li>Running add_node.sh to add gpu node (runs for about 10 min)</li>
+<li>Verifying node draining and uncordon node</li>
+</ul>
+</li>
+<li>Installing nfs provisioner<!-- -->
+<ul>
+<li>Operator install unsuccessful<!-- -->
+<ul>
+<li>Fallback to using helm install</li>
+</ul>
+</li>
+<li>Downloading helm repo and install</li>
+<li>Tested and verified with test pod that attached to nfs-client storageclass, applying clean up</li>
+</ul>
+</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
 <ul>
@@ -1629,63 +1735,6 @@
 <li>Build out actions &amp; flow in Watsonx Assistant after properly defining personas &amp; objectives.</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-3#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
-<ul>
-<li>Require sign-off on final CloudFormation template.</li>
-</ul>]]></content:encoded>
-            <category>log</category>
-        </item>
-        <item>
-            <title><![CDATA[Log 2 🛫]]></title>
-            <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2</link>
-            <guid>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2</guid>
-            <pubDate>Fri, 08 Mar 2024 00:00:00 GMT</pubDate>
-            <description><![CDATA[Flight Log of Co-Creation Activities]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objectives">Objectives<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#objectives" class="hash-link" aria-label="Direct link to Objectives" title="Direct link to Objectives">​</a></h2>
-<ul>
-<li><a href="https://ibm.monday.com/boards/6058549193" target="_blank" rel="noopener noreferrer">Deploy watsonx.ai on self-managed AWS infrastructure.</a></li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="accomplishments">Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#accomplishments" class="hash-link" aria-label="Direct link to Accomplishments" title="Direct link to Accomplishments">​</a></h2>
-<p><strong>AWS</strong></p>
-<ul>
-<li><a href="https://ibm.monday.com/boards/6058549193/pulses/6163634479" target="_blank" rel="noopener noreferrer">Established cocreation working cadence and cocreation point of contact.</a></li>
-<li>Provided list of required Role permissions.</li>
-<li><a href="https://ibm.monday.com/boards/6058549193/pulses/6138383385" target="_blank" rel="noopener noreferrer">Successful deployment of OCP, CP4D via Cloudformation template via Console</a> with the following:<!-- -->
-<ul>
-<li>Creation of 3 Public and 3 Public Subnets and NAT gateways via Cloudformation template</li>
-<li>3x m5.2xlarge master nodes</li>
-<li>6x m6i.8xlarge worker nodes</li>
-</ul>
-</li>
-<li>Successful deployment of Cloudformation template via CLI using:<!-- -->
-<ul>
-<li>A parameter overrides json file</li>
-<li>Tested only the necessary required permissions for deployment</li>
-</ul>
-</li>
-<li>Created cloudformation template to create a role with exact permissions to run Cloudformation deployment.</li>
-<li>Tagging of resources created by Cloudformation template.</li>
-</ul>
-<p><strong>RAG</strong></p>
-<ul>
-<li>App deployed on Fyre VM</li>
-<li>Support for granitev2/llama2 70 b chat models added.</li>
-<li>Watsonx Assistant Configured to interact with app via API for easier testing.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="in-progress">In Progress<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#in-progress" class="hash-link" aria-label="Direct link to In Progress" title="Direct link to In Progress">​</a></h2>
-<ul>
-<li>End-to-end deployment of OCP, CP4D, and watsonx.ai (with GPU node)</li>
-<li>Tagging cp-deployer.sh generated resources.</li>
-<li>Test out RAG new chunking method.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
-<ul>
-<li>Begin over the shoulder working sessions</li>
-<li>Compilation of required endpoints</li>
-<li><a href="https://ibm.monday.com/boards/6058549193/pulses/6221674788" target="_blank" rel="noopener noreferrer">Add Mixtral model to RAG</a>.</li>
-<li><a href="https://ibm.monday.com/boards/6058549193/pulses/6080003563" target="_blank" rel="noopener noreferrer">Deploy latest RAG version on AWS</a>.</li>
-<li>Build out actions &amp; flow in Watsonx Assistant after properly defining personas &amp; objectives.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
 <ul>
 <li>Require sign-off on final CloudFormation template.</li>
 </ul>]]></content:encoded>
