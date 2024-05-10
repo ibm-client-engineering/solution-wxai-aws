@@ -1,0 +1,57 @@
+---
+title: Log 22 🛫
+description: Flight Log of Co-Creation Activities
+slug: flight-log-22
+tags: [log]
+---
+
+## Objective
+Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation
+
+```mermaid
+flowchart LR
+    A(Deploy bootnode) --> B(Deploy infrastructure)
+    B -->C(Deploy OCP)
+    C -->D(Prepare CP4D & watsonx ai cartdridge)
+    D -->E(Install CP4D)
+    E -->F
+    subgraph "You are here"
+    F(Deploy Services)
+    end
+```
+
+## Milestones
+1. Deploy and configuration of boot node to establish a beach-head into the customer AWS environment
+    - Complete
+2. Deploy OCP using the documented UPI installation steps
+    - Complete
+3. Install Cloud Pak for Data
+    - Complete
+4. Deploy and configure watsonx.ai on self-managed AWS infrastructure on ref environment and document
+    - In Progress
+
+
+### Today's Accomplishments
+- Successful installation of watsonx Assistant
+
+### Summary
+- Trobuleshooting watsonx Assistant installation pods
+    - Starting required pods/containers
+
+## Decisions and Action Items (DAI)
+- MCG Secrets created for Cloud Pak components
+- Authorized Instance Topology
+- Installed Cloud Pak shared components
+- Installed Knative
+- GPU Node Activity and Billing
+
+## Lessons Learned
+- GPU Node Activity
+    - AWS was charging for a GPU Node while powered-down
+    - Provisioned the GPU Node using a reserve instance (30 days starting May 6)
+
+## Next Steps
+- Deploy watsonx Discovery
+- Deploy watson Studio
+- Deploy watson Machine Learning
+- Deploy IBM Knowledge Catalog
