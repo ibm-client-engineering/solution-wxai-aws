@@ -34,7 +34,24 @@ flowchart LR
 - Successful deployment of CP4D
 
 ### Summary
-- Customer has approved required contracts and procedures have been followed to attain an entitlement key.
+- Customer has approved required contracts and procedures have been followed to attain an entitlement key
+- Updated bootnode IP reference in configuration
+- Re-ran install scripts
+- Verify cluster up v4.12.8
+	- No errors
+	- Check storage size on nodes, have 5TB disks instead of 500gb as intended
+		- This was set incorrectly in config, reconfiguring worker nodes with proper (worker-template.yaml)
+	- Don't need secondary disks on the nodes, NFS will be used instead
+- Adding GPU node
+	- Updating config.sh, gpu_subnet accurate, security groups set properly
+	- Logging into AWS via aws_sso
+	- Running add_node.sh to add gpu node (runs for about 10 min)
+	- Verifying node draining and uncordon node
+- Installing nfs provisioner
+	- Operator install unsuccessful
+        - Fallback to using helm install
+	- Downloading helm repo and install
+	- Tested and verified with test pod that attached to nfs-client storageclass, applying clean up
 
 ## Decisions and Action Items (DAI)
 - MCG Secrets created for Cloud Pak components
