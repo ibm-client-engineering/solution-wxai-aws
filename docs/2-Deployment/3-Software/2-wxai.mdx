@@ -5,56 +5,109 @@ title: Watsonx ai installation
 custom_edit_url: null
 ---
 
-:::note
-Associated links with this section
 
-[Installing Multicloud Object Gateway](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=watsonxai-installing)
+## Setup GPU node on OpenShift
+
+### Install "Node Feature Discovery"
+
+Go to OperatorHub
+
+Search for "Node Feature Discovery"
+
+Install
+
+### Create a NodeFeatureDisocvery CR
+
+Go to Installed Operators 
+
+Select "Node Feature Discovery"
+
+Select the box "Provided APIs"
+
+Select "Create Instance"
+
+Review the values
+
+Select "Create"
+
+### Install "Nvidia GPU Operator"
+
+Go to OperatorHub
+
+Search for "Nvidia GPU Operator"
+
+Install
+
+### Create "Cluster Policy"
+
+Go to "Installed Operators"
+
+Click on "Nvidia GPU Operator"
+
+Select "ClusterPolicy" tab
+
+Click "Create ClusterPolicy"
+
+Click "Create"
+
+
+### Reference Links:
+:::Note
+For additional Information:
+
+[OpenShift Docs on Node Feature Discovery](https://docs.openshift.com/container-platform/4.12/hardware_enablement/psap-node-feature-discovery-operator.html#create-nfd-cr-web-console_node-feature-discovery-operator)
+
+[Nvidia docs on Node Feature Discovery](https://docs.nvidia.com/datacenter/cloud-native/openshift/latest/install-nfd.html#install-nfd)
+
+[Nvidia docs on Nvidia GPU Operator](https://docs.nvidia.com/datacenter/cloud-native/openshift/latest/install-gpu-ocp.html)
 :::
 
-## Login to the cluster with cpd-cli
+## Install WatsonX.AI on Cloud Pak for Data
 
-Source the env file
+### Apply the WatsonX.AI OLM:
 
-`source cpd_vars_48.sh`
+To install the WatsonX.AI OLMs:
 
-login with cpd-cli
 ```
-cpd-cli manage login-to-ocp \
---username=${OCP_USERNAME} \
---password=${OCP_PASSWORD} \
---server=${OCP_URL}
-```
-
-## Installing OLM
-
-The following services are automatically installed when you install the IBM watsonx.ai service, presuming you haven't installed them already.
-- Watson Studio
-- Watson Machine Learning
-
-Run the following command to create the required OLM objects for IBM watsonx.ai in the operators project for the instance:
-
-```tsx
 cpd-cli manage apply-olm \
 --release=${VERSION} \
 --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
---components=watsonx_ai
+--components=watsonx_ai \
+--case_download=true \
+--from_oci=true
 ```
 
-## Install the CR
+### Apply the WatsonX.AI CR:
 
-```tsx
+To install WatsonX.AI run the following command:
+
+```
 cpd-cli manage apply-cr \
 --components=watsonx_ai \
 --release=${VERSION} \
 --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
 --block_storage_class=${STG_CLASS_BLOCK} \
 --file_storage_class=${STG_CLASS_FILE} \
---license_acceptance=true
+--license_acceptance=true \
+--case_download=true \
+--from_oci=true
 ```
 
-## Verifying the installation
-```tsx
-cpd-cli manage get-cr-status \
---cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
---components=watsonx_ai
+### Install Additional Models:
+
+This installs the following models:
+
+granite-13b-instruct-v2
+llama-2-70b-chat
+mixtral-8x7b-instruct-v01-q
+
+Run the following command:
+
 ```
+oc patch watsonxaiifm watsonxaiifm-cr \
+--namespace=${PROJECT_CPD_INST_OPERANDS} \
+--type=merge \
+--patch='{"spec":{"install_model_list": ["ibm-mistralai-mixtral-8x7b-instruct-v01-q","ibm-granite-13b-chat-v2","meta-llama-llama-2-70b-chat"]}}'
+```
+
+
