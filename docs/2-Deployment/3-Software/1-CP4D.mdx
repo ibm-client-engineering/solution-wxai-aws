@@ -562,57 +562,6 @@ cpd-cli service-instance list \
 --profile=${CPD_PROFILE_NAME}
 ```
 
-
-
-### Generate a cpd-cli Profile
-
-Log into the CP4D webui with the info retrieved from the `get-cpd-instance-details` and go to your Profile and settings page in the Cloud Pak for Data client and clicking Generate API key.
-
-In the upper right hand corner, click `API key` -> `Generate new key`
-
-Copy the generated key.
-
-Collect the web client URL and export it with the following command
-
-```tsx
-export CPD_PROFILE_URL=$(oc get route cpd --namespace=${PROJECT_CPD_INST_OPERANDS} | tail -1 | awk '{print "https://"$2}')
-```
-
-We'll set our `profile-name` to the cluster name.
-
-Set the following vars:
-```tsx
-export API_KEY=<key you copied above>
-export CPD_ADMIN_USER=cpadmin
-export LOCAL_USER=<local user name>
-export CPD_PROFILE_NAME=wxai
-```
-
-Create a local user configuration to store your username and API key by using the config users set command.
-
-```tsx
-cpd-cli config users set ${LOCAL_USER} \
---username ${CPD_ADMIN_USER} \
---apikey ${API_KEY}
-```
-
-Create a profile to store the Cloud Pak for Data URL and to associate the profile with your local user configuration by using the config profiles set command.
-
-```tsx
-cpd-cli config profiles set ${CPD_PROFILE_NAME} \
---user ${LOCAL_USER} \
---url ${CPD_PROFILE_URL}
-```
-
-You can now run cpd-cli commands with this profile as shown in the following example.
-
-```tsx
-cpd-cli service-instance list \
---profile=${CPD_PROFILE_NAME}
-```
-
-
-
 ## Installing our Cartridges
 
 Source the env file
@@ -1036,4 +985,53 @@ cpd-cli manage setup-appconnect \
 --release=${VERSION} \
 --components=watsonx_orchestrate \
 --file_storage_class=${STG_CLASS_FILE}
+```
+
+Set the CPD_USERNAME environment variable to your Cloud Pak for Data username:
+
+This should be the cpd admin user you created when you ran the tasks [here](/Deployment/Software/CP4D#generate-a-cpd-cli-profile)
+
+```tsx
+export CPD_USERNAME=cpadmin
+```
+
+Create the required watsonx Assistant service instances for watsonx Orchestrate. 
+
+```tsx
+cpd-cli manage setup-wxo-assistant \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--create_assistants=true \
+--user=${CPD_USERNAME} \
+--auth_type=apikey
+```
+
+Input the apikey you generated when you created the cpd-cli profile.
+
+Apply the olm
+
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=watsonx_orchestrate
+```
+
+When that command returns, apply the Custom Resource
+
+```tsx
+cpd-cli manage apply-cr \
+--components=watsonx_orchestrate \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+
+Verify the the cr was applied successfully with this command
+
+```tsx
+cpd-cli manage get-cr-status \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--components=watsonx_orchestrate
 ```
