@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[6371],{1254:e=>{e.exports=JSON.parse('{"permalink":"/solution-wxai-aws/blog/tags/log","page":1,"postsPerPage":24,"totalPages":1,"totalCount":24,"blogDescription":"Blog","blogTitle":"Journey Log"}')}}]);

@@ -2,11 +2,92 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog</id>
     <title>IBM Client Engineering Blog</title>
-    <updated>2024-05-14T00:00:00.000Z</updated>
+    <updated>2024-05-15T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog"/>
     <subtitle>IBM Client Engineering Blog</subtitle>
     <icon>https://ibm-client-engineering.github.io/solution-wxai-aws/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Log 24 🛫]]></title>
+        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24</id>
+        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24"/>
+        <updated>2024-05-15T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
+<p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
+<!-- -->
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
+<ol>
+<li>Deploy and configuration of boot node to establish a beach-head into the customer AWS environment<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Deploy OCP using the documented UPI installation steps<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Install Cloud Pak for Data<!-- -->
+<ul>
+<li>Complete</li>
+</ul>
+</li>
+<li>Deploy and configure watsonx.ai on self-managed AWS infrastructure on ref environment and document<!-- -->
+<ul>
+<li>In Progress</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
+<ul>
+<li>Successful installation of Llama model</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
+<ul>
+<li>Installing and troubleshooting remaining LLMs for watsonx.ai<!-- -->
+<ul>
+<li>Granite model installed (previous session)</li>
+<li>Issues with installation of Mistral and Llama models<!-- -->
+<ul>
+<li>Investigating Mistral model compatibility<!-- -->
+<ul>
+<li>Determined incompatible with p4d.24xlarge a100-40gb</li>
+</ul>
+</li>
+<li>Investigating work around for instance type compatability for Llama model p4d.24xlarge a100-40gb in US-East-2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Llama installed and running using workaround (Workaround source <a href="https://github.ibm.com/NGP-TWC/ml-planning/issues/37189" target="_blank" rel="noopener noreferrer">https://github.ibm.com/NGP-TWC/ml-planning/issues/37189</a>)<!-- -->
+<div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token comment" style="color:#999999">#Add the following to watsonxaiifm-cr:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">meta_llama_llama_2_70b_chat</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">deployment_yaml_name</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> llama</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">2</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">70b</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">chat.yaml.j2</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">pvc_name</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> meta</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">llama</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">llama</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">2</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">70b</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">chat</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">pvc</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">svc_name</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> llama</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">2</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">70b</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">chat</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">pvc_size</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> 150Gi</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">dir_name</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> models</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">meta</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">llama</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">llama</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">2</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">70b</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">chat</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">model_name</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> /watsonxaiifm</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">models/models</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">meta</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">llama</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">llama</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">2</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">70b</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">chat</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">cuda_visible_devices</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token number" style="color:#5a9bcf">0</span><span class="token punctuation" style="color:#8dc891">,</span><span class="token number" style="color:#5a9bcf">1</span><span class="token punctuation" style="color:#8dc891">,</span><span class="token number" style="color:#5a9bcf">2</span><span class="token punctuation" style="color:#8dc891">,</span><span class="token number" style="color:#5a9bcf">3</span><span class="token punctuation" style="color:#8dc891">,</span><span class="token number" style="color:#5a9bcf">4</span><span class="token punctuation" style="color:#8dc891">,</span><span class="token number" style="color:#5a9bcf">5</span><span class="token punctuation" style="color:#8dc891">,</span><span class="token number" style="color:#5a9bcf">6</span><span class="token punctuation" style="color:#8dc891">,</span><span class="token number" style="color:#5a9bcf">7</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">model_root_dir</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> /watsonxaiifm</span><span class="token punctuation" style="color:#8dc891">-</span><span class="token plain">models</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">flash_attention</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#ff8b50;font-weight:400">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">deployment_framework</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> hf_custom_tp</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">dtype_str</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> float16</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">max_batch_size</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token number" style="color:#5a9bcf">128</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">max_concurrent_requests</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token number" style="color:#5a9bcf">160</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">max_batch_weight</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token number" style="color:#5a9bcf">200000</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">max_sequence_length</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token number" style="color:#5a9bcf">4096</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">max_prefill_weight</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token number" style="color:#5a9bcf">60000</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">max_new_tokens</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token number" style="color:#5a9bcf">4096</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">num_shards</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token number" style="color:#5a9bcf">8</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">hf_modules_cache</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> /tmp/huggingface/modules</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">force_apply</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> no</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">meta_llama_llama_2_70b_chat_resources</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">limits</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">cpu</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> “8”</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">memory</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> 246Gi</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    </span><span class="token key atrule" style="color:#FAC863">nvidia.com/gpu</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> “8"</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">ephemeral-storage</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> 1Gi</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">requests</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">cpu</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> “1”</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">memory</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> 240Gi</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    </span><span class="token key atrule" style="color:#FAC863">nvidia.com/gpu</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> “8"</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">ephemeral-storage</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> 10Mi</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token comment" style="color:#999999">#Add the following to watsonxai-cr:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain"></span><span class="token key atrule" style="color:#FAC863">tuning_disabled</span><span class="token punctuation" style="color:#8dc891">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#ff8b50;font-weight:400">true</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
+<ul>
+<li>Mistral installation<!-- -->
+<ul>
+<li>Incompatable with a100-40gb</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
+<ul>
+<li>LLM model compatabilities with provisioned resources<!-- -->
+<ul>
+<li>Most IBM LLM's require a100-80gb</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<ul>
+<li>Deploy watsonx.ai</li>
+<li>Install NeuralSeek</li>
+</ul>]]></content>
+        <category label="log" term="log"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Log 24 🛫]]></title>
         <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24</id>
@@ -67,11 +148,6 @@
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-24#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
 <ul>
-<li>MCG Secrets created for Cloud Pak components</li>
-<li>Authorized Instance Topology</li>
-<li>Installed Cloud Pak shared components</li>
-<li>Installed Knative</li>
-<li>GPU Node Activity and Billing</li>
 <li>Mistral installation<!-- -->
 <ul>
 <li>Incompatable with a100-40gb</li>
@@ -217,20 +293,11 @@
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
 <ul>
-<li>MCG Secrets created for Cloud Pak components</li>
-<li>Authorized Instance Topology</li>
-<li>Installed Cloud Pak shared components</li>
-<li>Installed Knative</li>
-<li>GPU Node Activity and Billing</li>
+<li>None today</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
 <ul>
-<li>GPU Node Activity<!-- -->
-<ul>
-<li>AWS was charging for a GPU Node while powered-down</li>
-<li>Provisioned the GPU Node using a reserve instance (30 days starting May 6)</li>
-</ul>
-</li>
+<li>None today</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-22#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
 <ul>
@@ -273,12 +340,14 @@
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
 <ul>
 <li>Successful deployment of CP4D</li>
+<li>Installed Knative</li>
 </ul>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
 <ul>
 <li>Customer has approved required contracts and procedures have been followed to attain an entitlement key</li>
 <li>Updated bootnode IP reference in configuration</li>
 <li>Re-ran install scripts</li>
+<li>MCG Secrets created for Cloud Pak components</li>
 <li>Verify cluster up v4.12.8<!-- -->
 <ul>
 <li>No errors</li>
@@ -312,10 +381,7 @@
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
 <ul>
-<li>MCG Secrets created for Cloud Pak components</li>
 <li>Authorized Instance Topology</li>
-<li>Installed Cloud Pak shared components</li>
-<li>Installed Knative</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-21#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
 <ul>
@@ -1743,58 +1809,6 @@
 <li>Red Hat CoreOS AMI pending approval.</li>
 <li>LambdaCleanup error from not being able to assume role.</li>
 <li>Double checking role names in Cloudformation template.</li>
-</ul>]]></content>
-        <category label="log" term="log"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Log 5 🛫]]></title>
-        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-5</id>
-        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-5"/>
-        <updated>2024-03-15T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objectives">Objectives<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-5#objectives" class="hash-link" aria-label="Direct link to Objectives" title="Direct link to Objectives">​</a></h2>
-<ul>
-<li>Deploy watsonx.ai on self-managed AWS infrastructure.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="accomplishments">Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-5#accomplishments" class="hash-link" aria-label="Direct link to Accomplishments" title="Direct link to Accomplishments">​</a></h2>
-<p><strong>AWS</strong></p>
-<ul>
-<li>Populated parameter overrides JSON.</li>
-<li>Created RH Trial account and uploaded pull secret to S3 bucket.</li>
-<li>Updated CloudFormation STS template with permissions to create and assume Role with respective JSON versions.</li>
-</ul>
-<p><strong>RAG</strong></p>
-<ul>
-<li>Creation of cronjob to capture logs from Python app.</li>
-<li>Enabled metadata insertion into chunks in vector store -&gt; (hopefully) increases retrieval accuracy</li>
-<li>Return context to user (shows sources used to generate responses)</li>
-<li>Added mixtral model support</li>
-<li>Enable functionality for user to give custom rag parameters</li>
-<li>Migrated vector DB from FAISS to chromaDB to enable the metadata functionality</li>
-<li>Script written to easily test rag implementation and save results in csv</li>
-<li>Implemented cache logic to make sure it considers combination of parameters as well before chosing to send a cached response</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="in-progress">In Progress<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-5#in-progress" class="hash-link" aria-label="Direct link to In Progress" title="Direct link to In Progress">​</a></h2>
-<ul>
-<li>End-to-end deployment of OCP, CP4D, and watsonx.ai (with GPU node)</li>
-<li>Tagging cp-deployer.sh generated resources.</li>
-<li>Updating solution docs with better asset linking.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-5#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
-<ul>
-<li>Continue over the shoulder working sessions<!-- -->
-<ul>
-<li>Kick off CloudFormation template install with updated STS templates.</li>
-</ul>
-</li>
-<li>Compilation of required endpoints</li>
-<li>Deploy latest RAG version on AWS</li>
-<li>Build out actions &amp; flow in Watsonx Assistant after properly defining personas &amp; objectives.</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="tracking-issues">Tracking (Issues)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-5#tracking-issues" class="hash-link" aria-label="Direct link to Tracking (Issues)" title="Direct link to Tracking (Issues)">​</a></h2>
-<ul>
-<li>Require sign-off on final CloudFormation template.</li>
-<li>CoreOS AMI pending approval.</li>
 </ul>]]></content>
         <category label="log" term="log"/>
     </entry>
