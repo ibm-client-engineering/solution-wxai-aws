@@ -32,11 +32,14 @@ flowchart LR
 
 ### Today's Accomplishments
 - Successful deployment of CP4D
+- Installed Knative
+
 
 ### Summary
 - Customer has approved required contracts and procedures have been followed to attain an entitlement key
 - Updated bootnode IP reference in configuration
 - Re-ran install scripts
+- MCG Secrets created for Cloud Pak components
 - Verify cluster up v4.12.8
 	- No errors
 	- Check storage size on nodes, have 5TB disks instead of 500gb as intended
@@ -54,10 +57,7 @@ flowchart LR
 	- Tested and verified with test pod that attached to nfs-client storageclass, applying clean up
 
 ## Decisions and Action Items (DAI)
-- MCG Secrets created for Cloud Pak components
 - Authorized Instance Topology
-- Installed Cloud Pak shared components
-- Installed Knative
 
 ## Lessons Learned
 - Had an issue with “apply-cluster-components” which requires connecting to github to download CASE files. Found a solution in the cpd-cli documentation: use two additioanl flags on the command “--case_download=true” and  “--from_oci=true” which tells cpd-cli to download the CASE files from IBM Open Container Initiative instead of github.
