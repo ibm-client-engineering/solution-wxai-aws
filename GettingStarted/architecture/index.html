@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GB0XWXF3GE"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-GB0XWXF3GE",{anonymize_ip:!0})</script><link rel="stylesheet" href="/solution-wxai-aws/assets/css/styles.22067fdf.css">
-<script src="/solution-wxai-aws/assets/js/runtime~main.49508d69.js" defer="defer"></script>
+<script src="/solution-wxai-aws/assets/js/runtime~main.531d9ce1.js" defer="defer"></script>
 <script src="/solution-wxai-aws/assets/js/main.30a28fd6.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard" data-theme="light">
@@ -30,7 +30,8 @@
 <ul>
 <li>watsonx assistant</li>
 <li>Watson Discovery</li>
-<li>OpenPages</li>
+<li>IBM App Connect</li>
+<li>Watsonx Orchestrate</li>
 <li>watsonx.ai</li>
 <li>Watson Studio</li>
 <li>Watson Machine Learning</li>
@@ -40,7 +41,7 @@
 <li>Foundational Models
 <ul>
 <li>mixtral-8x7b-instruct-v01-q</li>
-<li>llama2</li>
+<li>llama-2-70b-chat</li>
 <li>ibm-granite-chat-v2.1</li>
 </ul>
 </li>
@@ -53,7 +54,7 @@
 <li>NVIDIA H100 80 GB</li>
 <li>NVIDIA L40S 48 GB</li>
 </ul>
-<p>Currently this the A100 GPU are available in the P4 flavor ec2 instance in AWS.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Currently this the A100 GPU are available in the P4 flavor ec2 instance in AWS, but you will need the <code>p4de.24xlarge</code> node flavor. This has 80Gb per GPU versus the <code>p4d.24xlarge</code> which has 40Gb per GPU.</p><p>The models we have listed other than <code>granite</code> <strong>require</strong> the 80Gb per GPU A100. The <code>llama-2-70b-chat</code> can be sharded to ue the 40Gb GPUs, but then it will require all 8 GPU and leaving no room for any other models.</p></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="aws-requirements">AWS Requirements<a href="#aws-requirements" class="hash-link" aria-label="Direct link to AWS Requirements" title="Direct link to AWS Requirements">​</a></h3>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="infrastructure">Infrastructure<a href="#infrastructure" class="hash-link" aria-label="Direct link to Infrastructure" title="Direct link to Infrastructure">​</a></h4>
 
@@ -106,7 +107,7 @@
 
 
 
-<table><thead><tr><th>Flavor</th><th>Count</th><th>vCPU</th><th>RAM</th><th>GPU Count</th><th>GPU RAM</th><th>Local Storage</th></tr></thead><tbody><tr><td>m5.2xlarge</td><td>3</td><td>24 (8 cores x Count)</td><td>96G (32G x Count)</td><td>0</td><td>0</td><td>300Gb</td></tr><tr><td>m6i.8xlarge</td><td>6</td><td>192 (32 cores x Count)</td><td>768G (128G x Count)</td><td>0</td><td>0</td><td>500Gb</td></tr><tr><td>p4d.24xlarge</td><td>1</td><td>96</td><td>1152G</td><td>8</td><td>320G</td><td>500Gb</td></tr><tr><td><strong>Totals</strong></td><td>13</td><td>336</td><td>2112G</td><td>8</td><td>320G</td><td>3500Gb</td></tr></tbody></table>
+<table><thead><tr><th>Flavor</th><th>Count</th><th>vCPU</th><th>RAM</th><th>GPU Count</th><th>GPU RAM</th><th>Local Storage</th></tr></thead><tbody><tr><td>m5.2xlarge</td><td>3</td><td>24 (8 cores x Count)</td><td>96G (32G x Count)</td><td>0</td><td>0</td><td>300Gb</td></tr><tr><td>m6i.8xlarge</td><td>6</td><td>192 (32 cores x Count)</td><td>768G (128G x Count)</td><td>0</td><td>0</td><td>500Gb</td></tr><tr><td>p4de.24xlarge</td><td>1</td><td>96</td><td>1152G</td><td>8</td><td>640G</td><td>500Gb</td></tr><tr><td><strong>Totals</strong></td><td>13</td><td>336</td><td>2112G</td><td>8</td><td>640G</td><td>3500Gb</td></tr></tbody></table>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="networking">Networking<a href="#networking" class="hash-link" aria-label="Direct link to Networking" title="Direct link to Networking">​</a></h4>
 <ul>
 <li>1x VPC</li>
