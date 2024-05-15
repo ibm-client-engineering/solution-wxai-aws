@@ -19,14 +19,15 @@ For now we recommend the following:
 - Cloud Pak for Data with the following components
     - watsonx assistant
     - Watson Discovery
-    - OpenPages
+    - IBM App Connect
+    - Watsonx Orchestrate
     - watsonx.ai
     - Watson Studio
     - Watson Machine Learning
     - IBM Knowledge Catalog 
 - Foundational Models
     - mixtral-8x7b-instruct-v01-q
-    - llama2
+    - llama-2-70b-chat
     - ibm-granite-chat-v2.1
 
 ## Bill of Materials
@@ -39,7 +40,12 @@ One of the following types of GPUs is required to support the use of foundation 
 - NVIDIA H100 80 GB
 - NVIDIA L40S 48 GB
 
-Currently this the A100 GPU are available in the P4 flavor ec2 instance in AWS.
+:::warning
+
+Currently this the A100 GPU are available in the P4 flavor ec2 instance in AWS, but you will need the `p4de.24xlarge` node flavor. This has 80Gb per GPU versus the `p4d.24xlarge` which has 40Gb per GPU.
+
+The models we have listed other than `granite` **require** the 80Gb per GPU A100. The `llama-2-70b-chat` can be sharded to ue the 40Gb GPUs, but then it will require all 8 GPU and leaving no room for any other models.
+:::
 
 ### AWS Requirements
 
@@ -49,8 +55,8 @@ Currently this the A100 GPU are available in the P4 flavor ec2 instance in AWS.
 |--|--|--|--|--|--|--|
 |m5.2xlarge|3|24 (8 cores x Count)|96G (32G x Count)|0|0| 300Gb |
 |m6i.8xlarge|6|192 (32 cores x Count)|768G (128G x Count)|0|0| 500Gb |
-|p4d.24xlarge|1|96|1152G|8|320G| 500Gb |
-|**Totals**|13|336|2112G|8|320G| 3500Gb |
+|p4de.24xlarge|1|96|1152G|8|640G| 500Gb |
+|**Totals**|13|336|2112G|8|640G| 3500Gb |
 
 #### Networking
 
