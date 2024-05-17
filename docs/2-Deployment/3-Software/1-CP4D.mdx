@@ -1036,6 +1036,29 @@ cpd-cli manage get-cr-status \
 --components=watsonx_orchestrate
 ```
 
+:::warning
+
+As of version 4.8.4 of CP4D, deploying the CR for Watsonx Orchestrate can sometimes get hung up on a mongodb pod error. This can hold up the entire installation as documented [here](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=limitations-watsonx-orchestrate#orchestrate-known-issues__db-pod-error__title__1)
+
+If the deployment is hanging, run the following commands to verify the issue:
+
+```tsx
+oc exec -it -c mongodb-agent  mongodb-wo-mongo-ops-manager-db-0 -- /opt/scripts/readinessprobe
+```
+This may return 
+```tsx
+panic: Get "[https://172.30.0.1:443/api/v1/namespaces/cpd-instance-1/pods/mongodb-wo-mongo-ops-manager-db-0](https://172.30.0.1/api/v1/namespaces/cpd-instance-1/pods/mongodb-wo-mongo-ops-manager-db-0)": dial tcp 172.30.0.1:443: i/o timeout
+```
+
+Resolve the error by running the following:
+```tsx
+# Update opsmanager labels to allow access
+oc patch opsmanager mongodb-wo-mongo-ops-manager --type merge --patch '{"spec":{"applicationDatabase":{"podSpec":{"podTemplate":{"metadata":{"labels":{"wo.watsonx.ibm.com/external-access":"true"}}}}}}}'
+# Delete existing sts to force re-rollout:
+oc delete sts mongodb-wo-mongo-ops-manager-db
+```
+:::
+
 ### Troubleshooting WatsonX Orchestrate installation 
 :::note
 
