@@ -562,57 +562,6 @@ cpd-cli service-instance list \
 --profile=${CPD_PROFILE_NAME}
 ```
 
-
-
-### Generate a cpd-cli Profile
-
-Log into the CP4D webui with the info retrieved from the `get-cpd-instance-details` and go to your Profile and settings page in the Cloud Pak for Data client and clicking Generate API key.
-
-In the upper right hand corner, click `API key` -> `Generate new key`
-
-Copy the generated key.
-
-Collect the web client URL and export it with the following command
-
-```tsx
-export CPD_PROFILE_URL=$(oc get route cpd --namespace=${PROJECT_CPD_INST_OPERANDS} | tail -1 | awk '{print "https://"$2}')
-```
-
-We'll set our `profile-name` to the cluster name.
-
-Set the following vars:
-```tsx
-export API_KEY=<key you copied above>
-export CPD_ADMIN_USER=cpadmin
-export LOCAL_USER=<local user name>
-export CPD_PROFILE_NAME=wxai
-```
-
-Create a local user configuration to store your username and API key by using the config users set command.
-
-```tsx
-cpd-cli config users set ${LOCAL_USER} \
---username ${CPD_ADMIN_USER} \
---apikey ${API_KEY}
-```
-
-Create a profile to store the Cloud Pak for Data URL and to associate the profile with your local user configuration by using the config profiles set command.
-
-```tsx
-cpd-cli config profiles set ${CPD_PROFILE_NAME} \
---user ${LOCAL_USER} \
---url ${CPD_PROFILE_URL}
-```
-
-You can now run cpd-cli commands with this profile as shown in the following example.
-
-```tsx
-cpd-cli service-instance list \
---profile=${CPD_PROFILE_NAME}
-```
-
-
-
 ## Installing our Cartridges
 
 Source the env file
@@ -902,5 +851,187 @@ cpd-cli manage apply-cr \
 --file_storage_class=${STG_CLASS_FILE} \
 --license_acceptance=true
 ```
-import { Profiler } from "react"
 
+### Watsonx Orchestrate
+
+#### IBM App Connect
+
+IBM App Connect is a requirement for Watsonx Orchestrate
+
+Make sure to set these vars in `cpd_vars_48.sh`
+
+We are using CP4D 4.8.4, so the following vars are valid:
+
+```tsx
+export PROJECT_IBM_APP_CONNECT=appconnect
+export AC_CASE_VERSION=11.3.0
+export AC_CHANNEL_VERSION=v11.3
+```
+
+Now source the `cpd_vars_48.sh` file
+
+```tsx
+source ./cpd_vars_48.sh
+```
+
+Download the IBM App Connect case file
+
+```tsx
+curl -sSLO https://github.com/IBM/cloud-pak/raw/master/repo/case/ibm-appconnect/${AC_CASE_VERSION}/ibm-appconnect-${AC_CASE_VERSION}.tgz
+```
+
+You should have in your home directory `ibm-appconnect-11.3.0.tgz`.
+
+Extract the file with 
+```tsx
+tar xvf ibm-appconnect-${AC_CASE_VERSION}.tgz
+```
+
+Login to the cluster with cpd-cli
+```
+cpd-cli manage login-to-ocp \
+--username=${OCP_USERNAME} \
+--password=${OCP_PASSWORD} \
+--server=${OCP_URL}
+```
+
+Create the project for App Connect
+
+```tsx
+oc new-project ${PROJECT_IBM_APP_CONNECT} --display-name 'IBM App Connect'
+```
+
+Create the catalog source for the App Connect operator
+
+```tsx
+oc patch \
+--filename=ibm-appconnect/inventory/ibmAppconnect/files/op-olm/catalog_source.yaml \
+--type=merge \
+-o yaml \
+--patch="{\"metadata\":{\"namespace\":\"${PROJECT_IBM_APP_CONNECT}\"}}" \
+--dry-run=client \
+| oc apply -n ${PROJECT_IBM_APP_CONNECT} -f -
+```
+
+Create the operator group for the App Connect operator:
+```tsx
+cat <<EOF | oc apply -f -
+  apiVersion: operators.coreos.com/v1
+  kind: OperatorGroup
+  metadata:
+    name: appconnect-og
+    namespace: ${PROJECT_IBM_APP_CONNECT}
+  spec:
+    targetNamespaces:
+    - ${PROJECT_IBM_APP_CONNECT}
+    upgradeStrategy: Default
+EOF
+```
+
+Now create the subscription for the AC operator
+```tsx
+cat <<EOF | oc apply -f -
+  apiVersion: operators.coreos.com/v1alpha1
+  kind: Subscription
+  metadata:
+    name: ibm-appconnect-operator
+    namespace: ${PROJECT_IBM_APP_CONNECT}
+  spec:
+    channel: ${AC_CHANNEL_VERSION}
+    config:
+      env:
+      - name: ACECC_ENABLE_PUBLIC_API
+        value: "true"
+    installPlanApproval: Automatic
+    name: ibm-appconnect
+    source: appconnect-operator-catalogsource
+    sourceNamespace: ${PROJECT_IBM_APP_CONNECT}
+EOF
+```
+
+Now wait for the operator to come online
+
+```tsx
+oc wait csv \
+--namespace=${PROJECT_IBM_APP_CONNECT} \
+--selector=operators.coreos.com/ibm-appconnect.${PROJECT_IBM_APP_CONNECT}='' \
+--for='jsonpath={.status.phase}'=Succeeded
+```
+
+#### Installing Watsonx Orchestrate 
+
+Once the App Connect operator is up and running, we can move on to installing Watsonx Orchestrate
+
+source the `cpd_vars_48.sh` file
+
+```tsx
+source ./cpd_vars_48.sh
+```
+
+Login to the cluster with cpd-cli
+```
+cpd-cli manage login-to-ocp \
+--username=${OCP_USERNAME} \
+--password=${OCP_PASSWORD} \
+--server=${OCP_URL}
+```
+
+Create an instance of App Connect for watsonx Orchestrate
+
+```tsx
+cpd-cli manage setup-appconnect \
+--appconnect_ns=${PROJECT_IBM_APP_CONNECT} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--release=${VERSION} \
+--components=watsonx_orchestrate \
+--file_storage_class=${STG_CLASS_FILE}
+```
+
+Set the CPD_USERNAME environment variable to your Cloud Pak for Data username:
+
+This should be the cpd admin user you created when you ran the tasks [here](/Deployment/Software/CP4D#generate-a-cpd-cli-profile)
+
+```tsx
+export CPD_USERNAME=cpadmin
+```
+
+Create the required watsonx Assistant service instances for watsonx Orchestrate. 
+
+```tsx
+cpd-cli manage setup-wxo-assistant \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--create_assistants=true \
+--user=${CPD_USERNAME} \
+--auth_type=apikey
+```
+
+Input the apikey you generated when you created the cpd-cli profile.
+
+Apply the olm
+
+```tsx
+cpd-cli manage apply-olm \
+--release=${VERSION} \
+--cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+--components=watsonx_orchestrate
+```
+
+When that command returns, apply the Custom Resource
+
+```tsx
+cpd-cli manage apply-cr \
+--components=watsonx_orchestrate \
+--release=${VERSION} \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--block_storage_class=${STG_CLASS_BLOCK} \
+--file_storage_class=${STG_CLASS_FILE} \
+--license_acceptance=true
+```
+
+Verify the the cr was applied successfully with this command
+
+```tsx
+cpd-cli manage get-cr-status \
+--cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+--components=watsonx_orchestrate
+```
