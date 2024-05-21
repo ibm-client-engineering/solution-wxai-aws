@@ -1,7 +1,7 @@
 ---
-title: Log 25 🛫
+title: Log 27 🛫
 description: Flight Log of Co-Creation Activities
-slug: flight-log-25
+slug: flight-log-27
 tags: [log]
 ---
 
@@ -10,13 +10,9 @@ Deploy watsonx.ai on self-managed AWS infrastructure for customer software evalu
 
 ```mermaid
 flowchart LR
-    A(Deploy bootnode) --> B(Deploy infrastructure)
-    B -->C(Deploy OCP)
-    C -->D(Prepare CP4D & watsonx ai cartdridge)
-    D -->E(Install CP4D)
-    E -->F
+    A(Deploy Services)-->B
     subgraph "You are here"
-    F(Deploy Services)
+    B(Application Verification)
     end
 ```
 
@@ -30,14 +26,10 @@ flowchart LR
 4. Deploy and configure watsonx.ai on self-managed AWS infrastructure on ref environment and document
     - In Progress
 
-
-### Today's Accomplishments
-- AppConnect installed
-
 ### Summary
-- Installing AppConnect
-- Installing Watsonx Orchestrate (Includes assistant instance)
-    - Customer continuing install after session
+- Investigating NeuralSeek configuration
+    - Curl request from application and bastion failing
+    - Nodes missing machineconfigs, waiting for machineconfigs to propegate through all nodes
 
 ## Decisions and Action Items (DAI)
 - None pending
@@ -46,5 +38,5 @@ flowchart LR
 - None today
 
 ## Next Steps
-- Deploy watsonx.ai
-- Install NeuralSeek
+- Application validation
+    - watsonx Orchestrate
