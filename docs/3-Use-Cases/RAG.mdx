@@ -4,3 +4,19 @@ sidebar_position: 1
 title: RAG Use Cases
 custom_edit_url: null
 ---
+# Data Preprocessing
+The input data used are all PDF formats with complex tables. The data preprocessing piece aims to remove unnecessary content and convert tables into natural language format to help with the RAG approach.
+
+# Watson Discovery
+Documents preprocessed will then be uploaded to Watson Discovery, so NeuralSeek and watsonx.ai can use it as the knowledge base.
+
+# NeuralSeek
+NeuralSeek is used for the intergating different services together for the RAG use case.
+Configuration file with recommend settings is linked here: ![Settings File](nsSettings.dat)
+
+# watsonx.ai
+granite-13b-chatv2 LLM is being used for the project.
+
+# Watson Orchestrate
+
+# watsonx assistant
