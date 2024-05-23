@@ -16,17 +16,19 @@ custom_edit_url: null
 ![](./assets/create-wxa-2.png)
 1. Now it’s time to build your first conversation. Follow along with our example or create your own!
 - Reference: [Getting started with watsonx Assistant part I: the build guide](https://www.ibm.com/blog/getting-started-with-the-new-watson-assistant-part-i-the-build-guide/?c=Watson%20Assistant)
-## Upload actions
+## Upload/Download actions
 To reinstate a backup copy of actions that you exported from another service instance or environment, import the JSON file of the actions you exported.
 1. On the Actions page, click Global settings Gear icon on upper-right corner.
 ![](./assets/upload-wxa-actions1.png)
-2. On the Upload/Download tab, drag and drop a JSON file onto the tab or click to select a file from your local system, then click Upload.
+1. To upload: On the Upload/Download tab, drag and drop a JSON file onto the tab or click to select a file from your local system, then click Upload.
+1. To download: On the Upload/Download tab, click on the "Download" button to export action.json file.
 ![](./assets/upload-wxa-actions2.png)
 - Reference: [Uploading or downloading all actions](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-upload-download-actions)
 
 ## Create Custom Extension: NeuralSeek
 
-    
+### Pre-Requisites
+- Access to NeuralSeek instance that has been integrated with Watson Discovery and Watsonx.ai
 ### Create NeuralSeek custom extension <a name="create-neuralseek-custom-extension"></a>
 1. In Watson Assistant, on the "Integrations" tab of Watson Assistant, click "Build Custom Extension" then "Next".
 2. Name the extension "NeuralSeek" and give a brief description. Click "Next".
@@ -53,6 +55,8 @@ To reinstate a backup copy of actions that you exported from another service ins
 1. Click "New Step". In the "And then" section, select "go to a subaction"  -> select "NeuralSeek Search" in the dropdown options -> "Apply".
 1. "Save" and "Close"
 
-### References
-- [Integrate NeuralSeek with Watson Assistant and Watson Discovery](https://developer.ibm.com/tutorials/integrate-neuralseek-with-watson-assistant-and-watson-discovery/)
+- References: [Integrate NeuralSeek with Watson Assistant and Watson Discovery](https://developer.ibm.com/tutorials/integrate-neuralseek-with-watson-assistant-and-watson-discovery/)
+
 ## Create Custom Extension: ServiceNow
+### Pre-Requisites
+- Access to ServiceNow instance
