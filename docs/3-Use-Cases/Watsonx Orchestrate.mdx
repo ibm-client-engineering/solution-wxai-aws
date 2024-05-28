@@ -1,8 +1,103 @@
 ---
 id: Watsonx-Orchestrate
 sidebar_position: 5
-title: Watsonx Orchestrate
+title: watsonx Orchestrate
 custom_edit_url: null
 ---
-- Skills 1
-- Skills 2
+
+## Default Skills
+watsonx Orchestrate provides a set of out-of-the-box skills and the ability to add custom skills. To add skills, go to the skill catalog and add each skill that you would like to use. 
+Skills can also be added to a skill workflow, or "composite" skill.
+
+## ServiceNow Skills
+ServiceNow skills can be added from the out-of-box list or added as a custom skill (instructions below). For this documentation we will be using a custom skill. Custom ServiceNow skill documentation referenced from the [watsonx Orchestrate Solutions Document](https://ibm-client-engineering.github.io/solution-watsonx-orchestrate/)
+
+:::tip
+Both custom and default skills for ServiceNow require a ServiceNow developer account.
+To create a ServiceNow Developer account and your own ServiceNow instance, [do so here.](https://developer.servicenow.com/dev.do)
+:::
+
+### ServiceNow Custom Skill
+
+#### Download and prepare the yaml
+
+1. Download the latest .yaml file <a href="https://github.com/ibm-client-engineering/docs/3-Use-Cases/assets/wxo_scripts/Watsonx%20Orchestrate%20ServiceNow%20API.yml">here</a>
+2. Open the script and replace the ServiceNow instance URL with your ServiceNow instance URL:
+
+
+```yaml
+servers:
+  - url: https://YourServiceNowInstance.service-now.com/
+  # Example: https://dev123456.service-now.com/
+```
+
+3. Upload the script to your watsonx Orchestrate instance
+    1. Click the hamburger menu icon at the top left of the page, then click "Skills"
+    2. Click "Add skills" at the top right of the page
+    3. Click the "From files" tab
+    4. Click the upload box and select the yaml file
+    5. Click next
+
+4. Select the skills you need from the application
+5. Click add on the bottom right
+
+Each skill should now be available in your list of skills and are ready to be staged.
+
+#### Staging the skills
+
+Before we can use the newly imported skills, they must be "enhanced" in order to publish. This gives us the opportunity to stage the skill to properly display the output.
+
+<strong>You must repeat this process for each skill</strong>
+
+1. Click the hamburger menu icon at the top left of the page, then click "Skills"
+2. Using the search bar, search for "JC - ". This will show all skills denoted with name JC - like our ServiceNow skills
+3. For each skill, click the 3 dotted menu icon on the right and proceed with the following steps:
+    1. Click enhance
+    2. Click the output tab
+    3. Click "edit response"
+    4. Fill in the proper "friendly name" for each collumn for the results output
+
+:::warning
+The last collumn in some skils will be "Empty". This is used to output the ServiceNow "sysID" for composite skills without exposing the value to the user. Leave the header for "Empty" in the output table blank.
+:::
+
+Example:
+
+| Number | Short Description | State | Opened By | Urgency | Assigned to | Assignment Group | Opened at | |
+|---|---|---|---|---|---|---|---|---|
+| results.number | results.short_description | results.state | results.opened by | results.urgency | result.assigned_to |	result.assignment_group |	result.opened_at | "Empty" |
+
+4. Click Publish at the bottom right
+
+#### Add the skills
+
+Add the ServiceNow skill(s) from the skill catalog, and connect the application:
+1. From the home screen, towards the bottom, click the "Add skills from the catalog" box
+2. Find and select "ServiceNow Table API" from the list
+3. Connect the app
+  1. Click the "Connect the app" box on the top right
+  2. Enter the username and password of the ServiceNow account with access to the REST API
+  3. Click connect app
+4. Add each imported skill from the list
+
+Your ServiceNow Skills from the "ServiceNow Table API" application should now be ready for use from the watsonx Orchestrate chat page.
+
+### Microsoft Outlook Skill
+
+watsonx Orchestrate provides a default set of skills that integrate with Microsoft Outlook
+
+:::tip
+Microsoft Outlook skills require an o365 administrator to allow the watsonx Orchestrate application to integrate (permissions such as sending emails from users)
+To create an Outlook Developer account, [do so here.](https://developer.microsoft.com/en-us/microsoft-365/dev-program) Further documentation [here.](https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program)
+:::
+
+Add the Outlook skill(s) from the skill catalog, and connect the application:
+1. From the home screen, towards the bottom, click the "Add skills from the catalog" box
+2. Find and select "Microsoft Outlook" from the list
+3. Connect the app
+  1. Click the "Connect the app" box on the top right
+  2. Enter the username and password of the Outlook account
+  3. Click connect app
+4. Add required each skill from the list
+
+Your Microsoft Outlook Skills from the "Microsoft Outlook" application should now be ready for use from the watsonx Orchestrate chat page.
