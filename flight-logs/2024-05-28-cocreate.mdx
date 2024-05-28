@@ -34,15 +34,21 @@ flowchart LR
     - Investigating AWS and Cluster network connectivity
         - Curl requests working from bastion, not from application or cluster
     - Issue found: Customer proxy needs to be used in all API requests (even though cluster is configured to use proxy)
-        - Proposed workaround: Add proxy to OpenAPI spec for watsonx Assistant and Orchestrate
+        - ~~Proposed workaround: Add proxy to OpenAPI spec for watsonx Assistant and Orchestrate~~
+    - Fix: Configure cluster environments to use customer proxy
+            ```
+            oc set env deployment --all http_proxy=http://my_proxy:my_port
+            oc set env deployment --all https_proxy=http://my_proxy:my_port
+            ```
 
 ## Decisions and Action Items (DAI)
 - None pending
 
 ## Lessons Learned
-If customer has a proxy, the proxy configuration needs to be used in all API requests (even though cluster is configured to use proxy) on watsonx Orchestrate and Assistant.
+- If customer has a proxy, the proxy configuration needs to be applied to the deployment environments for cluster applications to use the proxy. Initially the proxy was only applied to the cluster itself, not the deployment environments.
 
 ## Next Steps
+- Proxy configuration testing
 - Application validation
     - watsonx Assistant
     - watsonx Orchestrate
