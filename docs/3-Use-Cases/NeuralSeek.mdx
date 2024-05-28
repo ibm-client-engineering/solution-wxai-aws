@@ -5,15 +5,33 @@ title: NeuralSeek
 custom_edit_url: null
 ---
 
-## Integrate Watson Discovery and Watsonx.ai
-### Setup Watson Discovery<a name="setup-NS"></a>
+### Set Up
 1. Once you've opened NeuralSeek, you'll land on the "Configure" tab. 
 1. Enter the name of the company or organization that NeuralSeek will be generating answers for. Click "Next"
-1. Input Watson Discovery KnowledgeBase details. Test connection by clicking "Test". Once tested, click "Next".
+
+### KnowledgeBase Connection
+1. Input Watson Discovery KnowledgeBase details. Discovery API Key and Discovery Service URL can be found on the Watson Discovery service instance page. Once you have created a project and a collection in Watson Discovery, the Discovery Project ID can be found on the integration tab under API Information. Once you fill out the KnowledgeBase Connection details, test the connection by clicking "Test". Once tested, click "Next". The button will turn green when it successfully connects to Watson Discovery.
+![Watson Discovery](./assets/WD.png)
 1. For Virtual Agent Type, select "Watson Assistant Type". Click "Next". Click "Next". 
 
-### Setup Watsonx.ai Model
-credentials for Watsonx.ai 
+
+### LLM Details
+In the LLM Details, you must add at least one LLM. If you choose to add multiple, NeuralSeek will load-balance across them for the selected functions that have multiple LLM's.
+For API key, there are two options: SaaS and CP4D. You only need to fill out one or the other. Ensure your endpoint and project id are accurate.
+![LLM Details](./assets/LLMDetails.png)
+
+In this case, we are interested in CP4D. The CP4D api key must be a base64 encoded key, and it can be found using the terminal comamnd below. You can generate 'myapikey' by clicking on the profile picture on the top right hand corner and then clicking 'Generate new key'.
+```
+printf "myusername:myapikey" | base64
+```
+
+You can confirm if you succeeded in connecting with your zenapikey by using the curl command below:
+```
+curl -H "Authorization: ZenApiKey ${TOKEN}" "https://<cpd_instance_route>/<endpoint>"
+```
+
+Credentials from watsonx.ai that you need for LLM details:
+First make sure you have a project created within watsonx.ai.
 - LLM Endpoint
     - Go to [WatsonX Platform](https://dataplatform.cloud.ibm.com/wx/home?context=wx)
     - Prompt Lab -> View code (Right hand side, to the right of Model) -> Copy the API endpoint after `curl`
@@ -22,6 +40,30 @@ credentials for Watsonx.ai
     - Projects -> Manage -> General -> Details -> Project ID
 
 ## Configuration & Tuning
+Configuration file with recommend settings is linked here: ![Settings File](nsSettings.dat).
+You can upload this file within NeuralSeek to easily get the recommended setting. The exact settings used are explained below, and can be adjusted based on use case.
+![NS Configuration](./assets/UploadNSConfig.png)
+
+- Knowledge Base Tuning:
+    - Set score range to 100%
+    - Set snippet size to 650
+    ![KB Tuning](./assets/KBTuning.png)
+
+- Answer Engineering & Preferences
+    - Change conciseness from tier 2 on the bar to tier 3
+    ![Answer Engineering](./assets/AnswerEngineering.png)
+
+- Governance & Guardrails
+    - Click "Semantic Model Tuning" and change Source Jump Penalty from 3 to 6. Source Jump penalty: When answers join across many source documents it can be an indication of lost meaning or intent, depending on your source documentation.
+    ![Semantic Model Tuning](./assets/SemanticModelTuning.png)
+    ![Source Jump Penalty](./assets/SourceJumpPenalty.png)
+    - Turn on "Check document titles as part of the Semantic Match"
+    - Turn on "Check document URL's as part of the Semantic Match"
+    - Turn on "Remove sentences containing hallucinated key words"
+    ![Govern & Guardrails](./assets/Governance.png)
+    - Change minimum confidence to 30% and include a message to decrease risk of hallucinations
+    ![Minimum Confidence](./assets/MinimumConfidence.png)
 
 ## Testing
--  Navigate to "Seek" tab. Test NeuralSeek with questions that are relevant to your documents, e.g. "What products or services do you offer?"
+-  Navigate to "Seek" tab. Test NeuralSeek with questions that are relevant to your documents, e.g. "What products or services do you offer?" You will be able to see the NeuralSeek answer with response details, metrics, and source.
+![Seek](./assets/Seek.png)
