@@ -1,0 +1,493 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ServiceNow Table API",
+    "contact": {
+      "name": "Joe Cosenza",
+      "email": "jcosenz@us.ibm.com",
+      "url": "https://ibm-client-engineering.github.io/solution-wxo/servicenow"
+    },
+    "x-ibm-application-name": "ServiceNow Table API",
+    "x-ibm-application-id": "ServiceNowTableAPI",
+    "description": "Allows you to perform create, read, update, and delete (CRUD) operations on existing ServiceNow tables",
+    "version": "latest",
+    "x-ibm-application-icon": "<svg class=\"ConnectorIcon ConnectorIcon_ConnectorIcon__WYxYS\" data-connector-name=\"servicenow\" xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" viewBox=\"0 0 48 48\"><title>ServiceNow</title><path d=\"M7.008 28.471v-8.946h2.297v.72a3.922 3.922 0 0 1 2.518-.905 4.008 4.008 0 0 1 3.087 1.44 4.523 4.523 0 0 1 .918 3.135v4.556H13.44v-4.74a2.168 2.168 0 0 0-.533-1.679 1.875 1.875 0 0 0-1.342-.498 2.842 2.842 0 0 0-2.168 1.107v5.81z\" fill=\"#2a3e40\" fill-rule=\"evenodd\"></path><path d=\"M21.98 19.34a5.232 5.232 0 0 0-3.603 9.034 1.033 1.033 0 0 0 1.343.07 3.734 3.734 0 0 1 4.459 0 1.037 1.037 0 0 0 1.35-.078 5.232 5.232 0 0 0-3.55-9.025m-.03 7.842a2.614 2.614 0 1 1 2.605-2.604 2.537 2.537 0 0 1-2.605 2.604\" fill=\"#82b5a1\" fill-rule=\"evenodd\"></path><path fill=\"#2a3e40\" fill-rule=\"evenodd\" d=\"M31.885 28.471h-1.779l-3.548-8.946h2.386l1.945 5.112 1.907-5.112h1.993l1.891 5.112 1.962-5.112h2.385l-3.547 8.946H35.7l-1.907-5.094-1.908 5.094z\"></path><path fill=\"#2a3e40\" d=\"M39.717 27.335v.195h-.3v.941h-.219v-.941h-.3v-.195h.819zM40.459 28.015l.414-.68h.154v1.136h-.219v-.633l-.273.446h-.152l-.273-.446v.633h-.219v-1.136h.154l.414.68z\"></path></svg>"
+  },
+  "externalDocs": {
+    "url": "https://docs.servicenow.com/?context=CSHelp:REST-Table-API"
+  },
+  "servers": [
+    {
+      "url": "https://YOURINSTANCE.service-now.com/"
+    }
+  ],
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "paths": {
+    "/api/now/table/sn_km_mr_st_kb_knowledge?sysparm_display_value=true&sysparm_exclude_reference_link=true": {
+      "get": {
+        "summary": "Retrieve all KBs from ServiceNow",
+        "description": "Retrieve all KBs from ServiceNow",
+        "operationId": "retrieveKBs",
+        "responses": {
+          "200": {
+            "description": "Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getKBs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/now/table/sc_task?sysparm_display_value=true&sysparm_exclude_reference_link=true": {
+      "get": {
+        "summary": "Retrieve all Tasks from ServiceNow",
+        "description": "Retrieve all Tasks from ServiceNow",
+        "operationId": "retrieveTasks",
+        "responses": {
+          "200": {
+            "description": "Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getTable"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new Task in ServiceNow",
+        "description": "Create a new Task in ServiceNow",
+        "operationId": "createTask",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/editTable"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Task created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getthisTable"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/now/table/incident?sysparm_display_value=true&sysparm_exclude_reference_link=true": {
+      "get": {
+        "summary": "Retrieve all Incidents from ServiceNow",
+        "description": "Retrieve all Incidents from ServiceNow",
+        "operationId": "retrieveIncidents",
+        "responses": {
+          "200": {
+            "description": "Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getTable"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new Incident in ServiceNow",
+        "description": "Create a new Incident in ServiceNow",
+        "operationId": "createIncident",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/editTable"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Incident created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getTable"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/now/table/sc_task/{sys_id}?sysparm_display_value=true&sysparm_exclude_reference_link=true": {
+      "get": {
+        "summary": "Retrieve a specific Task in ServiceNow (Composite only)",
+        "description": "Composite Skill - Retrieve a Task record in ServiceNow",
+        "operationId": "retrievethisTask",
+        "parameters": [
+          {
+            "name": "sys_id",
+            "x-ibm-label": "ServiceNow SysID (hidden)",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/sysID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getthisTable"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Modify a specific Task in ServiceNow (Composite only)",
+        "description": "Composite Skill - Modify a specific Task in ServiceNow",
+        "operationId": "modifythisTask",
+        "parameters": [
+          {
+            "name": "sys_id",
+            "x-ibm-label": "ServiceNow SysID (hidden)",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/sysID"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/editTable"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Record updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getthisTable"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/now/table/incident/{sys_id}?sysparm_display_value=true&sysparm_exclude_reference_link=true": {
+      "get": {
+        "summary": "Retrieve a specific Incident in ServiceNow (Composite only)",
+        "description": "Composite Skill - Retrieve a Incident record in ServiceNow",
+        "operationId": "retrievethisIncident",
+        "parameters": [
+          {
+            "name": "sys_id",
+            "x-ibm-label": "ServiceNow SysID (hidden)",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/sysID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getthisTable"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Modify a specific Incident in ServiceNow (Composite only)",
+        "description": "Composite Skill - Modify a specific Incident in ServiceNow",
+        "operationId": "modifythisIncident",
+        "parameters": [
+          {
+            "name": "sys_id",
+            "x-ibm-label": "ServiceNow SysID (hidden)",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/sysID"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/editTable"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Record updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getthisTable"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/now/table/sn_km_mr_st_kb_knowledge/{sys_id}?sysparm_display_value=true&sysparm_exclude_reference_link=true": {
+      "get": {
+        "summary": "Retrieve a specific KB in ServiceNow (Composite only)",
+        "description": "Composite Skill - Retrieve a specific KB in ServiceNow",
+        "operationId": "retrievethisKB",
+        "parameters": [
+          {
+            "name": "sys_id",
+            "x-ibm-label": "ServiceNow SysID (hidden)",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/sysID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getsingleKB"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "tableOptions": {
+        "type": "string"
+      },
+      "sysID": {
+        "x-ibm-show": false,
+        "type": "string"
+      },
+      "getthisTable": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "x-ibm-label": "Results",
+            "type": "object",
+            "properties": {
+              "sys_id": {
+                "$ref": "#/components/schemas/sysID"
+              },
+              "opened_at": {
+                "type": "string"
+              },
+              "assignment_group": {
+                "type": "string"
+              },
+              "assigned_to": {
+                "type": "string"
+              },
+              "urgency": {
+                "type": "string"
+              },
+              "opened_by": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "short_description": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "getsingleKB": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "x-ibm-label": "Results",
+            "type": "object",
+            "properties": {
+              "sys_id": {
+                "$ref": "#/components/schemas/sysID"
+              },
+              "last_updated_on": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "author": {
+                "type": "string"
+              },
+              "short_description": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "getKBs": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "x-ibm-label": "Knowledge Articles",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sys_id": {
+                  "$ref": "#/components/schemas/sysID"
+                },
+                "last_updated_on": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "short_description": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "getTable": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "x-ibm-label": "Results",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sys_id": {
+                  "$ref": "#/components/schemas/sysID"
+                },
+                "opened_at": {
+                  "type": "string"
+                },
+                "assignment_group": {
+                  "type": "string"
+                },
+                "assigned_to": {
+                  "type": "string"
+                },
+                "urgency": {
+                  "type": "string"
+                },
+                "opened_by": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "short_description": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "editTable": {
+        "type": "object",
+        "properties": {
+          "short_description": {
+            "x-ibm-label": "Short Description",
+            "type": "string",
+            "description": "Short description of the record"
+          },
+          "description": {
+            "x-ibm-label": "Description",
+            "x-ibm-multiline": true,
+            "type": "string",
+            "description": "Detailed description of the record"
+          },
+          "urgency": {
+            "x-ibm-label": "Urgency",
+            "type": "integer",
+            "description": "3 - Low, 2 - Medium, 1 - High",
+            "enum": [
+              3,
+              2,
+              1
+            ]
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  }
+}
