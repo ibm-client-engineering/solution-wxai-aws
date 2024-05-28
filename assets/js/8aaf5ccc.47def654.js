@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[2733],{1593:e=>{e.exports=JSON.parse('{"tags":[{"label":"log","permalink":"/solution-wxai-aws/blog/tags/log","count":28}]}')}}]);
