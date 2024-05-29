@@ -42,13 +42,15 @@ flowchart LR
             ```
 
 ## Decisions and Action Items (DAI)
-- None pending
+- ServiceNow connectivity being investigated (requires external connectivity to servicenow.com)
 
 ## Lessons Learned
-- If customer has a proxy, the proxy configuration needs to be applied to the deployment environments for cluster applications to use the proxy. Initially the proxy was only applied to the cluster itself, not the deployment environments.
+- If a proxy is required, the proxy configuration needs to be applied to the deployment environments for cluster applications to use the proxy. Initially the proxy was only applied to the cluster itself, not the deployment environments.
 
 ## Next Steps
-- Proxy configuration testing
 - Application validation
+    - NeuralSeek
     - watsonx Assistant
     - watsonx Orchestrate
+        - ServiceNow skills
+        - Microsoft Outlook skills
