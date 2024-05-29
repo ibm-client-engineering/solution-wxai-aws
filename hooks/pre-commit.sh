@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SENSITIVE_KEYWORDS=()
+SENSITIVE_KEYWORDS=("Fidelity" "MasterCard" "Bank of New York Mellon" "Travelers")
 EXCLUDE_DIR="hooks/pre-commit.sh"
 
 is_excluded() {
