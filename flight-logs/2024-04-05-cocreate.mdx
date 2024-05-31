@@ -45,9 +45,19 @@ flowchart LR
 
 ## Lesons Learned
 - Preparation for Cloud Pak for Data on OpenShift sizing needed to be adjusted to reflect an under-provisioning of CPU resources
-    - This was resolved by..
+
+## Objective
+- Start building guided workflows  
+- Attempt to improve parsing of unstructured tables with WDU (Watson Document Understanding)
+
+## Milestones
+1. Designed some guided workflow concept ideas
+2. Coded flask app to expose an API to send emails to users from the Watsonx Assistant
+3. Table parsing with WDU sucesfully configured
 
 ## Next Steps
+- Integrate agent based workflows into guided workflows (langchain agents)
+- Investigate if its possible to improve table parsing
 - License and configure Cloud Pak for Data
     - Cloud Pak Considerations
         - Security scans needed on container images 
@@ -61,20 +71,5 @@ flowchart LR
         - OpenShift specific: CoreOS requirement for control nodes 
         - Automatic updating of Cloud Pak, this can interrupt engagements (solution is to always remove update polling from operators)
 - Deploy watsonx.ai
-
-# RAG Portion
-
-## Objective
-- Start building guided workflows  
-- Attempt to improve parsing of unstructured tables with WDU (Watson Document Understanding)
-
-## Milestones
-1. Designed some guided workflow concept ideas
-2. Coded flask app to expose an API to send emails to users from the Watsonx Assistant
-3. Table parsing with WDU sucesfully configured
-
-## Lessons learned
-
-## Next Steps
-- Integrate agent based workflows into guided workflows (langchain agents)
-- Investigate if its possible to improve table parsing
+- Application configurations
+- Application validations

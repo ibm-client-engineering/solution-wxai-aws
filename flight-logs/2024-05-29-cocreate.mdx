@@ -53,14 +53,16 @@ flowchart LR
     - Same timeout error when trying skill, continuing investigation
 
 ## Decisions and Action Items (DAI)
-- ServiceNow connectivity being investigated (requires external connectivity to servicenow.com)
+- ServiceNow connectivity being investigated
+    - Issue with proxy configuration not allowing watsonx Assistant/Orchestrate communication with ServiceNow.com
 
 ## Lessons Learned
 - pdf files needed for watson Assistant extensions available to the cluster internally (no external access or configurable access to S3 buckets)
     - Workaround: Hosted pdf files on the bastion httpd server (originally used for the OCP ignition files)
 
 ## Next Steps
-- Application validation
+- Application configuration
+    - watsonx.ai Prompt Lab
     - watsonx Assistant
     - watsonx Orchestrate
         - ServiceNow skills
