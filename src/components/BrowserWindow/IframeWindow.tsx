@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 // This a comment
-//ALPHA
 import React from 'react';
 
 import BrowserWindow from './index';
