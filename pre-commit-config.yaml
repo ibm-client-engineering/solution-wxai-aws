@@ -1,0 +1,10 @@
+repos:
+  - repo: local
+    hooks:
+      - id: check-sensitive-keywords
+        name: Check for Sensitive keywords
+        entry: bash check_sensitive_keywords.sh
+        language: system
+        files: *
+
+
