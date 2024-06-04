@@ -6,7 +6,6 @@
  */
 // This a comment
 import React from 'react';
-ALPHA
 import BrowserWindow from './index';
 // Quick and dirty component, to improve later if needed
 export default function IframeWindow({url}: {url: string}): JSX.Element {
