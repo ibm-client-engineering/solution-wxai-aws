@@ -23,6 +23,7 @@ echo "Length of SENSITIVE_KEYWORDS_ARRAY: ${#SENSITIVE_KEYWORDS_ARRAY[@]}"
 for file in $(git diff --name-only); do
   if grep -riE "${SENSITIVE_KEYWORDS_ARRAY[@]}" "$file"; then
     echo "Error: Sensitive keyword found in $file. Commit aborted."
+    exit 1
   fi
 done
 
