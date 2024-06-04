@@ -7,7 +7,6 @@
 import React from 'react';
 
 import BrowserWindow from './index';
-
 // Quick and dirty component, to improve later if needed
 export default function IframeWindow({url}: {url: string}): JSX.Element {
   return (
@@ -26,6 +25,7 @@ export default function IframeWindow({url}: {url: string}): JSX.Element {
           title={url}
           style={{display: 'block', width: '100%', height: 300}}
         />
+          <p> hello </p>
       </BrowserWindow>
     </div>
   );
