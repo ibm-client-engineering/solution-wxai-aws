@@ -1,6 +1,6 @@
 IBM Contributor License Agreement
 =================================
-ZETA
+BETA
 Version 1.0.0   January 14, 2014
 
 In order for You (as defined below) to make intellectual property Contributions (as defined below) now or in the future to IBM GitHub repositories,
