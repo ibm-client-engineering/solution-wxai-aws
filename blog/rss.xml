@@ -418,14 +418,14 @@ Something in between the pods that disallows authenticated traffic</li>
         </item>
         <item>
             <title><![CDATA[Log 26 🛫]]></title>
-            <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2</link>
-            <guid>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2</guid>
+            <link>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-26</link>
+            <guid>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-26</guid>
             <pubDate>Thu, 16 May 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Flight Log of Co-Creation Activities]]></description>
-            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-26#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
 <p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
 <!-- -->
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-26#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
 <ol>
 <li>Deploy and configuration of boot node to establish a beach-head into the customer AWS environment<!-- -->
 <ul>
@@ -448,12 +448,12 @@ Something in between the pods that disallows authenticated traffic</li>
 </ul>
 </li>
 </ol>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-26#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
 <ul>
 <li>Installed NeuralSeek</li>
 <li>Installed watsonx Orchestrate</li>
 </ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-26#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
 <ul>
 <li>Installing NeuralSeek</li>
 <li>S3 Bucket Configured</li>
@@ -467,15 +467,15 @@ Something in between the pods that disallows authenticated traffic</li>
 </ul>
 </li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-26#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
 <ul>
 <li>None pending</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-26#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
 <ul>
 <li>None today</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-2#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-26#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
 <ul>
 <li>Application validation<!-- -->
 <ul>
