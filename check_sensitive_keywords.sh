@@ -22,8 +22,8 @@ echo "Length of SENSITIVE_ KEYWORDS_ARRAY: ${#SENSITIVE_KEYWORDS_ARRAY[@]}"
 # Check modified files for sensitive keywords
 for file in $(git ls-files -m); do
     git checkout $file  # Checkout the latest version of the file
-    echo "File contents: $(git show :$file)"
-    if grep -riE "${SENSITIVE_KEYWORDS_ARRAY[@]}" "$file"; then
+    echo "File contents: $(git show $file)"
+    if grep -riE "(?i)${SENSITIVE_KEYWORDS_ARRAY[@]}" "$file"; then
         echo "Error: Sensitive keyword found in file '$file'. Please remove it before committing."
         exit 1
     fi
