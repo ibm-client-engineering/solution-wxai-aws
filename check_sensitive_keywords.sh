@@ -17,7 +17,7 @@ if [ ${#SENSITIVE_KEYWORDS_ARRAY[@]} -eq 0 ]; then
     exit 1
 fi
 
-echo "Length of SENSITIVE_ KEYWORDS_ARRAY: ${#SENSITIVE_ KEYWORDS_ARRAY[@]}"
+echo "Length of SENSITIVE_ KEYWORDS_ARRAY: ${#SENSITIVE_KEYWORDS_ARRAY[@]}"
 
 # Check modified files for sensitive keywords
 for file in $(git ls-files -m); do
