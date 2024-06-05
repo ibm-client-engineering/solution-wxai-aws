@@ -42,14 +42,16 @@ flowchart LR
             ```
 
 ## Decisions and Action Items (DAI)
-- ServiceNow connectivity being investigated (requires external connectivity to servicenow.com)
+- ServiceNow connectivity being investigated
+    - Issue with proxy configuration not allowing watsonx Assistant/Orchestrate communication with ServiceNow.com
 
 ## Lessons Learned
 - If a proxy is required, the proxy configuration needs to be applied to the deployment environments for cluster applications to use the proxy. Initially the proxy was only applied to the cluster itself, not the deployment environments.
 
 ## Next Steps
-- Application validation
+- Application configuration
     - NeuralSeek
+    - watsonx.ai Prompt Lab
     - watsonx Assistant
     - watsonx Orchestrate
         - ServiceNow skills

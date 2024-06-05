@@ -1,7 +1,7 @@
 ---
-title: Log 25 🛫
+title: Log 32 🛫
 description: Flight Log of Co-Creation Activities
-slug: flight-log-25
+slug: flight-log-32
 tags: [log]
 ---
 
@@ -10,13 +10,9 @@ Deploy watsonx.ai on self-managed AWS infrastructure for customer software evalu
 
 ```mermaid
 flowchart LR
-    A(Deploy bootnode) --> B(Deploy infrastructure)
-    B -->C(Deploy OCP)
-    C -->D(Prepare CP4D & watsonx ai cartdridge)
-    D -->E(Install CP4D)
-    E -->F
+    A(Deploy Services)-->B
     subgraph "You are here"
-    F(Deploy Services)
+    B(Application Verification)
     end
 ```
 
@@ -30,28 +26,22 @@ flowchart LR
 4. Deploy and configure watsonx.ai on self-managed AWS infrastructure on ref environment and document
     - In Progress
 
-
 ### Today's Accomplishments
-- AppConnect installed
+- Further configuration of watsonx Assistant
 
 ### Summary
-- Installing AppConnect
-- Installing Watsonx Orchestrate (Includes assistant instance)
-    - Customer continuing install after session
+- Pivoting from external integrations 
+    - Unable to configure proxy to reach out to external sites from OCP
+- Continuing configuration of assistant actions and non-extenral connections
+    - Assistant configured
+- Continuing configuration of NeuralSeek
 
 ## Decisions and Action Items (DAI)
-- None pending
+- Investigation of cluster proxy configuration (post POC)
+- Provide a demonstration of ServiceNow/Outlook integration via Orchestrate and Assistant
 
 ## Lessons Learned
-- None today
+- Proxy configuration for cluster required for application access to external sources - To be investigated post-POC
 
 ## Next Steps
-- Deploy watsonx.ai
-- Install NeuralSeek
-- Application configuration
-    - NeuralSeek
-    - watsonx.ai Prompt Lab
-    - watsonx Assistant
-    - watsonx Orchestrate
-        - ServiceNow skills
-        - Microsoft Outlook skills
+- Application verification
