@@ -40,10 +40,7 @@ First make sure you have a project created within watsonx.ai.
     - Projects -> Manage -> General -> Details -> Project ID
 
 ## Configuration & Tuning
-Configuration file with recommend settings is linked here: [Settings File](nsSettings.dat).
-You can upload this file within NeuralSeek to easily get the recommended setting. The exact settings used are explained below, and can be adjusted based on use case.
-![NS Configuration](./assets/UploadNSConfig.png)
-
+Please see below for recommended settings:
 - Knowledge Base Tuning:
     - Set score range to 100%
     - Set snippet size to 650
@@ -53,6 +50,14 @@ You can upload this file within NeuralSeek to easily get the recommended setting
     - Change conciseness from tier 2 on the bar to tier 3
     ![Answer Engineering](./assets/AnswerEngineering.png)
 
+- Intent Matching & Cache Configuration
+    - Select Exact Match for Intent Match Tolerance
+    - Edited Answer Cache set to 1
+    - Normal Answer Cache set to 1
+    - Require Cache to Follow Context? set to Yes
+    - Require Cache to match the exact KB for the question and not the intent? set to No
+    ![Cache](./assets/intentmatching_configuration.png)
+
 - Governance & Guardrails
     - Click "Semantic Model Tuning" and change Source Jump Penalty from 3 to 6. Source Jump penalty: When answers join across many source documents it can be an indication of lost meaning or intent, depending on your source documentation.
     ![Semantic Model Tuning](./assets/SemanticModelTuning.png)
@@ -61,7 +66,7 @@ You can upload this file within NeuralSeek to easily get the recommended setting
     - Turn on "Check document URL's as part of the Semantic Match"
     - Turn on "Remove sentences containing hallucinated key words"
     ![Govern & Guardrails](./assets/Governance.png)
-    - Change minimum confidence to 30% and include a message to decrease risk of hallucinations
+    - Change minimum confidence to 5% and include a message to decrease risk of hallucinations
     ![Minimum Confidence](./assets/MinimumConfidence.png)
 
 ## Testing
@@ -71,3 +76,20 @@ You can upload this file within NeuralSeek to easily get the recommended setting
 Ensure to clear session turn if starting a new session by clicking on the red reset icon:
 ![Clear Session Turn](./assets/clearsessionturn.png)
 
+In addition to testing on NeuralSeek, we have written a script to allow testing through API for more flexibility.
+We performed Pre-Processing and No OCR, No Pre-Processing and No OCR, and OCR experiments using the testing notebook.
+You can and run the different experiments just by changing the Discovery collection ID and providing with the questions and expected responses as string arrays.
+It uses the NeuralSeek API.
+Please refer to [Testing Notebook](Tables Testing.ipynb) for detailed steps.
+
+## Download Logs
+- Proceed to API on Integrate tab
+![NS Console Log](./assets/NS_Console_Log.png)
+- Click Authorize, then paste in API key and then click authorize.
+![API Authorize](./assets/APIAuthorize.png)
+![Available Authorization](./assets/AvailableAuthorization.png)
+- Scroll to Logs section, click 'Try it out' and then click execute
+![Logs Section](./assets/logs.png)
+![Logs Execute](./assets/logs_execute.png)
+- After execute, you can download logs in json format by clicking 'Download' 
+![Download](./assets/download_logs.png)
