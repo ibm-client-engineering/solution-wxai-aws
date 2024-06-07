@@ -43,11 +43,13 @@ First make sure you have a project created within watsonx.ai.
 Please see below for recommended settings:
 - Knowledge Base Tuning:
     - Set score range to 100%
+    - Set max documents per seek to 5
     - Set snippet size to 650
     ![KB Tuning](./assets/KBTuning.png)
 
 - Answer Engineering & Preferences
     - Change conciseness from tier 2 on the bar to tier 3
+    - Set force answers from the knowledgebase to True
     ![Answer Engineering](./assets/AnswerEngineering.png)
 
 - Intent Matching & Cache Configuration
@@ -67,6 +69,8 @@ Please see below for recommended settings:
     - Turn on "Remove sentences containing hallucinated key words"
     ![Govern & Guardrails](./assets/Governance.png)
     - Change minimum confidence to 5% and include a message to decrease risk of hallucinations
+    - Update the text to reply with questions not meeting the minimum confidence to something natural as shown in the image below
+    - Set the minimum confidence % to display a URL to 10
     ![Minimum Confidence](./assets/MinimumConfidence.png)
 
 ## Leverage good responses through updating "Curate" tab
@@ -99,7 +103,7 @@ Please refer to [Testing Notebook](Tables Testing.ipynb) for detailed steps.
 ![NS Console Log](./assets/NS_Console_Log.png)
 - Click Authorize, then paste in API key and then click authorize.
 ![API Authorize](./assets/APIAuthorize.png)
-![Available Authorization](./assets/AvailableAuthorization.png)
+![Available Authorization](./assets/AvailableAuthorizations.png)
 - Scroll to Logs section, click 'Try it out' and then click execute
 ![Logs Section](./assets/logs.png)
 ![Logs Execute](./assets/logs_execute.png)
