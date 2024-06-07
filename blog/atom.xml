@@ -8,15 +8,15 @@
     <subtitle>IBM Client Engineering Blog</subtitle>
     <icon>https://ibm-client-engineering.github.io/solution-wxai-aws/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[Log 32 🛫]]></title>
-        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32</id>
-        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32"/>
+        <title type="html"><![CDATA[Log 34 🛫]]></title>
+        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-34</id>
+        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-34"/>
         <updated>2024-06-05T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-34#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
 <p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
 <!-- -->
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-34#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
 <ol>
 <li>Deploy and configuration of boot node to establish a beach-head into the customer AWS environment<!-- -->
 <ul>
@@ -39,11 +39,11 @@
 </ul>
 </li>
 </ol>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-34#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
 <ul>
 <li>Further configuration of watsonx Assistant</li>
 </ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-34#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
 <ul>
 <li>Pivoting from external integrations<!-- -->
 <ul>
@@ -57,31 +57,31 @@
 </li>
 <li>Continuing configuration of NeuralSeek</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-34#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
 <ul>
 <li>Investigation of cluster proxy configuration (post POC)</li>
 <li>Provide a demonstration of ServiceNow/Outlook integration via Orchestrate and Assistant</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-34#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
 <ul>
 <li>Proxy configuration for cluster required for application access to external sources - To be investigated post-POC</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-34#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
 <ul>
 <li>Application verification</li>
 </ul>]]></content>
         <category label="log" term="log"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Log 32 🛫]]></title>
-        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32</id>
-        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32"/>
+        <title type="html"><![CDATA[Log 33 🛫]]></title>
+        <id>https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-33</id>
+        <link href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-33"/>
         <updated>2024-05-31T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Flight Log of Co-Creation Activities]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="objective">Objective<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-33#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective">​</a></h2>
 <p>Deploy watsonx.ai on self-managed AWS infrastructure for customer software evaluation</p>
 <!-- -->
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="milestones">Milestones<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-33#milestones" class="hash-link" aria-label="Direct link to Milestones" title="Direct link to Milestones">​</a></h2>
 <ol>
 <li>Deploy and configuration of boot node to establish a beach-head into the customer AWS environment<!-- -->
 <ul>
@@ -104,36 +104,52 @@
 </ul>
 </li>
 </ol>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-33#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-33#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
 <ul>
-<li>Further configuration of watsonx Assistant</li>
-</ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
+<li>Brief watsonx.ai Prompt Lab demonstration</li>
+<li>Reconfiguring watsonx Assistant front end (per customer request, to be worked on)</li>
+<li>Continuing proxy investigation for the cluster<!-- -->
 <ul>
-<li>Pivoting from external integrations<!-- -->
-<ul>
-<li>Unable to configure proxy to reach out to external sites from OCP</li>
-</ul>
-</li>
-<li>Continuing configuration of assistant actions and non-extenral connections<!-- -->
-<ul>
-<li>Assistant configured</li>
+<li>Applying patch to set environment variables for the pods via RSI patch <a href="https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=2-customizing-pod-specifications-rsi" target="_blank" rel="noopener noreferrer">IBM documentation here</a></li>
 </ul>
 </li>
-<li>Continuing configuration of NeuralSeek</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-33#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
 <ul>
-<li>Investigation of cluster proxy configuration (post POC)</li>
-<li>Provide a demonstration of ServiceNow/Outlook integration via Orchestrate and Assistant</li>
+<li>ServiceNow connectivity being investigated<!-- -->
+<ul>
+<li>Issue with proxy configuration not allowing watsonx Assistant/Orchestrate communication with ServiceNow.com</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
+</li>
+<li>watsonx Assistant front-end enhancements with customer<!-- -->
 <ul>
-<li>Proxy configuration for cluster required for application access to external sources - To be investigated post-POC</li>
+<li>Chat greeting enhancements</li>
 </ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-33#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
 <ul>
-<li>Application verification</li>
+<li>pdf files needed for watson Assistant extensions available to the cluster internally (no external access or configurable access to S3 buckets)<!-- -->
+<ul>
+<li>Workaround: Hosted pdf files on the bastion httpd server (originally used for the OCP ignition files)</li>
+</ul>
+</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-33#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
+<ul>
+<li>Application configuration<!-- -->
+<ul>
+<li>watsonx.ai Prompt Lab</li>
+<li>watsonx Assistant</li>
+<li>watsonx Orchestrate<!-- -->
+<ul>
+<li>ServiceNow skills</li>
+<li>Microsoft Outlook skills</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>]]></content>
         <category label="log" term="log"/>
     </entry>
@@ -169,36 +185,46 @@
 </ul>
 </li>
 </ol>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todays-accomplishments">Today's Accomplishments<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#todays-accomplishments" class="hash-link" aria-label="Direct link to Today's Accomplishments" title="Direct link to Today's Accomplishments">​</a></h3>
-<ul>
-<li>Further configuration of watsonx Assistant</li>
-</ul>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary">Summary<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h3>
 <ul>
-<li>Pivoting from external integrations<!-- -->
+<li>Attempting proxy reconfiguration for the cluster<!-- -->
+<div class="language-shell codeBlockContainer_Ckt0 theme-code-block" style="--prism-background-color:#282c34;--prism-color:#ffffff"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-shell codeBlock_bY9V thin-scrollbar" style="background-color:#282c34;color:#ffffff"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#ffffff"><span class="token plain"># Customer data redacted</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">kubectl get pods -n cpd -o json | jq -r ‘.items[].metadata.labels[“app.kubernetes.io/instance”]’ | sort | uniq</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">cpd-cli manage enable-rsi --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS}</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">cat &lt;&lt; EOF &gt;&gt; cpfs-proxy-envs.json</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">[ {</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “name”:  “HTTP_PROXY”,</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “value”: “http://http.proxy.customer.com:8000/”</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">}, {</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “name”:  “http_proxy”,</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “value”: “http://http.proxy.customer.com:8000/”</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">}, {</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “name”:  “HTTPS_PROXY”,</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “value”: “http://http.proxy.customer.com:8000/”</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">}, {</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “name”:  “https_proxy”,</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “value”: “http://http.proxy.customer.com:8000/”</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">}, {</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “name”:  “NO_PROXY”,</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “value”: “.aws-nonprod.xxx.com,.ibm-wxai.aws-nonprod.customer.com.apps.ibm-wxai.aws-nonprod.xxx.com,172.30.0.0/16,10.128.0.0/14,10.19.170.0/25”</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">}, {</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “name”:  “no_proxy”,</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    “value”: “.aws-nonprod.xxx.com,.ibm-wxai.aws-nonprod.customer.com.apps.ibm-wxai.aws-nonprod.xxx.com,172.30.0.0/16,10.128.0.0/14,10.19.170.0/25”</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">} ]</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">EOF</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">cpd-cli manage create-rsi-patch \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --cpd_instance_ns=cpd \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --patch_name=“cpfs-proxy” \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --description=“add proxy settings to CPD” \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --patch_type=rsi_pod_env_var \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --patch_spec=/tmp/work/rsi/cpfs-proxy-envs.json \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --spec_format=set-env \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --select_all_pods=true \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --include_labels=wa \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --exclude_labels=app:rsi \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --skip_apply=false \</span><br></span><span class="token-line" style="color:#ffffff"><span class="token plain">    --state=active</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <ul>
-<li>Unable to configure proxy to reach out to external sites from OCP</li>
+<li>New configuration requires watsonx Assistant pod reboot, waiting until after further application configurations</li>
+<li>Continuing to configure NeuralSeek assistant</li>
 </ul>
 </li>
-<li>Continuing configuration of assistant actions and non-extenral connections<!-- -->
-<ul>
-<li>Assistant configured</li>
-</ul>
-</li>
-<li>Continuing configuration of NeuralSeek</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="decisions-and-action-items-dai">Decisions and Action Items (DAI)<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#decisions-and-action-items-dai" class="hash-link" aria-label="Direct link to Decisions and Action Items (DAI)" title="Direct link to Decisions and Action Items (DAI)">​</a></h2>
 <ul>
-<li>Investigation of cluster proxy configuration (post POC)</li>
-<li>Provide a demonstration of ServiceNow/Outlook integration via Orchestrate and Assistant</li>
+<li>ServiceNow connectivity being investigated<!-- -->
+<ul>
+<li>Issue with proxy configuration not allowing watsonx Assistant/Orchestrate communication with ServiceNow.com</li>
+</ul>
+</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="lessons-learned">Lessons Learned<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned">​</a></h2>
 <ul>
-<li>Proxy configuration for cluster required for application access to external sources - To be investigated post-POC</li>
+<li>pdf files needed for watson Assistant extensions available to the cluster internally (no external access or configurable access to S3 buckets)<!-- -->
+<ul>
+<li>Workaround: Hosted pdf files on the bastion httpd server (originally used for the OCP ignition files)</li>
+</ul>
+</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="next-steps">Next Steps<a href="https://ibm-client-engineering.github.io/solution-wxai-aws/blog/flight-log-32#next-steps" class="hash-link" aria-label="Direct link to Next Steps" title="Direct link to Next Steps">​</a></h2>
 <ul>
-<li>Application verification</li>
+<li>Application configuration<!-- -->
+<ul>
+<li>watsonx.ai Prompt Lab</li>
+<li>watsonx Assistant</li>
+<li>watsonx Orchestrate<!-- -->
+<ul>
+<li>ServiceNow skills</li>
+<li>Microsoft Outlook skills</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>]]></content>
         <category label="log" term="log"/>
     </entry>
