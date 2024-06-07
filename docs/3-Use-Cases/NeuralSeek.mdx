@@ -73,6 +73,18 @@ Please see below for recommended settings:
     - Set the minimum confidence % to display a URL to 10
     ![Minimum Confidence](./assets/MinimumConfidence.png)
 
+## Leverage good responses through updating "Curate" tab
+- In NeuralSeek, navigate to the "Curate" tab and you could see intents and answers.
+- If there are specific answers that you'd like to modify, click on that row and you will see the row expands. Example screenshot as below.
+![](./assets/neuralseek-curate-show-answers.png)
+- Click on the answer text and you could edit answer to better match business requirements. Once done editing, click "Save".
+![](./assets/neuralseek-curate-edit-answer.png)
+- To export edited answers, click on the checkboxes of the rows you'd like to export, and click "download to CSV" button to download a csv file.
+![](./assets/neuralseek-curate-download-intents.png)
+- To upload edited answers to Neuralseek, unselect all and click "Load Q&A" button and follow the steps to uplaod file.
+![](./assets/neuralseek-curate-loadqa.png)
+- After uploading Q&A, you will see new rows appear in the Curate tab.
+
 ## Testing
 -  Navigate to "Seek" tab. Test NeuralSeek with questions that are relevant to your documents, e.g. "What products or services do you offer?" You will be able to see the NeuralSeek answer with response details, metrics, and source.
 ![Seek](./assets/Seek.png)
@@ -84,7 +96,7 @@ In addition to testing on NeuralSeek, we have written a script to allow testing 
 We performed Pre-Processing and No OCR, No Pre-Processing and No OCR, and OCR experiments using the testing notebook.
 You can and run the different experiments just by changing the Discovery collection ID and providing with the questions and expected responses as string arrays.
 It uses the NeuralSeek API.
-Please refer to [Testing Notebook](Tables Testing.ipynb) for detailed steps.
+Please refer to [Testing Notebook](Tables%20Testing.ipynb) for detailed steps.
 
 ## Download Logs
 - Proceed to API on Integrate tab
