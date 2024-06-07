@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GB0XWXF3GE"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-GB0XWXF3GE",{anonymize_ip:!0})</script><link rel="stylesheet" href="/solution-wxai-aws/assets/css/styles.77f95696.css">
-<script src="/solution-wxai-aws/assets/js/runtime~main.dff458d7.js" defer="defer"></script>
+<script src="/solution-wxai-aws/assets/js/runtime~main.4a7f6028.js" defer="defer"></script>
 <script src="/solution-wxai-aws/assets/js/main.9a519057.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard" data-theme="light">
@@ -55,23 +55,34 @@ First make sure you have a project created within watsonx.ai.</p>
 </li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="configuration--tuning">Configuration &amp; Tuning<a href="#configuration--tuning" class="hash-link" aria-label="Direct link to Configuration &amp; Tuning" title="Direct link to Configuration &amp; Tuning">​</a></h2>
-<p>Configuration file with recommend settings is linked here: <a href="/solution-wxai-aws/assets/files/nsSettings-ab3edf94abdd35e36560f20dcd17b685.dat" target="_blank">Settings File</a>.
-You can upload this file within NeuralSeek to easily get the recommended setting. The exact settings used are explained below, and can be adjusted based on use case.
-<img decoding="async" loading="lazy" alt="NS Configuration" src="/solution-wxai-aws/assets/images/UploadNSConfig-99142d09e1651c53cc8e2fc1d8845f55.png" width="1882" height="906" class="img_ev3q"></p>
+<p>Please see below for recommended settings:</p>
 <ul>
 <li>
 <p>Knowledge Base Tuning:</p>
 <ul>
 <li>Set score range to 100%</li>
+<li>Set max documents per seek to 5</li>
 <li>Set snippet size to 650
-<img decoding="async" loading="lazy" alt="KB Tuning" src="/solution-wxai-aws/assets/images/KBTuning-5c5ce82e2be73cb5815a10369fef0df8.png" width="2272" height="1148" class="img_ev3q"></li>
+<img decoding="async" loading="lazy" alt="KB Tuning" src="/solution-wxai-aws/assets/images/KBTuning-77ab08e8ae4d2f910fc5d8ceab277171.png" width="3270" height="1000" class="img_ev3q"></li>
 </ul>
 </li>
 <li>
 <p>Answer Engineering &amp; Preferences</p>
 <ul>
-<li>Change conciseness from tier 2 on the bar to tier 3
-<img decoding="async" loading="lazy" alt="Answer Engineering" src="/solution-wxai-aws/assets/images/AnswerEngineering-c396f5fb35028fdd5a83744553fced33.png" width="2262" height="858" class="img_ev3q"></li>
+<li>Change conciseness from tier 2 on the bar to tier 3</li>
+<li>Set force answers from the knowledgebase to True
+<img decoding="async" loading="lazy" alt="Answer Engineering" src="/solution-wxai-aws/assets/images/AnswerEngineering-9c003cb7f399cdddf4cf1e4f3499d602.png" width="3274" height="804" class="img_ev3q"></li>
+</ul>
+</li>
+<li>
+<p>Intent Matching &amp; Cache Configuration</p>
+<ul>
+<li>Select Exact Match for Intent Match Tolerance</li>
+<li>Edited Answer Cache set to 1</li>
+<li>Normal Answer Cache set to 1</li>
+<li>Require Cache to Follow Context? set to Yes</li>
+<li>Require Cache to match the exact KB for the question and not the intent? set to No
+<img decoding="async" loading="lazy" alt="Cache" src="/solution-wxai-aws/assets/images/intentmatching_configuration-33201c32410ce9ebcd66fc173a65427c.png" width="3270" height="1348" class="img_ev3q"></li>
 </ul>
 </li>
 <li>
@@ -84,8 +95,10 @@ You can upload this file within NeuralSeek to easily get the recommended setting
 <li>Turn on &quot;Check document URL&#x27;s as part of the Semantic Match&quot;</li>
 <li>Turn on &quot;Remove sentences containing hallucinated key words&quot;
 <img decoding="async" loading="lazy" alt="Govern &amp;amp; Guardrails" src="/solution-wxai-aws/assets/images/Governance-cde683daa5eeff1408a0fe08817a7ca4.png" width="2340" height="1336" class="img_ev3q"></li>
-<li>Change minimum confidence to 30% and include a message to decrease risk of hallucinations
-<img decoding="async" loading="lazy" alt="Minimum Confidence" src="/solution-wxai-aws/assets/images/MinimumConfidence-c4e068f8a8ab1c15f6776503924470eb.png" width="1862" height="690" class="img_ev3q"></li>
+<li>Change minimum confidence to 5% and include a message to decrease risk of hallucinations</li>
+<li>Update the text to reply with questions not meeting the minimum confidence to something natural as shown in the image below</li>
+<li>Set the minimum confidence % to display a URL to 10
+<img decoding="async" loading="lazy" alt="Minimum Confidence" src="/solution-wxai-aws/assets/images/MinimumConfidence-3182860777c97e628cc650bef96de607.png" width="3002" height="892" class="img_ev3q"></li>
 </ul>
 </li>
 </ul>
@@ -96,6 +109,24 @@ You can upload this file within NeuralSeek to easily get the recommended setting
 <img decoding="async" loading="lazy" alt="Session Turn" src="/solution-wxai-aws/assets/images/sessionturn-4994ccf43f56cc5b87de1865a0d18f76.png" width="618" height="858" class="img_ev3q">
 Ensure to clear session turn if starting a new session by clicking on the red reset icon:
 <img decoding="async" loading="lazy" alt="Clear Session Turn" src="/solution-wxai-aws/assets/images/clearsessionturn-89b92fd68f6abdd1849d4feaa36ad5ba.png" width="604" height="830" class="img_ev3q"></li>
-</ul></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/solution-wxai-aws/Use-Cases/Watsonxai"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Watsonx.ai</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/solution-wxai-aws/Use-Cases/Watsonx-Assistant"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">watsonx Assistant</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#set-up" class="table-of-contents__link toc-highlight">Set Up</a></li><li><a href="#knowledgebase-connection" class="table-of-contents__link toc-highlight">KnowledgeBase Connection</a></li><li><a href="#llm-details" class="table-of-contents__link toc-highlight">LLM Details</a></li><li><a href="#configuration--tuning" class="table-of-contents__link toc-highlight">Configuration &amp; Tuning</a></li><li><a href="#testing" class="table-of-contents__link toc-highlight">Testing</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Explore</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.ibm.com/" target="_blank" rel="noopener noreferrer" class="footer__link-item">IBM</a></li><li class="footer__item"><a href="https://www.ibm.com/client-engineering" target="_blank" rel="noopener noreferrer" class="footer__link-item">IBM Client Engineering - Open Solutions Library</a></li></ul></div></div><div class="footer__bottom text--center"><div class="margin-bottom--sm"><a href="https://ibm.com" rel="noopener noreferrer" class="footerLogoLink_BH7S"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="footer__logo themedComponent_mlkZ themedComponent--light_NVdE" width="150" height="150"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="footer__logo themedComponent_mlkZ themedComponent--dark_xIcU" width="150" height="150"></a></div></div></div></footer></div>
+</ul>
+<p>In addition to testing on NeuralSeek, we have written a script to allow testing through API for more flexibility.
+We performed Pre-Processing and No OCR, No Pre-Processing and No OCR, and OCR experiments using the testing notebook.
+You can and run the different experiments just by changing the Discovery collection ID and providing with the questions and expected responses as string arrays.
+It uses the NeuralSeek API.
+Please refer to [Testing Notebook](Tables Testing.ipynb) for detailed steps.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="download-logs">Download Logs<a href="#download-logs" class="hash-link" aria-label="Direct link to Download Logs" title="Direct link to Download Logs">​</a></h2>
+<ul>
+<li>Proceed to API on Integrate tab
+<img decoding="async" loading="lazy" alt="NS Console Log" src="/solution-wxai-aws/assets/images/NS_Console_Log-fab9601e105501313800da0bd1d28d2c.png" width="2854" height="814" class="img_ev3q"></li>
+<li>Click Authorize, then paste in API key and then click authorize.
+<img decoding="async" loading="lazy" alt="API Authorize" src="/solution-wxai-aws/assets/images/APIAuthorize-0745a91add065690f18f84b53a4e9632.png" width="2258" height="278" class="img_ev3q">
+<img decoding="async" loading="lazy" alt="Available Authorization" src="/solution-wxai-aws/assets/images/AvailableAuthorizations-197d1816f7c82621b5ad53b9068bf7ec.png" width="1472" height="840" class="img_ev3q"></li>
+<li>Scroll to Logs section, click &#x27;Try it out&#x27; and then click execute
+<img decoding="async" loading="lazy" alt="Logs Section" src="/solution-wxai-aws/assets/images/logs-b49f7a0fb6395ed8d08d388b8a8958ec.png" width="2238" height="1162" class="img_ev3q">
+<img decoding="async" loading="lazy" alt="Logs Execute" src="/solution-wxai-aws/assets/images/logs_execute-d1a675962885403c3fd5253177d89f77.png" width="2190" height="1204" class="img_ev3q"></li>
+<li>After execute, you can download logs in json format by clicking &#x27;Download&#x27;
+<img decoding="async" loading="lazy" alt="Download" src="/solution-wxai-aws/assets/images/download_logs-c3c6c093ff69829fde024b9468e21eb4.png" width="2146" height="628" class="img_ev3q"></li>
+</ul></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/solution-wxai-aws/Use-Cases/Watsonxai"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Watsonx.ai</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/solution-wxai-aws/Use-Cases/Watsonx-Assistant"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">watsonx Assistant</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#set-up" class="table-of-contents__link toc-highlight">Set Up</a></li><li><a href="#knowledgebase-connection" class="table-of-contents__link toc-highlight">KnowledgeBase Connection</a></li><li><a href="#llm-details" class="table-of-contents__link toc-highlight">LLM Details</a></li><li><a href="#configuration--tuning" class="table-of-contents__link toc-highlight">Configuration &amp; Tuning</a></li><li><a href="#testing" class="table-of-contents__link toc-highlight">Testing</a></li><li><a href="#download-logs" class="table-of-contents__link toc-highlight">Download Logs</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Explore</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.ibm.com/" target="_blank" rel="noopener noreferrer" class="footer__link-item">IBM</a></li><li class="footer__item"><a href="https://www.ibm.com/client-engineering" target="_blank" rel="noopener noreferrer" class="footer__link-item">IBM Client Engineering - Open Solutions Library</a></li></ul></div></div><div class="footer__bottom text--center"><div class="margin-bottom--sm"><a href="https://ibm.com" rel="noopener noreferrer" class="footerLogoLink_BH7S"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="footer__logo themedComponent_mlkZ themedComponent--light_NVdE" width="150" height="150"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="footer__logo themedComponent_mlkZ themedComponent--dark_xIcU" width="150" height="150"></a></div></div></div></footer></div>
 </body>
 </html>
