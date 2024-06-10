@@ -1035,3 +1035,34 @@ cpd-cli manage get-cr-status \
 --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
 --components=watsonx_orchestrate
 ```
+
+### Troubleshooting WatsonX Orchestrate installation 
+:::note
+
+If the "apply-cr" command exhausts its retries without succeeding, there maybe in an issue with MongoDB.
+
+This issue does not show a clear error in the pod or in the opsmanager CR. To confirm that the mongodb-wo-mongo-ops-manager-db pod error has occurred in the cluster, run the following command:
+oc exec -it -c mongodb-agent  mongodb-wo-mongo-ops-manager-db-0 -- /opt/scripts/readinessprobe
+
+If the error has occurred in the cluster, the following is displayed:
+
+```
+panic: Get "https://172.30.0.1:443/api/v1/namespaces/cpd-instance-1/pods/mongodb-wo-mongo-ops-manager-db-0": dial tcp 172.30.0.1:443: i/o timeout
+```
+
+**Cause**
+
+This error occurs in certain clusters when the MongoDB readinessprobe calls to the Kubernetes API are not supported by the network traffic.
+
+
+**Solution**
+
+To resolve this error, run the following commands:
+
+```
+# Update opsmanager labels to allow access
+oc patch opsmanager mongodb-wo-mongo-ops-manager --type merge --patch '{"spec":{"applicationDatabase":{"podSpec":{"podTemplate":{"metadata":{"labels":{"wo.watsonx.ibm.com/external-access":"true"}}}}}}}'
+# Delete existing sts to force re-rollout:
+oc delete sts mongodb-wo-mongo-ops-manager-db
+```
+:::
