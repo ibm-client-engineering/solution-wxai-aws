@@ -698,3 +698,49 @@ nvme0n1     259:1    0   500G  0 disk
 sudo xfs_growfs -d /
 ```
 
+### Add users to OpenShift using HTPassword
+
+#### Install HTTP Tools:
+
+```
+yum install httpd-tools
+```
+
+#### Create a HTPassword File:
+
+Create a HTPassword file:
+
+```
+htpassword -c <file_name> <username>
+```
+
+After running the command, you will be prompted for a password and then asked to confirm password.
+
+#### Create the HTPassword secret:
+
+```
+oc create secret generic htpasswd-secret --from-file=htpasswd=<file_name> -n openshift-config
+```
+
+####
+
+Edit the OpenShift OAuth settings:
+
+```
+oc edit oauth cluster
+```
+
+Then add the following to the file:
+
+```
+spec:
+  identityProviders:
+  - name: my_htpasswd_provider
+    mappingMethod: claim
+    type: HTPasswd
+    htpasswd:
+      fileData:
+        name: htpasswd-secret
+```
+
+After this has been added, try opening Openshift in a private browser, and select 'HTPasswd'. Then enter the username and password.
