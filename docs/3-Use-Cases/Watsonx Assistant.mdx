@@ -48,7 +48,12 @@ To reinstate a backup copy of actions that you exported from another service ins
     - in the Operation dropdown select "Seek an answer from NeuralSeek".
 1. Set parameters. 
     - Set `question` To `query_text`. 
+    - Set `user_session.system.session_id` to Expression `context.system.session_id`.
+    - Set `options.includeSourceResults` to `True`
 1. "Save" and "Close" action
+
+Extension setup will look similar to screenshot below
+![](./assets/watsonx-assistant-neuralseek-extension-setup.png)
 #### No action matches Setup
 1. Navigate to "All items" -> "Set by assistant" -> "No action matches".
 1. Click on the "No action matches" action and delete existing steps.
