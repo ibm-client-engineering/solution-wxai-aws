@@ -48,7 +48,12 @@ To reinstate a backup copy of actions that you exported from another service ins
     - in the Operation dropdown select "Seek an answer from NeuralSeek".
 1. Set parameters. 
     - Set `question` To `query_text`. 
+    - Set `user_session.system.session_id` to Expression `context.system.session_id`.
+    - Set `options.includeSourceResults` to `True`
 1. "Save" and "Close" action
+
+Extension setup will look similar to screenshot below
+![](./assets/watsonx-assistant-neuralseek-extension-setup.png)
 #### No action matches Setup
 1. Navigate to "All items" -> "Set by assistant" -> "No action matches".
 1. Click on the "No action matches" action and delete existing steps.
@@ -103,3 +108,14 @@ To reinstate a backup copy of actions that you exported from another service ins
 ![](./assets/assistant-preview-customize-web-chat.png)
 1. Navigate to the "Home screen" tab. Modify the Greeting messages and Conversation Starters to match frequently asked questions.
 ![](./assets/assistant-customize-homescreen.png)
+
+## Advanced Watsonx Assistant Configuration
+### Autocorrection
+- To tackle typos, we leveraged watsonx assistant capability of Autocorrection.
+- To enable this feature, navitate to Actions -> All items -> Created by you. Click "Global Settings" on the upper right corner.
+![](./assets/watsonx-assistant-global-settings.png)
+- Navigate to the Autocorrection tab and make sure the toggle is switched to on.
+![](./assets/watsonx-assistant-autocorrection.png)
+- **In NeuralSeek Search action, set query_text to expression `input.text`**. This will allow the autocorrected input to be passed to NeuralSeek extension. Originally, query_text was set to expression `input.original_text`, if users entered typos, the typoed text would be passed to NeuralSeek. 
+![](./assets/watsonx-assistant-neuralseek-search-inputtext.png)
+- Reference: [Correcting user input](https://cloud.ibm.com/docs/assistant-data?topic=assistant-data-dialog-runtime-spell-check)
