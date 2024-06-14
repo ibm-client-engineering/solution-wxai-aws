@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 import React, {type CSSProperties, type ReactNode} from 'react';
+ALPHA
 import clsx from 'clsx';
-BETA
 import styles from './styles.module.css';
 
 interface Props {
