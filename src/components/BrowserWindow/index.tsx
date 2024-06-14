@@ -7,7 +7,6 @@
 import React, {type CSSProperties, type ReactNode} from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
-OSCAR
 interface Props {
   children: ReactNode;
   minHeight?: number;

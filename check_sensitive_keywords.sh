@@ -17,14 +17,23 @@ if [ ${#SENSITIVE_KEYWORDS_ARRAY[@]} -eq 0 ]; then
   echo "Error: No sensitive keywords found."
   exit 1
 fi
-echo "Length of SENSITIVE_KEYWORDS_ARRAY: ${#SENSITIVE_KEYWORDS_ARRAY[@]}"
+echo "Number of sensitive keywords loaded:  ${#SENSITIVE_KEYWORDS_ARRAY[@]}"
 
-# Check for sensitive keywords in each file changed by commit
-for file in $(git diff); do
-  if grep -riE "${SENSITIVE_KEYWORDS_ARRAY[@]}" "$file"; then
-    echo "Error: Sensitive keyword found in $file. Commit aborted."
-    exit 1
-  fi
-done
+found_sensitive_keywords=false
 
+while IFS= read -r file; do
+  echo "Checking file: $file"
+  for keyword in "${SENSITIVE_KEYWORDS_ARRAY[@]}"; do
+    if grep -q "$keyword" "$file"; then
+      echo "Error: Sensitive keyword found in $file. Commit aborted."
+      found_sensitive_keywords=true
+    fi
+  done
+done < <(git diff --cached --name-only)
+if [ "$found_sensitive_keywords" = true ]; then
+  exit 1
+else
+  echo "No sensitive keywords found. Commit allowed"
+  exit 0
+fi
 
