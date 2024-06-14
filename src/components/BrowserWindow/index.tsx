@@ -4,7 +4,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-ALPHA
 import React, {type CSSProperties, type ReactNode} from 'react';
 import clsx from 'clsx';
 
