@@ -7,7 +7,7 @@
 import React, {type CSSProperties, type ReactNode} from 'react';
 
 import clsx from 'clsx';
-
+"console.log("mastercard")
 import styles from './styles.module.css';
 interface Props {
   children: ReactNode;
