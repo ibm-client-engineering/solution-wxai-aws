@@ -6,7 +6,7 @@
  */
 import React, {type CSSProperties, type ReactNode} from 'react';
 import clsx from 'clsx';
-
+BETA
 import styles from './styles.module.css';
 
 interface Props {
