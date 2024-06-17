@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# UPDATE the .env file at the root of this repo
+# Run source .env
+# Verify if env var is set by running echo $GIT_ENV_VAR_S3_IBM_TXT_URL
+
 # Check if the environment variable GIT_ENV_VAR_S3_IBM_TXT_URL is set
 if [ -z "${GIT_ENV_VAR_S3_IBM_TXT_URL+ x}" ]; then
   echo "Error: GIT_ ENV_VAR_S3_IBM_TXT_URL environment variable is not set. You must update/define the env var with the S3 URL"
