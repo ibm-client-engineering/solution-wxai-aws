@@ -7,7 +7,7 @@
 import React, {type CSSProperties, type ReactNode} from 'react';
 
 import clsx from 'clsx';
-
+OSCAR
 import styles from './styles.module.css';
 interface Props {
   children: ReactNode;

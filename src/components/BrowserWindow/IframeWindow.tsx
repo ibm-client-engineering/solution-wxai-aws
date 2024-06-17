@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-
+BETA
 import BrowserWindow from './index';
 
 // Quick and dirty component, to improve later if needed
