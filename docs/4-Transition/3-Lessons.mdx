@@ -71,3 +71,16 @@ There are two ways to resolve this problem:
 or
 2) Replace ```SubnetId: !Ref PublicSubnet1ID```  with a private subnetID ```SubnetId: subnet-example5b646```
 
+# Table Parsing & Chunking Experiments
+
+These were some experiments conducted during the course of this POC to evaluate methods for optimizing LLM output quality, table parsing, and alternate chunking methods to optimize NeuralSeek's document retrieval.
+
+## Table Parsing
+
+## Chunking
+
+Certain documents contain tables of contents and numbered section headings that make it easily to split the documents into chunks. We experimented with this using certain documents in our knowledge base, splitting documents based on section headings. This can be done either with code, or manually.
+
+Employing this technique, we were able to achieve a significant increase in the amount of times the correct passage from a document was retrieved during a NeuralSeek search. Ensuring that documents are titled correctly is also important for this to work. We only performed manual chunking by hand, but it would be simple to implement a programmatic solution with something like Regex to automatically split documents into parts.
+
+Once documents were chunked, we then removed the full documents from the Watson Discovery collection after replacing them with their split components, to avoid confusing the RAG retrieval. 
