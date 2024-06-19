@@ -71,11 +71,13 @@ There are two ways to resolve this problem:
 or
 2) Replace ```SubnetId: !Ref PublicSubnet1ID```  with a private subnetID ```SubnetId: subnet-example5b646```
 
-# Table Parsing & Chunking Experiments
+# Rewriting Documents & Chunking Experiments
 
 These were some experiments conducted during the course of this POC to evaluate methods for optimizing LLM output quality, table parsing, and alternate chunking methods to optimize NeuralSeek's document retrieval.
 
-## Table Parsing
+## Rewriting Documents
+From our observation of many documents, we have noticed that it is common to have PDF documents that are dense and complex. The content could sometimes be challenging for humans to process and find the exact information. Moreover, sometimes the answers to the questions are not explicitly stated in the documents. This typically can be solved by the exercise of reformatting and rewriting portions of the documents to improve the documents and chatbot responses. 
+
 
 ## Chunking
 
@@ -84,3 +86,16 @@ Certain documents contain tables of contents and numbered section headings that 
 Employing this technique, we were able to achieve a significant increase in the amount of times the correct passage from a document was retrieved during a NeuralSeek search. Ensuring that documents are titled correctly is also important for this to work. We only performed manual chunking by hand, but it would be simple to implement a programmatic solution with something like Regex to automatically split documents into parts.
 
 Once documents were chunked, we then removed the full documents from the Watson Discovery collection after replacing them with their split components, to avoid confusing the RAG retrieval. 
+
+## Recommendation 
+
+After our extensive testing, we recommend the following: 
+
+1. Use a combination of LLM and curation 
+LLM is not a perfect solution to everything in the enterprise world. Sometimes it could end up in subpar answers and unnecessary costs. Our recommendation is to combine LLM and curation. Curate existing Q&A or the ones that we want the same answer every time first. Then, use LLM to answer any new queries. Every query to LLM is associated with a cost, so if there is an existing Q&A list, then there is no need to spend extra cost to have LLM answer them. LLM can search through the knowledge repository and provide an answer, then we can evaluate the answer and curate if needed. 
+
+2. Improve upon existing complex documents 
+The existing documentations contain complex tables and text structures. Avoid having tables and images when possible, and have it in natural language text for LLM to understand.  Moreover, rewriting documents in general will help LLM to understand the content more. It is recommended to be more explicit when writing, and avoid section titles that do not provide additional context. In addition, it is better to have acronyms spelled out since LLM may only pull sections of text that only have acronyms without the context what it stands for. These techniques will significantly improve chatbot results. 
+
+3. Be specific when querying 
+It is also recommended to provide enough contextual information in questions, so the LLM can understand and find relevant information. Some examples include spell out acronyms, include specific type of data in question, etc. This helps LLM to understand and answer properly. 
