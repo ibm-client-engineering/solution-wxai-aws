@@ -414,25 +414,6 @@ cpd-cli manage apply-olm \
 --components=${COMPONENTS}
 ```
 
-
-#### Install the IBM Events Operator in the ibm-knative-events project
-
-```tsx
-cpd-cli manage setup-instance-topology \
---release=${VERSION} \
---cpd_operator_ns=ibm-knative-events \
---cpd_instance_ns=knative-eventing \
---license_acceptance=true
-```
-
-#### Finally installing the OSKE
-
-```tsx
-cpd-cli manage deploy-knative-eventing \
---release=${VERSION} \
---block_storage_class=${STG_CLASS_BLOCK}
-```
-
 ### Installing the Cloud Pak for Data control plane and services
 
 This installs the operands in the operands project for the instance:
