@@ -5,6 +5,27 @@ title: WatsonX Governance Installation
 custom_edit_url: null
 ---
 
+:::note
+
+The following ports should be opened to allow access to Cloud Pak for Data:
+
+```HTTP - Port 80```
+
+```HTTPS - Port 443```
+
+An additional port will need to be opened for the DB2Warehouse isntance, but that port is not known until the instance is created.
+:::
+
+## Resource Requirements
+
+### Minimal cluster sizing
+
+The cluster needs a minimal of 6 worker nodes with each node having 16 vCPU and 64GB RAM. Each node will also need a local disk of 300GB which will be used for ephemeral storage.
+
+### Recommended cluster sizing
+
+We recommended that the cluster has at least 7 work nodes with each node having 16 vCPU and 64GB RAM. Each node will also need a local disk of 300GB which will be used for ephemeral storage.
+
 ## Installing CP4D Cli
 
 ### Download binary
@@ -152,7 +173,7 @@ export COMPONENTS=ibm-cert-manager,ibm-licensing,scheduler,cpfs,cpd_platform
 EOF
 ```
 
-You will need to open the resultant `cpd_vars_50.sh` file and update the following vars:
+You will need to open the resultant `cpd_vars_5.sh` file and update the following vars:
 
 ```tsx
 OCP_URL
@@ -261,14 +282,6 @@ cpd-cli manage list-images \
 --components=${COMPONENTS} \
 --release=${VERSION} \
 --inspect_source_registry=true
-```
-
-#### (Optional) Download Watson Studio GPU Runtimes
-
-If you are mirroring the images for Watson Studio, you can choose which Watson Studio Runtimes images are mirrored.
-
-```
-sed -i -e '/gpu/d' ./cpd-cli-workspace/olm-utils-workspace/work/offline/${VERSION}/.ibm-pak/data/cases/ibm-wsl-runtimes/*/ibm-wsl-runtimes-*-images.csv
 ```
 
 #### Mirror the images to the intermediary container registry
