@@ -139,7 +139,7 @@ async function createconfig() {
           },
         },
         navbar: {
-          title: "| IBM Solution Document for watsonx.ai on AWS",
+          title: "| Gen AI Compliance Virtual Assistant on AWS",
           logo: {
             alt: "My Site Logo",
             src: "img/logo.svg",
